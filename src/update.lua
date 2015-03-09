@@ -284,7 +284,7 @@ function UpdateScene:requestFromServer(filename, waittime)
         end, url, "GET")
     end
     if request then
-        request:setTimeout(waittime or 30)
+        request:setTimeout(waittime or 5)
         request:start()
     else
         self:endProcess()
