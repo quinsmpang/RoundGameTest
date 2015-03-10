@@ -3,6 +3,7 @@
 -- Date: 2015-03-09 15:56:14
 --
 local HeroData = class("HeroData")
+local HeroConfig = require("app.datas.HeroConfig")
 
 function HeroData:ctor(  )
 	-- index
@@ -23,6 +24,8 @@ function HeroData:ctor(  )
 	self.m_experience = nil
 	-- 额外点数
 	self.m_extraPoint = nil
+
+	self.m_config = nil
 
 
 end
@@ -50,6 +53,10 @@ end
 
 function HeroData:getId(  )
 	return self.m_id
+end
+
+function HeroData:getConfig(  )
+	return self.m_config
 end
 
 return HeroData

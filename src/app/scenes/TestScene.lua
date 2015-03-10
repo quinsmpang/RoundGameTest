@@ -5,7 +5,9 @@
 
 
 local HeroData = require("app.scenes.HeroData")
+local HeroConfig = require("app.datas.HeroConfig")
 require("app.scenes.HeroDataManager")
+require("app.datas.HeroConfigManager")
 local HeroListLayer = require("app.layers.HeroListLayer")
 
 local TestScene = class("TestScene", function (  )
@@ -18,8 +20,36 @@ function TestScene:ctor(  )
 	display.newSprite("Login/splash.jpg", display.cx, display.cy)
 		:addTo(self)
 
+
+
+	-- 初始化HeroConfig
+	local filePath1 = device.writablePath .. "src/app/datas/HeroConfig.json"
+	local file1 = io.open(filePath1, 'r')
+	local string1 = file1:read("*all")
+	file1:close()
+
+	print(string1)
+	local str1 = json.decode(string1)
+	print(str1)
+
+
+	local tabArray1 = str1.HeroConfig
+	print(#tabArray1)
+	for k,v in pairs(tabArray1) do
+		local temp = HeroConfig.new()
+		temp.m_icon = v.icon
+		temp.m_image = v.image
+		temp.m_id = v.id
+		temp.m_name = v.name
+		HeroConfigManager.addHeroConfigToTable(temp)
+	end
+
+	print("------------------------------------")
+	print("heroConfig: " .. HeroConfigManager.getSize())
+
+
+	-- 初始化HeroData
 	local filePath = device.writablePath .. "src/app/datas/HeroData.json"
-	-- local file = io.open("/Users/neworigin/code/quick/RoundGameTest/src/app/datas/HeroData.json", 'r')
 	local file = io.open(filePath, 'r')
 	local string = file:read("*all")
 	file:close()
@@ -42,12 +72,18 @@ function TestScene:ctor(  )
 		temp.m_endurance = v.endurance
 		temp.m_experience = v.experience
 		temp.m_extraPoint = v.extraPoint
+		temp.m_config = HeroConfigManager.getHeroConfigById(v.id)
 
 		HeroDataManager.addHeroDataToTable(temp)
 	end
 
-	HeroDataManager.desc()
+	--HeroDataManager.desc()
 
+	local hero = HeroDataManager.getHeroDataByTable(2)
+	print("**************")
+	print(hero.m_config)
+
+	
 	
 
 	-- 加入按钮
