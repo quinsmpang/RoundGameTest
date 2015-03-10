@@ -6,6 +6,8 @@
 -- 注册面板
 local RegisterPanel = import(".RegisterPanel")
 
+local TestScene = import("..scenes.TestScene")
+
 
 local QuickLoginPanel = class("QuickLoginPanel", function (  )
 	local node = cc.CSLoader:createNode("QuickLoginPanel.csb")
@@ -56,6 +58,9 @@ function QuickLoginPanel:ctor(  )
 		if eventType == 2 then
 			-- 与服务器交互
 			print("快速登录按钮")
+
+			local scene = TestScene:new()
+			display.replaceScene(scene, "fade", 0.5)
 		end
 	end)
 
