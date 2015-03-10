@@ -140,9 +140,12 @@ end
 
 
 function HeroInfoLayer:showImage(  )
-	-- 英雄大图
+	if self.leftSprite then
+		self.leftSprite:removeFromParent()
+		self.leftSprite = nil
+	end
 
-	-- 背景
+	-- 英雄大图
 	self.leftSprite = display.newSprite(self.hero.m_config.m_image)
 		:pos(display.cx - 150, display.cy)
 		:scale(0.6)
@@ -156,23 +159,27 @@ function HeroInfoLayer:showImage(  )
 		:scale(1.75)
 		:addTo(self.leftSprite)
 
+	-- 点击放大缩小
 	self.leftSprite:setTouchEnabled(true)
 	self.leftSprite:setTouchSwallowEnabled(true)
 	local isScale = false
 	self.leftSprite:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		self.leftSprite:setTouchEnabled(false)
 		if isScale then
 			isScale = false
-			local scale = 1.75
-			
 			local spawn = cca.spawn({cca.rotateBy(0.5, 90), cca.scaleTo(0.5, 0.6), cca.moveTo(0.5, display.cx - 150, display.cy)})
-			self.leftSprite:runAction(spawn)
+			self.leftSprite:runAction(cca.seq({spawn, cca.callFunc(function ( node )
+				node:setTouchEnabled(true)
+			end)}))
 			return 
 		end
 		isScale = true
 		local scaleX = display.height / self.leftSprite:getContentSize().width
 		local scaleY = display.width / self.leftSprite:getContentSize().height
 		local spawn = cca.spawn({cca.rotateBy(0.5, -90), cca.scaleTo(0.5, scaleX, scaleY), cca.moveTo(0.5, display.cx, display.cy)})
-		self.leftSprite:runAction(spawn)
+		self.leftSprite:runAction(cca.seq({spawn, cca.callFunc(function ( node )
+			node:setTouchEnabled(true)
+		end)}))
 
 	end)
 
@@ -204,14 +211,15 @@ function HeroInfoLayer:showImage(  )
 
 end
 
+
+
 function HeroInfoLayer:skillUpdate(  )
-	if self.heroImg then
-		self.heroImg:removeFromParent()
-		self.heroImg = nil
-		return
+	if self.leftSprite then
+		self.leftSprite:removeFromParent()
+		self.leftSprite = nil
 	end
 
-	self.skillUpdate = display.newSprite("heros/herodetail-detail-popup.pvr.ccz")
+	self.leftSprite = display.newSprite("heros/herodetail-detail-popup.pvr.ccz")
 		:pos(display.cx - 150, display.cy)
 		:addTo(self)
 
@@ -221,7 +229,7 @@ function HeroInfoLayer:skillUpdate(  )
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		})
 		:align(display.CENTER, 100, 400)
-		:addTo(self.skillUpdate)
+		:addTo(self.leftSprite)
 
 	-- visible
 	local visible = true
@@ -235,7 +243,7 @@ function HeroInfoLayer:skillUpdate(  )
 		local item = display.newSprite("heros/recharge_list_bg.jpg")
 			:scale(0.8)
 			:pos(140, 330 - (i - 1) * 80)
-			:addTo(self.skillUpdate)
+			:addTo(self.leftSprite)
 
 		display.newSprite("heros/skill" .. i .. ".jpg")
 			:pos(45, 45)
