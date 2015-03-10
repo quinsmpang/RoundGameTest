@@ -66,6 +66,7 @@ function TestScene:ctor(  )
 		:setButtonSize(120, 40)
 		:addTo(self)
 
+		
 
 	local aa = cc.ui.UILabel.new({
 		text = "haha",
