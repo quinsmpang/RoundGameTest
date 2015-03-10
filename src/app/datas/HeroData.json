@@ -135,6 +135,17 @@
 		"endurance" : 12,
 		"experience" : 0,
 		"extraPoint" : 8
+	},
+	{
+		"index" : 3,
+		"id" : 3,
+		"lv" : 3,
+		"physique" : 12,
+		"power" : 12,
+		"mana" : 12,
+		"endurance" : 12,
+		"experience" : 0,
+		"extraPoint" : 8
 	}
 ]
 }

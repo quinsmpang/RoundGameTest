@@ -19,36 +19,20 @@ function HeroListLayer:ctor(  )
 
 	local numHeros = HeroDataManager.getSize()
 	print(numHeros)
-	for i=1,numHeros / 2 do
+	for i=1,numHeros / 2 + 0.5 do
 		local item = self.lvGrid:newItem()
 		local content
 		content = display.newNode()
-		for count = 1,2 do
+		local cols = 2
+		if numHeros / i < 2 then
+			cols = 1
+		end
+		for count = 1,cols do
 			local idx = (i-1)*2 + count
 			local hero = HeroDataManager.getHeroDataByTable(idx)
 			local listItem = HeroListItem.new(hero, idx)
 				:align(display.CENTER, 190 + 350 * (count - 1), 40)
 				:addTo(content)
-			-- local button = cc.ui.UIPushButton.new("Button01.png", {scale9 = true})
-			-- 	:setButtonSize(350, 80)
-			-- 	:setButtonLabel(cc.ui.UILabel.new({	
-			-- 		text = idx,
-			-- 		size = 30,
-			-- 		align = cc.ui.TEXT_ALIGN_CENTER,
-			-- 		}))
-			-- 	:onButtonClicked(function (  )
-			-- 		print("clickedButton--" .. idx)
-			-- 		--print(hero:getIndex())
-			-- 	end)
-			-- 	:align(display.CENTER, 190 + 350 * (count - 1), 40)
-			-- 	:addTo(content)
-			-- 	:setTouchSwallowEnabled(false)
-			-- -- 添加头像
-			-- --local hero = HeroDataManager.getHeroDataByTable(idx)
-			-- local id = hero:getId()
-			-- display.newSprite("heros/hero" .. id .. ".jpg")
-			-- 	:pos(175 + 350 * (count - 1) - 130, 40)
-			-- 	:addTo(content)
 		end
 		content:setContentSize(750, 80)
 		item:addContent(content)

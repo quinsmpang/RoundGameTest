@@ -19,8 +19,6 @@ function QuickLoginPanel:ctor(  )
 
 	self.usernameBox = self:getChildByName("username")
 	self.passwordBox = self:getChildByName("password")
-
-	--self.usernameBox:setReturnType(cc.KEYBOARD_RETURNTYPE_SEND)
 	self.usernameBox:addEventListener(function ( node, event )
 		if event == 2 then
 			if string.len(self.usernameBox:getString()) > 12 then
