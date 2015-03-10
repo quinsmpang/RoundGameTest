@@ -21,7 +21,6 @@ function TestScene:ctor(  )
 		:addTo(self)
 
 
-
 	-- 初始化HeroConfig
 	local filePath1 = device.writablePath .. "src/app/datas/HeroConfig.json"
 	local file1 = io.open(filePath1, 'r')

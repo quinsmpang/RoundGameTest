@@ -19,22 +19,23 @@ function HeroListLayer:ctor(  )
 	bg:setScale(scaleX, scaleY)
 
 	-- 返回按钮
-	cc.ui.UIPushButton.new("heros/backbtn.pvr.ccz")
+	local backBtn = cc.ui.UIPushButton.new({normal = "heros/backbtn.pvr.ccz", pressed = "heros/backbtn-disabled.pvr.ccz"})
 		:onButtonClicked(function (  )
 			self:removeFromParent()
 		end)
-		:pos(20, 600)
+		:pos(display.left + 60, display.top - 40)
 		:addTo(self)
 
-	display.newSprite("heros/herolist.pvr.ccz", display.cx, display.cy)
-		:scale(1.5)
-		--:opacity(150)
+
+	local listBg = display.newSprite("heros/herolist.pvr.ccz", display.cx - 30, display.cy - 30)
 		:addTo(self)
+	listBg:setScaleX(1.3)
+	listBg:setScaleY(1.5)
 	self.lvGrid = cc.ui.UIListView.new({
-		bgColor = cc.c4b(200, 200, 200, 120),
+		--bgColor = cc.c4b(200, 200, 200, 120),
 		--bg = "heros/dialog_bg.jpg",
 		scrollbarImgV = "heros/scroll_bar.pvr.ccz",
-		viewRect = cc.rect(display.cx - 400, display.cy - 210, 800, 420),
+		viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
 		direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
 		})
 		:addTo(self)
@@ -53,12 +54,12 @@ function HeroListLayer:ctor(  )
 			local idx = (i-1)*2 + count
 			local hero = HeroDataManager.getHeroDataByTable(idx)
 			local listItem = HeroListItem.new(hero, idx)
-				:align(display.CENTER, 160 + 320 * (count - 1), 50)
+				:align(display.CENTER, 180 + 340 * (count - 1), 60)
 				:addTo(content)
 		end
-		content:setContentSize(650, 100)
+		content:setContentSize(700, 130)
 		item:addContent(content)
-		item:setItemSize(650, 100)
+		item:setItemSize(700, 130)
 		self.lvGrid:addItem(item)
 	end
 	self.lvGrid:reload()
