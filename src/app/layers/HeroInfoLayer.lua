@@ -6,14 +6,32 @@ local HeroInfoLayer = class("HeroInfoLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
 end)
 
+
+HeroInfoLayer.CHECKBOX_BUTTON_IMAGES = {
+	off = "heros/stageselect_difficulty_button_normal.pvr.ccz",
+    off_pressed = "heros/stageselect_difficulty_button_normal_pressed.pvr.ccz",
+    on_pressed = "heros/stageselect_difficulty_button_selected_pressed.pvr.ccz",
+    on = "heros/stageselect_difficulty_button_selected.pvr.ccz",
+}
+
 function HeroInfoLayer:ctor( idx )
 	print(idx)
 	self.hero = HeroDataManager.getHeroDataByTable(idx)
 	-- 英雄detail
 	
+	self:initHeroDetailBg()
+
+	self:showImage(hero)
+	
+
+	
+
+end
+
+function HeroInfoLayer:initHeroDetailBg(  )
 	self.heroDetailBg = display.newSprite("heros/herodetail-bg.jpg")
-		:pos(display.cx + 200, display.cy)
-		:addTo(self)
+		:pos(display.cx, display.cy)
+		:addTo(self, 10)
 
 	-- 关闭按钮
 	local closeBtn = cc.ui.UIPushButton.new("heros/herodetail-detail-close.pvr.ccz")
@@ -22,9 +40,6 @@ function HeroInfoLayer:ctor( idx )
 			self:removeFromParent()
 		end)
 		:addTo(self.heroDetailBg)
-
-	self:showImage(hero)
-	
 
 	-- 头像
 	local icon = display.newSprite(self.hero.m_config.m_icon)
@@ -93,53 +108,156 @@ function HeroInfoLayer:ctor( idx )
 
 
 	-- 三个按钮
+
 	-- 详细信息
-	local detailBtn = cc.ui.UIPushButton.new({normal = "heros/task_button.pvr.ccz", pressed = "heros/task_button_press.pvr.ccz"}, {scale9 = true})
-		:setButtonSize(120, 40)
+	self.detailBtn = cc.ui.UICheckBoxButton.new(HeroInfoLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
 		:setButtonLabel(cc.ui.UILabel.new({
-			text = "详细属性",
-			size = 20,
+			text = "详细信息",
+			size = 18,
 			font = "LoginPanel/DFYuanW7-GB2312.ttf",
 			}))
+		:setButtonSize(110, 45)
+		:setButtonLabelAlignment(display.CENTER)
 		:onButtonClicked(function (  )
-			
+			self.skillUpBtn:setButtonSelected(false)
+			self.imgBtn:setButtonSelected(false)
+			if not self.detailBtn:isButtonSelected() then
+				local action1 = cca.moveTo(0.5, display.cx, display.cy)
+				local action2 = cca.moveTo(0.5, display.cx, display.cy)
+				self.leftSprite:runAction(cca.seq({action1, cca.callFunc(function ( node )
+					node:removeFromParent()
+					self.leftSprite = nil
+				end)}))
+				
+				self.heroDetailBg:runAction(action2)
+
+			else
+				self:showHeroAttr()
+				self.heroDetailBg:runAction(cca.moveTo(0.5, display.cx + 200, display.cy))
+			end
+		end)
+		:onButtonStateChanged(function ( event )
+			if event.state == "on" then
+				--todo
+			end
 		end)
 		:align(display.CENTER, 70, 40)
 		:addTo(self.heroDetailBg)
 
 	-- 图鉴
-	local picInfoBtn = cc.ui.UIPushButton.new({normal = "heros/task_button.pvr.ccz", pressed = "heros/task_button_press.pvr.ccz"}, {scale9 = true})
-		:setButtonSize(100, 40)
+	self.imgBtn = cc.ui.UICheckBoxButton.new(HeroInfoLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
+		:setButtonSelected(true)
 		:setButtonLabel(cc.ui.UILabel.new({
 			text = "图鉴",
+			size = 18,
 			font = "LoginPanel/DFYuanW7-GB2312.ttf",
-			size = 20,
 			}))
-		:onButtonClicked(function (  )
-			self:showImage()
+		:setButtonSize(110, 45)
+		:setButtonLabelAlignment(display.CENTER)
+		:onButtonClicked(function ( event )
+			self.detailBtn:setButtonSelected(false)
+			self.skillUpBtn:setButtonSelected(false)
+			if not self.imgBtn:isButtonSelected() then
+				local action1 = cca.moveTo(0.5, display.cx, display.cy)
+				local action2 = cca.moveTo(0.5, display.cx, display.cy)
+				self.leftSprite:runAction(cca.seq({action1, cca.callFunc(function ( node )
+					node:removeFromParent()
+					self.leftSprite = nil
+				end)}))
+				
+				self.heroDetailBg:runAction(action2)
+
+				
+			else
+				self:showImage()
+				self.heroDetailBg:runAction(cca.moveTo(0.5, display.cx + 200, display.cy))
+
+			end
 		end)
-		:align(display.CENTER, 200, 40)
+		:align(display.CENTER, 190, 40)
 		:addTo(self.heroDetailBg)
 
 
 	-- 技能升级
-	local skillUpBtn = cc.ui.UIPushButton.new({normal = "heros/task_button.pvr.ccz", pressed = "heros/task_button_press.pvr.ccz"}, {scale9 = true})
-		:setButtonSize(120, 40)
+	self.skillUpBtn = cc.ui.UICheckBoxButton.new(HeroInfoLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
 		:setButtonLabel(cc.ui.UILabel.new({
 			text = "技能升级",
-			size = 20,
+			size = 18,
 			font = "LoginPanel/DFYuanW7-GB2312.ttf",
 			}))
+		:setButtonSize(110, 45)
+		:setButtonLabelAlignment(display.CENTER)
 		:onButtonClicked(function (  )
-			self:skillUpdate()
+			self.detailBtn:setButtonSelected(false)
+			self.imgBtn:setButtonSelected(false)
+			if not self.skillUpBtn:isButtonSelected() then
+				local action1 = cca.moveTo(0.5, display.cx, display.cy)
+				local action2 = cca.moveTo(0.5, display.cx, display.cy)
+				self.leftSprite:runAction(cca.seq({action1, cca.callFunc(function ( node )
+					node:removeFromParent()
+					self.leftSprite = nil
+				end)}))
+				
+				self.heroDetailBg:runAction(action2)
+
+			else
+				self:showSkillUpdate()
+				self.heroDetailBg:runAction(cca.moveTo(0.5, display.cx + 200, display.cy))
+			end
 		end)
-		:align(display.CENTER, 320, 40)
+		:align(display.CENTER, 310, 40)
 		:addTo(self.heroDetailBg)
 
+	-- runaction
+	self.heroDetailBg:runAction(cca.moveTo(0.5, display.cx + 200, display.cy))
+
+end
+
+function HeroInfoLayer:showHeroAttr(  )
+	if self.leftSprite then
+		self.leftSprite:removeFromParent()
+		self.leftSprite = nil
+	end
+
+	self.leftSprite = display.newSprite("heros/herodetail-detail-popup.pvr.ccz")
+		:pos(display.cx, display.cy)
+		:addTo(self)
+
+	-- 小东西
+	local titleBg = display.newSprite("heros/equip_detail_title_bg.pvr.ccz")
+		:pos(self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 40)
+		:addTo(self.leftSprite)
+	titleBg:setScaleX(0.6)
+
+
+	cc.ui.UILabel.new({
+		text = "英雄介绍",
+		color = cc.c3b(224, 207, 96),
+		size = 16,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 40)
+		:addTo(self.leftSprite)
+
+	local descLabel = cc.ui.UILabel.new({
+		text = self.hero.m_config.m_desc,
+		--color = cc.c3b(224, 207, 96),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		dimensions = cc.size(self.leftSprite:getContentSize().width - 40, 100),
+		})
+		:align(display.BOTTOM_LEFT, 20, self.leftSprite:getContentSize().height - 160)
+		:addTo(self.leftSprite)
+	--descLabel:setLayoutSize(30, 300)
+
+
+	-- runaction
+	self.leftSprite:runAction(cca.moveTo(0.5, display.cx - 150, display.cy))
 end
 
 
 function HeroInfoLayer:showImage(  )
+
 	if self.leftSprite then
 		self.leftSprite:removeFromParent()
 		self.leftSprite = nil
@@ -147,10 +265,11 @@ function HeroInfoLayer:showImage(  )
 
 	-- 英雄大图
 	self.leftSprite = display.newSprite(self.hero.m_config.m_image)
-		:pos(display.cx - 150, display.cy)
+		:pos(display.cx, display.cy)
 		:scale(0.6)
 		:addTo(self)
 
+	--self.leftSprite:zorder(20)
 	
 
 	-- 边框
@@ -167,17 +286,21 @@ function HeroInfoLayer:showImage(  )
 		self.leftSprite:setTouchEnabled(false)
 		if isScale then
 			isScale = false
+			
 			local spawn = cca.spawn({cca.rotateBy(0.5, 90), cca.scaleTo(0.5, 0.6), cca.moveTo(0.5, display.cx - 150, display.cy)})
 			self.leftSprite:runAction(cca.seq({spawn, cca.callFunc(function ( node )
+				self.leftSprite:zorder(0)
 				node:setTouchEnabled(true)
 			end)}))
 			return 
 		end
+		self.leftSprite:zorder(20)
 		isScale = true
 		local scaleX = display.height / self.leftSprite:getContentSize().width
 		local scaleY = display.width / self.leftSprite:getContentSize().height
 		local spawn = cca.spawn({cca.rotateBy(0.5, -90), cca.scaleTo(0.5, scaleX, scaleY), cca.moveTo(0.5, display.cx, display.cy)})
 		self.leftSprite:runAction(cca.seq({spawn, cca.callFunc(function ( node )
+			--self.leftSprite:zorder(0)
 			node:setTouchEnabled(true)
 		end)}))
 
@@ -186,14 +309,15 @@ function HeroInfoLayer:showImage(  )
 	-- 技能
 	for i=1,4 do
 		-- 技能边框
-		display.newSprite("heros/gocha.pvr.ccz")
-			:addTo(self.leftSprite)
-			:pos(220 + (i - 1) * 45, 30)
-			:scale(0.6)
+
 		display.newSprite("heros/skill" .. i .. ".jpg")
 			:addTo(self.leftSprite)
 			:scale(0.6)
 			:pos(220 + (i - 1) * 45, 30)
+		display.newSprite("heros/equip_frame_white.pvr.ccz")
+		:addTo(self.leftSprite)
+		:pos(220 + (i - 1) * 45, 30)
+		:scale(0.6)
 	end
 
 	-- 类型
@@ -209,22 +333,26 @@ function HeroInfoLayer:showImage(  )
 		:addTo(self.leftSprite)
 		:scale(0.8)
 
+	-- RunAction
+	self.leftSprite:runAction(cca.moveTo(0.5, display.cx - 150, display.cy))
+
 end
 
 
 
-function HeroInfoLayer:skillUpdate(  )
+function HeroInfoLayer:showSkillUpdate(  )
 	if self.leftSprite then
 		self.leftSprite:removeFromParent()
 		self.leftSprite = nil
 	end
 
 	self.leftSprite = display.newSprite("heros/herodetail-detail-popup.pvr.ccz")
-		:pos(display.cx - 150, display.cy)
+		:pos(display.cx, display.cy)
 		:addTo(self)
 
 	-- 剩余技能点
 	self.skillPointLabel = cc.ui.UILabel.new({
+		size = 20,
 		text = "剩余技能点: " .. self.hero.m_extraPoint,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		})
@@ -242,12 +370,20 @@ function HeroInfoLayer:skillUpdate(  )
 	for i=1,4 do
 		local item = display.newSprite("heros/recharge_list_bg.jpg")
 			:scale(0.8)
-			:pos(140, 330 - (i - 1) * 80)
+			:pos(145, 330 - (i - 1) * 80)
 			:addTo(self.leftSprite)
 
-		display.newSprite("heros/skill" .. i .. ".jpg")
-			:pos(45, 45)
+		-- 技能图片
+		local skillPic = display.newSprite("heros/skill" .. i .. ".jpg")
+			:pos(48, 48)
 			:addTo(item)
+
+		-- 技能边框
+		display.newSprite("heros/equip_frame_white.pvr.ccz")
+			:pos(skillPic:getContentSize().width / 2, skillPic:getContentSize().height / 2)
+			:addTo(skillPic)
+
+
 		cc.ui.UILabel.new({
 			text = "技能等级: ",
 			size = 20,
@@ -279,7 +415,11 @@ function HeroInfoLayer:skillUpdate(  )
 		addItem:setVisible(visible)
 	end
 
+	self.leftSprite:runAction(cca.moveTo(0.5, display.cx - 150, display.cy))
+
 	
 end
+
+
 
 return HeroInfoLayer

@@ -9,6 +9,7 @@ function HeroConfig:ctor(  )
 	self.m_image = nil
 	self.m_id = nil
 	self.m_name = nil
+	self.m_desc = nil
 end
 
 function HeroConfig:getName(  )

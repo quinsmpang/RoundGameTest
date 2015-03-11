@@ -4,9 +4,9 @@
 --
 
 
-local HeroData = require("app.scenes.HeroData")
+local HeroData = require("app.datas.HeroData")
 local HeroConfig = require("app.datas.HeroConfig")
-require("app.scenes.HeroDataManager")
+require("app.datas.HeroDataManager")
 require("app.datas.HeroConfigManager")
 local HeroListLayer = require("app.layers.HeroListLayer")
 
@@ -40,6 +40,7 @@ function TestScene:ctor(  )
 		temp.m_image = v.image
 		temp.m_id = v.id
 		temp.m_name = v.name
+		temp.m_desc = v.desc
 		HeroConfigManager.addHeroConfigToTable(temp)
 	end
 
