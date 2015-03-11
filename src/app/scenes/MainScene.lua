@@ -9,15 +9,26 @@ local HeroConfig = require("app.datas.HeroConfig")
 require("app.datas.HeroDataManager")
 require("app.datas.HeroConfigManager")
 local HeroListLayer = require("app.layers.HeroListLayer")
-
-local TestScene = class("TestScene", function (  )
-	return display.newScene("TestScene");
+local MainScene = class("MainScene", function (  )
+	return display.newScene("MainScene");
 end)
 
 
-function TestScene:ctor(  )
+function MainScene:ctor(  )
 
-	display.newSprite("Login/splash.jpg", display.cx, display.cy)
+	-- 背景图片
+	local bg = display.newSprite("heros/main_bg_grass_left.jpg", display.cx, display.cy)
+		:addTo(self)
+	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
+
+
+	-- 背包按钮
+	cc.ui.UIPushButton.new({normal = "heros/main_package_button.jpg", pressed = "heros/main_package_button_shade.jpg"})
+		:pos(display.cx, display.cy)
+		:onButtonClicked(function (  )
+			local herolayer = HeroListLayer.new()
+			 	:addTo(self)
+		end)
 		:addTo(self)
 
 
@@ -44,6 +55,10 @@ function TestScene:ctor(  )
 		HeroConfigManager.addHeroConfigToTable(temp)
 	end
 
+	local t1 = {{"ccc", "iii"},"asd", "ddd"}
+	local s1 = json.encode(t1)
+	print(s1)
+
 	print("------------------------------------")
 	print("heroConfig: " .. HeroConfigManager.getSize())
 
@@ -66,6 +81,7 @@ function TestScene:ctor(  )
 		temp.m_index = v.index
 		temp.m_id = v.id
 		temp.m_lv = v.lv
+		temp.m_type = v.type
 		temp.m_physique = v.physique
 		temp.m_power = v.power
 		temp.m_mana = v.mana
@@ -83,40 +99,6 @@ function TestScene:ctor(  )
 	print("**************")
 	print(hero.m_config)
 
-	
-	
-
-	-- 加入按钮
-	cc.ui.UIPushButton.new({normal = "Button01.png"}, {scale9 = true})
-		:pos(display.cx, display.cy)
-		:setButtonLabel(cc.ui.UILabel.new({
-			text = "打开背包",
-			size = 20,
-			color = display.COLOR_WHITE,
-			align = cc.ui.TEXT_ALIGN_CENTER,
-			}))
-		:onButtonClicked(function (  )
-			local herolayer = HeroListLayer.new()
-			 	:addTo(self)
-		end)
-		:setButtonSize(120, 40)
-		:addTo(self)
-
-		
-
-	local aa = cc.ui.UILabel.new({
-		text = "haha",
-		size = 30,
-
-		})
-		:pos(display.cx, display.cy  + 100)
-		:addTo(self)
-
- 	aa:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
- 		print("haha")
- 	end)
- 	aa:setTouchEnabled(true)
-
 
 end
 
@@ -124,4 +106,4 @@ end
 
 
 
-return TestScene
+return MainScene
