@@ -11,7 +11,7 @@ local HeroDataManagerTable = {}
 
 function getHeroDataByIndex( idx )
 	for k,v in pairs(HeroDataManagerTable) do
-		if v.index == idx then
+		if v.m_index == idx then
 			return v
 		end
 	end
@@ -42,7 +42,18 @@ function getHeroDataByTable( idx )
 	return HeroDataManagerTable[idx]
 end
 
+-- 得到所有英雄
+function getAllHeros(  )
+	return HeroDataManagerTable
+end
 
-function getSize(  )
-	return #HeroDataManagerTable
+-- 获取所有前排英雄
+function getAllFrontHeros(  )
+	local front = {}
+	for k,v in pairs(HeroDataManagerTable) do
+		if v.m_type == 1 then
+			table.insert(front, v)
+		end
+	end
+	return front
 end

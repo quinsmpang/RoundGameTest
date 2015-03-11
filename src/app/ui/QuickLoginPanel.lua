@@ -6,7 +6,7 @@
 -- 注册面板
 local RegisterPanel = import(".RegisterPanel")
 
-local TestScene = import("..scenes.TestScene")
+local MainScene = import("..scenes.MainScene")
 
 
 local QuickLoginPanel = class("QuickLoginPanel", function (  )
@@ -57,7 +57,7 @@ function QuickLoginPanel:ctor(  )
 			-- 与服务器交互
 			print("快速登录按钮")
 
-			local scene = TestScene:new()
+			local scene = MainScene:new()
 			display.replaceScene(scene, "fade", 0.5)
 		end
 	end)

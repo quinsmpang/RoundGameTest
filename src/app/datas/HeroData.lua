@@ -11,19 +11,21 @@ function HeroData:ctor(  )
 	-- id
 	self.m_id = nil
 	-- 等级
-	self.m_lv = nil
+	self.m_lv = 0
+	-- 前中后排 1.前  2.中  3.后
+	self.m_type = 0
 	-- 体质
-	self.m_physique = nil
+	self.m_physique = 0
 	-- 力量
-	self.m_power = nil
+	self.m_power = 0
 	-- 法力
-	self.m_mana = nil
+	self.m_mana = 0
 	-- 耐力
-	self.m_endurance = nil
+	self.m_endurance = 0
 	-- 经验值
-	self.m_experience = nil
+	self.m_experience = 0
 	-- 额外点数
-	self.m_extraPoint = nil
+	self.m_extraPoint = 0
 
 	self.m_config = nil
 

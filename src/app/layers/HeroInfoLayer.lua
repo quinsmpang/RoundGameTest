@@ -248,7 +248,98 @@ function HeroInfoLayer:showHeroAttr(  )
 		})
 		:align(display.BOTTOM_LEFT, 20, self.leftSprite:getContentSize().height - 160)
 		:addTo(self.leftSprite)
-	--descLabel:setLayoutSize(30, 300)
+	
+
+	-- 小东西
+	titleBg = display.newSprite("heros/equip_detail_title_bg.pvr.ccz")
+		:pos(self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 200)
+		:addTo(self.leftSprite)
+	titleBg:setScaleX(0.6)
+
+
+	cc.ui.UILabel.new({
+		text = "英雄属性",
+		color = cc.c3b(224, 207, 96),
+		size = 16,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 200)
+		:addTo(self.leftSprite)
+
+	-- 具体属性
+	cc.ui.UILabel.new({
+		text = "体质: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 240)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "力量: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 260)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "法力: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 280)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "耐力: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 300)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "气血: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 320)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "伤害: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 340)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "灵力: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 360)
+		:addTo(self.leftSprite)
+
+	cc.ui.UILabel.new({
+		text = "防御: " .. 50,
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 380)
+		:addTo(self.leftSprite)
+
+
 
 
 	-- runaction
@@ -353,10 +444,11 @@ function HeroInfoLayer:showSkillUpdate(  )
 	-- 剩余技能点
 	self.skillPointLabel = cc.ui.UILabel.new({
 		size = 20,
-		text = "剩余技能点: " .. self.hero.m_extraPoint,
+		text = "剩余技能点数: " .. self.hero.m_extraPoint,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		color = cc.c3b(197, 168, 148),
 		})
-		:align(display.CENTER, 100, 400)
+		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 40)
 		:addTo(self.leftSprite)
 
 	-- visible
@@ -383,22 +475,30 @@ function HeroInfoLayer:showSkillUpdate(  )
 			:pos(skillPic:getContentSize().width / 2, skillPic:getContentSize().height / 2)
 			:addTo(skillPic)
 
+		-- 技能名称
+		cc.ui.UILabel.new({
+			text = "技能名称！",
+			size = 18,
+			})
+			:align(display.BOTTOM_LEFT, 100, 60)
+			:addTo(item)
 
+		-- 技能等级
 		cc.ui.UILabel.new({
 			text = "技能等级: ",
-			size = 20,
+			size = 18,
 			})
-			:align(display.CENTER, 150, 50)
+			:align(display.BOTTOM_LEFT, 100, 20)
 			:addTo(item)
 
 		local skillLevel = cc.ui.UILabel.new({
 			text = 0,
 			size = 20,
 			})
-			:align(display.CENTER, 200, 50)
+			:align(display.BOTTOM_LEFT, 190, 18)
 			:addTo(item)
 		local addItem = cc.ui.UIPushButton.new({normal = "heros/herodetail_skill_upgrade_button_1.pvr.ccz", pressed = "heros/herodetail_skill_upgrade_button_2.pvr.ccz"}, {scale9 = true})
-			:pos(280, 35)
+			:pos(280, 45)
 			:onButtonClicked(function (  )
 				local temp = tostring(skillLevel:getString()) + 1
 				self.hero.m_extraPoint = self.hero.m_extraPoint - 1
