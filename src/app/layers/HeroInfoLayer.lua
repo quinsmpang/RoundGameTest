@@ -14,14 +14,14 @@ HeroInfoLayer.CHECKBOX_BUTTON_IMAGES = {
     on = "heros/stageselect_difficulty_button_selected.pvr.ccz",
 }
 
-function HeroInfoLayer:ctor( idx )
-	print(idx)
-	self.hero = HeroDataManager.getHeroDataByTable(idx)
+function HeroInfoLayer:ctor( hero )
+	--print(idx)
+	self.hero = hero
 	-- 英雄detail
 	
 	self:initHeroDetailBg()
 
-	self:showImage(hero)
+	self:showImage()
 	
 
 	

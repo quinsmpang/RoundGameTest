@@ -57,3 +57,25 @@ function getAllFrontHeros(  )
 	end
 	return front
 end
+
+-- 获取所有中排英雄
+function getAllMiddleHeros(  )
+	local middle = {}
+	for k,v in pairs(HeroDataManagerTable) do
+		if v.m_type == 2 then
+			table.insert(middle, v)
+		end
+	end
+	return middle
+end
+
+-- 获取所有后排英雄
+function getAllBehindHeros(  )
+	local behind = {}
+	for k,v in pairs(HeroDataManagerTable) do
+		if v.m_type == 3 then
+			table.insert(behind, v)
+		end
+	end
+	return behind
+end

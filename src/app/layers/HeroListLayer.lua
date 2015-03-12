@@ -45,15 +45,7 @@ function HeroListLayer:ctor(  )
 	self:createTabItems()
 
 
-	-- 初始化裂变
-	self.lvGrid = cc.ui.UIListView.new({
-	--bgColor = cc.c4b(200, 200, 200, 120),
-	--bg = "heros/dialog_bg.jpg",
-	scrollbarImgV = "heros/scroll_bar.pvr.ccz",
-	viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
-	direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
-	})
-	:addTo(self, 20)
+
 
 	-- 得到所有数据
 	local heros = HeroDataManager.getAllHeros()
@@ -90,9 +82,12 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
+
+			local heros = HeroDataManager.getAllHeros()
+			self:initListView(heros)
 		end)
 		:setButtonLabelAlignment(display.CENTER)
-		:pos(display.right - 110, 480)
+		:pos(display.cx + 380, 480)
 		:addTo(self, 15)
 
 	self.selectedItem = allItem
@@ -127,7 +122,7 @@ function HeroListLayer:createTabItems(  )
 			self:initListView(heros)
 		end)
 		:setButtonLabelAlignment(display.CENTER)
-		:pos(display.right - 110, 420)
+		:pos(display.cx + 380, 420)
 		:addTo(self)
 
 	-- 中排
@@ -155,9 +150,13 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
+
+			local heros = HeroDataManager.getAllMiddleHeros()
+			self:initListView(heros)
+
 		end)
 		:setButtonLabelAlignment(display.CENTER)
-		:pos(display.right - 110, 360)
+		:pos(display.cx + 380, 360)
 		:addTo(self)
 
 	-- 后排
@@ -185,16 +184,33 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
+
+			local heros = HeroDataManager.getAllBehindHeros()
+			self:initListView(heros)
 		end)
 		:setButtonLabelAlignment(display.CENTER)
-		:pos(display.right - 110, 300)
+		:pos(display.cx + 380, 300)
 		:addTo(self)
 
 end
 
 function HeroListLayer:initListView( heros )
-	self.lvGrid:cleanup()
-	self.lvGrid:reload()
+
+	if self.lvGrid then
+		self.lvGrid:removeFromParent()
+		self.lvGrid = nil
+	end
+		-- 初始化裂变
+	self.lvGrid = cc.ui.UIListView.new({
+	--bgColor = cc.c4b(200, 200, 200, 120),
+	--bg = "heros/dialog_bg.jpg",
+	scrollbarImgV = "heros/scroll_bar.pvr.ccz",
+	viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
+	direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+	})
+	:addTo(self, 20)
+
+
 	print(#heros)
 	for i=1,#heros / 2 + 0.5 do
 		local item = self.lvGrid:newItem()
@@ -206,8 +222,11 @@ function HeroListLayer:initListView( heros )
 		end
 		for count = 1,cols do
 			local idx = (i-1)*2 + count
-			local hero = HeroDataManager.getHeroDataByTable(idx)
-			local listItem = HeroListItem.new(hero, idx)
+			--local hero = HeroDataManager.getHeroDataByTable(idx)
+			local hero = heros[idx]
+			print(hero.m_type)
+
+			local listItem = HeroListItem.new(hero)
 				:align(display.CENTER, 180 + 340 * (count - 1), 60)
 				:addTo(content)
 		end
@@ -216,6 +235,7 @@ function HeroListLayer:initListView( heros )
 		item:setItemSize(700, 130)
 		self.lvGrid:addItem(item)
 	end
+	print("-------------------")
 	self.lvGrid:reload()
 end
 

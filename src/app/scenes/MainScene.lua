@@ -8,32 +8,44 @@ local HeroData = require("app.datas.HeroData")
 local HeroConfig = require("app.datas.HeroConfig")
 require("app.datas.HeroDataManager")
 require("app.datas.HeroConfigManager")
+require("app.datas.EquipConfigManager")
 local HeroListLayer = require("app.layers.HeroListLayer")
+local BagListLayer = require("app.layers.BagListLayer")
 local MainScene = class("MainScene", function (  )
 	return display.newScene("MainScene");
 end)
 
 
 function MainScene:ctor(  )
-
 	-- 背景图片
 	local bg = display.newSprite("heros/main_bg_grass_left.jpg", display.cx, display.cy)
 		:addTo(self)
 	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
 
-
-	-- 背包按钮
-	cc.ui.UIPushButton.new({normal = "heros/main_package_button.jpg", pressed = "heros/main_package_button_shade.jpg"})
-		:pos(display.cx, display.cy)
+	-- 英雄按钮
+	cc.ui.UIPushButton.new({normal = "heros/main_hero_button.jpg", pressed = "heros/main_hero_button_shade.jpg"})
+		:pos(display.cx - 200, display.cy)
 		:onButtonClicked(function (  )
 			local herolayer = HeroListLayer.new()
 			 	:addTo(self)
 		end)
 		:addTo(self)
 
+	-- 背包按钮
+	cc.ui.UIPushButton.new({normal = "heros/main_package_button.jpg", pressed = "heros/main_package_button_shade.jpg"})
+		:pos(display.cx, display.cy)
+		:onButtonClicked(function (  )
+			local bagLayer = BagListLayer.new()
+				:addTo(self)
+		end)
+		:addTo(self)
 
+
+	local fileUtiles = cc.FileUtils:getInstance()
+	local filePath1 = fileUtiles:fullPathForFilename("mask.fsh")
+	print(filePath1)
 	-- 初始化HeroConfig
-	local filePath1 = device.writablePath .. "src/app/datas/HeroConfig.json"
+	--local filePath1 = device.writablePath .. "src/app/datas/HeroConfig.json"
 	local file1 = io.open(filePath1, 'r')
 	local string1 = file1:read("*all")
 	file1:close()
@@ -54,10 +66,6 @@ function MainScene:ctor(  )
 		temp.m_desc = v.desc
 		HeroConfigManager.addHeroConfigToTable(temp)
 	end
-
-	local t1 = {{"ccc", "iii"},"asd", "ddd"}
-	local s1 = json.encode(t1)
-	print(s1)
 
 	print("------------------------------------")
 	print("heroConfig: " .. HeroConfigManager.getSize())
