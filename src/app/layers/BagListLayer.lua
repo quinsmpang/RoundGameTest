@@ -35,15 +35,16 @@ function BagListLayer:ctor(  )
 		:addTo(self, 10)
 
 	-- 物件详情
-	self.listBg = Funcs.newMaskedSprite("heros/package_detail_bg_alpha_mask", "heros/package_detail_bg.jpg")
-		:pos(display.cx - 280, display.cy - 30)
+	self.detailBg = Funcs.newMaskedSprite("heros/package_detail_bg_alpha_mask", "heros/package_detail_bg.jpg")
+		:pos(display.cx - 700, display.cy - 30)
 		:addTo(self, 10)
+	self.detailBgIsShowd = false
 
 	self:createTabItems()
 
-	local eq = EquipItemBtn.new(EquipConfigManager.getEquipDataByTbIndex(6), 20)
-		:pos(400, 40)
-		:addTo(self)
+	-- local eq = EquipItemBtn.new(EquipConfigManager.getEquipDataByTbIndex(6), 20)
+	-- 	:pos(400, 40)
+	-- 	:addTo(self)
 	
 end
 
@@ -83,6 +84,7 @@ function BagListLayer:createTabItems(  )
 		:pos(display.cx + 370, 460)
 		:addTo(self, 15)
 
+
 	self.selectedItem = allItem
 
 	-- 装备
@@ -111,8 +113,8 @@ function BagListLayer:createTabItems(  )
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
 
-			--local heros = HeroDataManager.getAllFrontHeros()
-			--self:initListView(heros)
+			local equips = EquipDataManager.getAllEquips()
+			self:initListView(equips)
 		end)
 		:setButtonLabelAlignment(display.CENTER)
 		:pos(display.cx + 370, 400)
@@ -225,7 +227,6 @@ end
 
 
 function BagListLayer:initListView( equips )
-
 	if self.lvGrid then
 		self.lvGrid:removeFromParent()
 		self.lvGrid = nil
@@ -234,39 +235,67 @@ function BagListLayer:initListView( equips )
 	self.lvGrid = cc.ui.UIListView.new({
 	--bgColor = cc.c4b(200, 200, 200, 120),
 	--bg = "heros/dialog_bg.jpg",
-	scrollbarImgV = "heros/scroll_bar.pvr.ccz",
-	viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
-	direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
-	})
-	:addTo(self, 20)
+		scrollbarImgV = "heros/scroll_bar.pvr.ccz",
+		viewRect = cc.rect(20, 20, 425, 380),
+		direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+		})
+		:addTo(self.listBg, 20)
 
 
 	print(#equips)
-	for i=1,#equips / 2 + 0.5 do
+	for i=1,#equips / 5 + 0.99  do
 		local item = self.lvGrid:newItem()
 		local content
 		content = display.newNode()
-		local cols = 2
-		if #equips / i < 2 then
-			cols = 1
+		local cols = 5
+		if #equips / i < 5 then
+			cols = #equips % 5
 		end
 		for count = 1,cols do
 			local idx = (i-1)*2 + count
 			--local hero = HeroDataManager.getHeroDataByTable(idx)
 			local equip = equips[idx]
-			--print(hero.m_type)
 
-			-- local listItem = HeroListItem.new(hero)
-			-- 	:align(display.CENTER, 180 + 340 * (count - 1), 60)
-			-- 	:addTo(content)
+			local listItem = EquipItemBtn.new(equip, nil, function (  )
+				if not self.detailBgIsShowd then
+					self.detailBg:runAction(cca.moveTo(0.5, display.cx - 280, display.cy - 30))
+					self.detailBgIsShowd = true
+				end
+
+				-- 创建详细装备detail
+				self:createDetailNode(equip, 1)
+			end)
+			 	:align(display.CENTER, 50 + 80 * (count - 1), 40)
+				:addTo(content)
 		end
-		content:setContentSize(700, 130)
+		content:setContentSize(425, 80)
 		item:addContent(content)
-		item:setItemSize(700, 130)
+		item:setItemSize(425, 80)
 		self.lvGrid:addItem(item)
 	end
 	print("-------------------")
 	self.lvGrid:reload()
+end
+
+
+function BagListLayer:createDetailNode( equipData, num )
+	if self.detailNode then
+		self.detailNode:removeFromParent()
+		self.detailNode = nil
+	end
+	self.detailNode = display.newNode()
+		:addTo(self.detailBg)
+		
+	-- 装备图标
+	EquipItemBtn.new(equipData, nil, nil)
+		:pos(55, 330)
+		:addTo(self.detailNode)
+
+	-- 装备名称
+
+
+
+
 end
 
 
