@@ -41,38 +41,12 @@ function MainScene:ctor(  )
 		:addTo(self)
 
 
-	local fileUtiles = cc.FileUtils:getInstance()
-	local filePath1 = fileUtiles:fullPathForFilename("mask.fsh")
-	print(filePath1)
-	-- 初始化HeroConfig
-	--local filePath1 = device.writablePath .. "src/app/datas/HeroConfig.json"
-	local file1 = io.open(filePath1, 'r')
-	local string1 = file1:read("*all")
-	file1:close()
-
-	print(string1)
-	local str1 = json.decode(string1)
-	print(str1)
-
-
-	local tabArray1 = str1.HeroConfig
-	print(#tabArray1)
-	for k,v in pairs(tabArray1) do
-		local temp = HeroConfig.new()
-		temp.m_icon = v.icon
-		temp.m_image = v.image
-		temp.m_id = v.id
-		temp.m_name = v.name
-		temp.m_desc = v.desc
-		HeroConfigManager.addHeroConfigToTable(temp)
-	end
-
-	print("------------------------------------")
-	print("heroConfig: " .. HeroConfigManager.getSize())
-
-
 	-- 初始化HeroData
-	local filePath = device.writablePath .. "src/app/datas/HeroData.json"
+
+	local fileUtiles = cc.FileUtils:getInstance()
+	local filePath = fileUtiles:fullPathForFilename("json/HeroData.json")
+	print(filePath)
+	--local filePath = device.writablePath .. "src/app/datas/HeroData.json"
 	local file = io.open(filePath, 'r')
 	local string = file:read("*all")
 	file:close()

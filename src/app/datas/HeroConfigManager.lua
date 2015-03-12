@@ -4,12 +4,12 @@
 --
 module("HeroConfigManager", package.seeall)
 
-local HeroConfigManagerTable = {}
+local HeroConfigManagerTable = require("app.datas.HeroConfig")
 
 
 function getHeroConfigById( id )
 	for k,v in pairs(HeroConfigManagerTable) do
-		if v.m_id == id then
+		if v.id == id then
 			return v
 		end
 	end
@@ -17,11 +17,6 @@ function getHeroConfigById( id )
 	return nil
 end
 
-function addHeroConfigToTable( heroConfig )
-	local num = #HeroConfigManagerTable
-	--print("num = " .. num)
-	HeroConfigManagerTable[num + 1] = heroConfig
-end
 
 
 function getSize(  )

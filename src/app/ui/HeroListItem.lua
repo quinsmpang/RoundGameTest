@@ -37,7 +37,7 @@ function HeroListItem:ctor( hero )
 
 	-- 添加名字
 	cc.ui.UILabel.new({
-		text = hero.m_config.m_name,
+		text = hero.m_config.name,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		size = 20,
 		align = cc.ui.TEXT_ALIGN_CENTER,

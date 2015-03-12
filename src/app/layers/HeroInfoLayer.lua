@@ -42,7 +42,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 		:addTo(self.heroDetailBg)
 
 	-- 头像
-	local icon = display.newSprite(self.hero.m_config.m_icon)
+	local icon = display.newSprite(self.hero.m_config.icon)
 		:pos(130, 330)
 		:scale(2.0)
 		:addTo(self.heroDetailBg)
@@ -67,7 +67,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 		:addTo(self.heroDetailBg)
 
 	cc.ui.UILabel.new({
-		text = self.hero.m_config.m_name,
+		text = self.hero.m_config.name,
 		size = 20,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		align = cc.ui.TEXT_ALIGN_CENTER,
@@ -240,7 +240,7 @@ function HeroInfoLayer:showHeroAttr(  )
 		:addTo(self.leftSprite)
 
 	local descLabel = cc.ui.UILabel.new({
-		text = self.hero.m_config.m_desc,
+		text = self.hero.m_config.desc,
 		--color = cc.c3b(224, 207, 96),
 		size = 15,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
@@ -355,7 +355,7 @@ function HeroInfoLayer:showImage(  )
 	end
 
 	-- 英雄大图
-	self.leftSprite = display.newSprite(self.hero.m_config.m_image)
+	self.leftSprite = display.newSprite(self.hero.m_config.image)
 		:pos(display.cx, display.cy)
 		:scale(0.6)
 		:addTo(self)
