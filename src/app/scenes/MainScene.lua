@@ -26,10 +26,6 @@ end)
 function MainScene:ctor(  )
 
 
-	local sortfunc = function (  )
-		-- body
-	end
-
 	print("----------宋兴第五题--------------")
 
 	-- 创建临时数组保存相同元素个数（有局限性，本数组支持4个）
@@ -102,6 +98,25 @@ function MainScene:ctor(  )
 	-- 初始化HeroData
 
 	local fileUtiles = cc.FileUtils:getInstance()
+
+	-- 初始化EquipData
+	local string1 = fileUtiles:getStringFromFile("json/EquipData.json")
+	local str1 = json.decode(string1)
+	local equipArray = str1.EquipData
+	print("equipData : " .. #equipArray)
+	for k,v in pairs(equipArray) do
+		local temp = EquipData.new()
+		temp.m_index = v.index
+		temp.m_id = v.id
+		temp.m_strongLv = v.strongLv
+
+		temp.m_config = EquipConfigManager.getEquipConfigById(v.id)
+
+		EquipDataManager.addEquipDataToTable(temp)
+	end
+
+	
+
 	local string = fileUtiles:getStringFromFile("json/HeroData.json")
 	local str = json.decode(string)
 	--print(str)
@@ -121,27 +136,16 @@ function MainScene:ctor(  )
 		temp.m_experience = v.experience
 		temp.m_extraPoint = v.extraPoint
 		temp.m_config = HeroConfigManager.getHeroConfigById(v.id)
+		for i=1,5 do
+			temp.m_equips[i] = EquipDataManager.getEquipedDataByIndex(v.equipedIndexs[i])
+		end
 
 		HeroDataManager.addHeroDataToTable(temp)
 	end
 
 
 
-	-- 初始化EquipData
-	local string1 = fileUtiles:getStringFromFile("json/EquipData.json")
-	local str1 = json.decode(string1)
-	local equipArray = str1.EquipData
-	print("equipData : " .. #equipArray)
-	for k,v in pairs(equipArray) do
-		local temp = EquipData.new()
-		temp.m_index = v.index
-		temp.m_id = v.id
-		temp.m_strongLv = v.strongLv
-
-		temp.m_config = EquipConfigManager.getEquipConfigById(v.id)
-
-		EquipDataManager.addEquipDataToTable(temp)
-	end
+	
 
 
 end

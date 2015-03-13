@@ -118,6 +118,7 @@ function PlayScene:ctor(  )
 			self.begin = scheduler.scheduleGlobal(function (  )
 				self:beginAttack()
 			end, 2)
+			startButton:setVisible(false)
 		end
 	end)
 end

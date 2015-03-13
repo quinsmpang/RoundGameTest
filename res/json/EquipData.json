@@ -7,12 +7,12 @@
 	},
 	{
 		"index" : 2,
-		"id" : 2,
+		"id" : 16,
 		"strongLv" : 3
 	},
 	{
 		"index" : 3,
-		"id" : 3,
+		"id" : 18,
 		"strongLv" : 2
 	},
 	{
@@ -22,12 +22,12 @@
 	},
 	{
 		"index" : 5,
-		"id" : 3,
+		"id" : 22,
 		"strongLv" : 2
 	},
 	{
 		"index" : 6,
-		"id" : 2,
+		"id" : 32,
 		"strongLv" : 3
 	},
 	{
@@ -47,17 +47,17 @@
 	},
 	{
 		"index" : 10,
-		"id" : 2,
+		"id" : 47,
 		"strongLv" : 3
 	},
 	{
 		"index" : 11,
-		"id" : 3,
+		"id" : 43,
 		"strongLv" : 2
 	},
 	{
 		"index" : 12,
-		"id" : 4,
+		"id" : 44,
 		"strongLv" : 4
 	},
 	{
@@ -67,7 +67,7 @@
 	},
 	{
 		"index" : 14,
-		"id" : 2,
+		"id" : 11,
 		"strongLv" : 3
 	},
 	{
@@ -77,7 +77,7 @@
 	},
 	{
 		"index" : 16,
-		"id" : 2,
+		"id" : 12,
 		"strongLv" : 4
 	},
 		{

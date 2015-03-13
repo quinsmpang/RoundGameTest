@@ -2,6 +2,8 @@
 -- Author: UHEVER
 -- Date: 2015-03-10 10:39:25
 --
+local EquipItemBtn = require("app.ui.EquipItemBtn")
+
 local HeroInfoLayer = class("HeroInfoLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
 end)
@@ -93,16 +95,54 @@ function HeroInfoLayer:initHeroDetailBg(  )
 		:align(display.CENTER ,70, 160)
 		:addTo(self.heroDetailBg)
 
+	local idx = 0
 	for i=1,3 do
-		local cols = 2
-		-- if i==3 then
-		-- 	cols = 1
-		-- end
-		for j=1,cols do
-			display.newSprite("heros/gocha.pvr.ccz")
+		
+		for j=1,2 do
+			idx = idx + 1
+			-- 创建装备格子背景
+			local itemBg = display.newSprite("heros/gocha.pvr.ccz")
 				:scale(0.8)
-				:pos(270 + 70 * (j - 1), 370 - 70 * (i - 1))
 				:addTo(self.heroDetailBg)
+
+			-- 创建装备格子按钮
+			if self.hero.m_equips[idx] ~= -1 then
+				-- 显示已装备的装备（装备详情）
+				local equipDetailBtn = EquipItemBtn.new(self.hero.m_equips[idx], nil, function (  )
+					print("装备详情")
+				end)
+					:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2 + 1)
+					:addTo(itemBg)
+			else
+				-- 查看是否有可以装备的装备(添加装备)
+			if EquipDataManager.isCanEquip(self.hero, idx) then
+				local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equipadd.pvr.ccz")
+					:onButtonClicked(function ( event )
+						print("添加装备")
+					end)
+					:onButtonPressed(function ( event )
+						event.target:setScale(0.8)
+					end)
+					:onButtonRelease(function ( event )
+						event.target:setScale(1.2)
+					end)
+					:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2)
+					:addTo(itemBg)
+			end
+
+			end
+
+			if i==1 then
+				itemBg:pos(305, 370)
+				break
+			end
+			itemBg:pos(270 + 70 * (j - 1), 370 - 70 * (i - 1))
+
+		
+
+
+
+
 		end
 	end
 
@@ -239,6 +279,8 @@ function HeroInfoLayer:showHeroAttr(  )
 		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 40)
 		:addTo(self.leftSprite)
 
+
+	-- 英雄描述
 	local descLabel = cc.ui.UILabel.new({
 		text = self.hero.m_config.desc,
 		--color = cc.c3b(224, 207, 96),
@@ -267,83 +309,78 @@ function HeroInfoLayer:showHeroAttr(  )
 		:addTo(self.leftSprite)
 
 	-- 具体属性
-	cc.ui.UILabel.new({
-		text = "体质: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 240)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "力量: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 260)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "法力: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 280)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "耐力: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 300)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "气血: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 320)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "伤害: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 340)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "灵力: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 360)
-		:addTo(self.leftSprite)
-
-	cc.ui.UILabel.new({
-		text = "防御: " .. 50,
-		color = cc.c3b(197, 168, 148),
-		size = 15,
-		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		})
-		:align(display.BOTTOM_LEFT, 30, self.leftSprite:getContentSize().height - 380)
+	self:createAttrInfoRow("体质", self.hero.m_physique, 0)
+		:pos(30, self.leftSprite:getContentSize().height - 240)
 		:addTo(self.leftSprite)
 
 
+	self:createAttrInfoRow("力量", self.hero.m_power, 0)
+		:pos(30, self.leftSprite:getContentSize().height - 260)
+		:addTo(self.leftSprite)
 
+	self:createAttrInfoRow("法力", self.hero.m_mana, 0)
+		:pos(30, self.leftSprite:getContentSize().height - 280)
+		:addTo(self.leftSprite)
+
+	self:createAttrInfoRow("耐力", self.hero.m_endurance, 0)
+		:pos(30, self.leftSprite:getContentSize().height - 300)
+		:addTo(self.leftSprite)	
+
+
+	self:createAttrInfoRow("气血", self.hero:getBlood(), self.hero:getEquipBlood())
+		:pos(30, self.leftSprite:getContentSize().height - 320)
+		:addTo(self.leftSprite)	
+
+
+	self:createAttrInfoRow("伤害", self.hero:getEquipDamage(), self.hero:getEquipDamage())
+		:pos(30, self.leftSprite:getContentSize().height - 340)
+		:addTo(self.leftSprite)	
+
+	self:createAttrInfoRow("灵力", self.hero:getEquipAnima(), self.hero:getEquipAnima())
+		:pos(30, self.leftSprite:getContentSize().height - 360)
+		:addTo(self.leftSprite)	
+
+	self:createAttrInfoRow("防御", self.hero:getEquipDefence(), self.hero:getEquipDefence())
+		:pos(30, self.leftSprite:getContentSize().height - 380)
+		:addTo(self.leftSprite)	
 
 	-- runaction
 	self.leftSprite:runAction(cca.moveTo(0.5, display.cx - 150, display.cy))
+end
+
+
+function HeroInfoLayer:createAttrInfoRow( attrName, baseAttr, equipAttr )
+	local row = display.newNode()
+	local name = cc.ui.UILabel.new({
+		text = attrName .. ":",
+		color = cc.c3b(197, 168, 148),
+		size = 15,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.CENTER_LEFT,0, 0)
+		:addTo(row)
+
+	local base = cc.ui.UILabel.new({
+		text = baseAttr,
+		--color = cc.c3b(199, 189, 139),
+		size = 15,
+		--font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.CENTER_LEFT, name:getContentSize().width  + name:getPositionX() + 5, 0)
+		:addTo(row)
+
+	if equipAttr ~= 0 then
+		local equip = cc.ui.UILabel.new({
+		text = "+" .. equipAttr,
+		color = cc.c3b(121, 146, 20),
+		size = 15,
+		--font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:align(display.CENTER_LEFT, base:getContentSize().width  + base:getPositionX() + 5, 0)
+		:addTo(row)
+	end
+	
+	return row
 end
 
 

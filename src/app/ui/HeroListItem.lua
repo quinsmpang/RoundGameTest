@@ -5,6 +5,8 @@
 
 local HeroInfoLayer = require("app.layers.HeroInfoLayer")
 
+local EquipItemBtn = require("app.ui.EquipItemBtn")
+
 local HeroListItem = class("HeroListItem", function (  )
 	return display.newNode()
 end)
@@ -48,10 +50,26 @@ function HeroListItem:ctor( hero )
 
 	-- 添加装备格子
 	for i=1,5 do
-		local equp = display.newSprite("heros/gocha.pvr.ccz")
+		local equipBg = display.newSprite("heros/gocha.pvr.ccz")
 			:scale(0.4)
 			:pos(- 40 + (30 + 3)*i, - 30)
 			:addTo(self)
+		if hero.m_equips[i] ~= -1 then
+			-- 显示已装备的装备
+			EquipItemBtn.new(hero.m_equips[i], nil, nil)
+				:pos(equipBg:getContentSize().width / 2, equipBg:getContentSize().height / 2 + 1)
+				:addTo(equipBg)
+		else
+			-- 查看是否有可以装备的装备
+			--print("hha")
+			if EquipDataManager.isCanEquip(hero, i) then
+				--print("hha")
+				display.newSprite("heros/herodetail-equipadd.pvr.ccz")
+					:pos(equipBg:getContentSize().width / 2, equipBg:getContentSize().height / 2)
+					:scale(1.8)
+					:addTo(equipBg)
+			end
+		end
 	end
 end
 

@@ -26,8 +26,10 @@ function HeroData:ctor(  )
 	self.m_experience = 0
 	-- 额外点数
 	self.m_extraPoint = 0
-
+	-- 图片信息(Table)
 	self.m_config = nil
+	-- 装备信息(Table)
+	self.m_equips = {-1, -1, -1, -1, -1}
 
 
 end
@@ -37,6 +39,54 @@ function HeroData:getBlood(  )
 	local blood = self.m_physique * 10 + self.m_power * 3 + self.m_mana * 1 + self.m_endurance * 2
 	return blood
 end
+
+-- 伤害
+function HeroData:getDamage(  )
+	local damage = self.m_power * 1
+	return damage
+end
+
+-- 灵力
+function HeroData:getAnima(  )
+	local anima = self.m_physique * 0.3 + self.m_power * 0.2 + self.m_mana * 1 + self.m_endurance * 0.1
+	return anima
+end
+
+-- 防御
+function HeroData:getDefence(  )
+	local defence = self.m_endurance * 1
+	return defence
+end
+
+
+----------------------------通过武器获得的属性-----------------------------
+
+-- 气血
+function HeroData:getEquipBlood(  )
+	local blood = self.m_physique * 10 + self.m_power * 3 + self.m_mana * 1 + self.m_endurance * 2
+	return blood
+end
+
+-- 伤害
+function HeroData:getEquipDamage(  )
+	local damage = self.m_power * 1
+	return damage
+end
+
+-- 灵力
+function HeroData:getEquipAnima(  )
+	local anima = self.m_physique * 0.3 + self.m_power * 0.2 + self.m_mana * 1 + self.m_endurance * 0.1
+	return anima
+end
+
+-- 防御
+function HeroData:getEquipDefence(  )
+	local defence = self.m_endurance * 1
+	return defence
+end
+
+----------------------------通过武器获得的属性-----------------------------
+
 
 function HeroData:desc(  )
 	print("----------------------")

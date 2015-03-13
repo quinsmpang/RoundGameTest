@@ -278,6 +278,7 @@ function BagListLayer:initListView( equips )
 end
 
 
+-- 左侧装备详情
 function BagListLayer:createDetailNode( equipData, num )
 	if self.detailNode then
 		self.detailNode:removeFromParent()
@@ -292,7 +293,24 @@ function BagListLayer:createDetailNode( equipData, num )
 		:addTo(self.detailNode)
 
 	-- 装备名称
+	cc.ui.UILabel.new({
+		text = equipData.m_config.name,
+		size = 22,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		color = cc.c3b(210, 91, 0)
+		})
+		:align(display.CENTER_LEFT, 100, 350)
+		:addTo(self.detailNode)
 
+	-- 装备件数
+	cc.ui.UILabel.new({
+		text = "共有 ".. num .. " 件",
+		size = 20,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		color = cc.c3b(147, 44, 0)
+		})
+		:align(display.CENTER_LEFT, 100, 320)
+		:addTo(self.detailNode)
 
 
 

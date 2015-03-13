@@ -45,8 +45,6 @@ function HeroListLayer:ctor(  )
 	self:createTabItems()
 
 
-
-
 	-- 得到所有数据
 	local heros = HeroDataManager.getAllHeros()
 
@@ -200,7 +198,9 @@ function HeroListLayer:initListView( heros )
 		self.lvGrid:removeFromParent()
 		self.lvGrid = nil
 	end
-		-- 初始化裂变
+
+
+	-- 初始化裂变
 	self.lvGrid = cc.ui.UIListView.new({
 	--bgColor = cc.c4b(200, 200, 200, 120),
 	--bg = "heros/dialog_bg.jpg",
@@ -224,7 +224,7 @@ function HeroListLayer:initListView( heros )
 			local idx = (i-1)*2 + count
 			--local hero = HeroDataManager.getHeroDataByTable(idx)
 			local hero = heros[idx]
-			print(hero.m_type)
+			--print(hero.m_type)
 
 			local listItem = HeroListItem.new(hero)
 				:align(display.CENTER, 180 + 340 * (count - 1), 60)
@@ -235,7 +235,7 @@ function HeroListLayer:initListView( heros )
 		item:setItemSize(700, 130)
 		self.lvGrid:addItem(item)
 	end
-	print("-------------------")
+	--print("-------------------")
 	self.lvGrid:reload()
 end
 
