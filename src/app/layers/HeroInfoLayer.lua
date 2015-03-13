@@ -3,6 +3,7 @@
 -- Date: 2015-03-10 10:39:25
 --
 local EquipItemBtn = require("app.ui.EquipItemBtn")
+local HeroEquipAddLayer = require("app.layers.HeroEquipAddLayer")
 
 local HeroInfoLayer = class("HeroInfoLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
@@ -63,7 +64,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 	nameBg:setScaleY(0.28)
 
 	-- 名字边框
-	local name = display.newSprite("heros/herodetail_name_frame_2.pvr.ccz")
+	local name = display.newSprite("heros/herodetail_name_frame_".. math.floor(self.hero.m_lv / 10 + 0.99) ..".pvr.ccz")
 		--:scale(2.0)
 		:pos(150, 220)
 		:addTo(self.heroDetailBg)
@@ -115,20 +116,45 @@ function HeroInfoLayer:initHeroDetailBg(  )
 					:addTo(itemBg)
 			else
 				-- 查看是否有可以装备的装备(添加装备)
-			if EquipDataManager.isCanEquip(self.hero, idx) then
-				local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equipadd.pvr.ccz")
-					:onButtonClicked(function ( event )
-						print("添加装备")
-					end)
-					:onButtonPressed(function ( event )
-						event.target:setScale(0.8)
-					end)
-					:onButtonRelease(function ( event )
-						event.target:setScale(1.2)
-					end)
-					:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2)
-					:addTo(itemBg)
-			end
+
+				-- 绿色加号
+				if EquipDataManager.isCanEquip(self.hero, idx) == 1 then
+					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equipadd.pvr.ccz")
+						:onButtonClicked(function ( event )
+							print("添加装备" .. event.target:getTag())
+							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag())
+								:addTo(self, 30)
+						end)
+						:onButtonPressed(function ( event )
+							event.target:setScale(0.8)
+						end)
+						:onButtonRelease(function ( event )
+							event.target:setScale(1.2)
+						end)
+						:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2)
+						:addTo(itemBg)
+					addEquipBtn:setTag(idx)
+
+				-- 黄色加号
+				elseif EquipDataManager.isCanEquip(self.hero, idx) == 2 then
+					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_icon_plus_yellow.pvr.ccz")
+						:onButtonClicked(function ( event )
+							print("添加装备(不可用)" .. event.target:getTag())
+							-- local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag())
+							-- 	:addTo(self, 30)
+						end)
+						:onButtonPressed(function ( event )
+							event.target:setScale(0.8)
+						end)
+						:onButtonRelease(function ( event )
+							event.target:setScale(1.2)
+						end)
+						:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2)
+						:addTo(itemBg)
+					addEquipBtn:setTag(idx)
+				else
+					print("没有可用装备")
+				end
 
 			end
 
@@ -137,11 +163,6 @@ function HeroInfoLayer:initHeroDetailBg(  )
 				break
 			end
 			itemBg:pos(270 + 70 * (j - 1), 370 - 70 * (i - 1))
-
-		
-
-
-
 
 		end
 	end
@@ -399,9 +420,22 @@ function HeroInfoLayer:showImage(  )
 
 	--self.leftSprite:zorder(20)
 	
+	-- 根据英雄判断边框颜色
+	local boardImgName = nil
+	if self.hero.m_lv >= 120 then
+		boardImgName = "heros/card_bg_orange.pvr.ccz"
+	elseif self.hero.m_lv >= 70 then
+		boardImgName = "heros/card_bg_purple.pvr.ccz"
+	elseif self.hero.m_lv >= 40 then
+		boardImgName = "heros/card_bg_blue.pvr.ccz"
+	elseif self.hero.m_lv >= 20 then
+		boardImgName = "heros/card_bg_green.pvr.ccz"
+	else
+		boardImgName = "heros/card_bg_white.pvr.ccz"
+	end
 
 	-- 边框
-	local board = display.newSprite("heros/card_bg_green.pvr.ccz")
+	local board = display.newSprite(boardImgName)
 		:pos(self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height / 2)
 		:scale(1.75)
 		:addTo(self.leftSprite)

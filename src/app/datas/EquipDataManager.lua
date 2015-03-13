@@ -30,25 +30,56 @@ function getEquipedDataByIndex( idx )
 end
 
 
--- 判断是否有多余的装备，但没装备上的
-function isCanEquip( heroData, equipIdx )
+-- 判断是否有多余的装备，但没装备上的  返回值（1: 有可以装备的, 2: 等级不够, false: 没有装备）
+-- function isCanEquip( heroData, equipKind )
+-- 	for i,v in ipairs(EquipDataManagerTable) do
+-- 		if heroData.m_lv >= v.m_config.lv and v.m_config.kind == equipKind then
+-- 			-- 再判断是否为绑定装备（如金箍棒只能猴子使用）
+-- 			--print("我的天")
+-- 			if v.m_config.equipHero ~= 0 then
+-- 				if v.m_config.equipHero == heroData.m_id then
+-- 					return true
+-- 				end
+-- 			-- 如果不是绑定类型的装备
+-- 			else
+-- 				return true
+-- 			end
+-- 		end
+-- 	end
+
+-- 	return false
+-- end
+-- v.m_config.equipHero ~= 0
+-- v.m_config.equipHero == heroData.m_id
+function isCanEquip( heroData, equipKind )
+	local isYellow = false
 	for i,v in ipairs(EquipDataManagerTable) do
-		if heroData.m_lv >= v.m_config.lv and v.m_config.kind == equipIdx then
+		if v.m_config.kind == equipKind then
 			-- 再判断是否为绑定装备（如金箍棒只能猴子使用）
-			--print("我的天")
 			if v.m_config.equipHero ~= 0 then
 				if v.m_config.equipHero == heroData.m_id then
-					return true
+					if heroData.m_lv >= v.m_config.lv then
+						return 1
+					else
+						isYellow = 2
+					end
 				end
-			-- 如果不是绑定类型的装备
 			else
-				return true
+				if heroData.m_lv >= v.m_config.lv then
+					return 1
+				else
+					isYellow = true
+				end
 			end
 		end
 	end
 
-	return false
+	return isYellow
 end
+
+
+-- 获取可装备的列表
+
 
 -- 获取所有装备
 function getAllEquips(  )

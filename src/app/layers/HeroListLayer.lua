@@ -45,6 +45,17 @@ function HeroListLayer:ctor(  )
 	self:createTabItems()
 
 
+		-- -- 初始化裂变
+	self.lvGrid = cc.ui.UIListView.new({
+	--bgColor = cc.c4b(200, 200, 200, 120),
+	--bg = "heros/dialog_bg.jpg",
+	scrollbarImgV = "heros/scroll_bar.pvr.ccz",
+	viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
+	direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+	})
+	:addTo(self, 20)
+
+
 	-- 得到所有数据
 	local heros = HeroDataManager.getAllHeros()
 
@@ -80,7 +91,8 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
-
+			-- 移除所有Item元素
+			self.lvGrid:removeAllItems()
 			local heros = HeroDataManager.getAllHeros()
 			self:initListView(heros)
 		end)
@@ -115,7 +127,8 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
-
+			-- 移除所有Item元素
+			self.lvGrid:removeAllItems()
 			local heros = HeroDataManager.getAllFrontHeros()
 			self:initListView(heros)
 		end)
@@ -148,7 +161,8 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
-
+			-- 移除所有Item元素
+			self.lvGrid:removeAllItems()
 			local heros = HeroDataManager.getAllMiddleHeros()
 			self:initListView(heros)
 
@@ -182,7 +196,8 @@ function HeroListLayer:createTabItems(  )
 			self.selectedItem:setButtonSelected(false)
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
-
+			-- 移除所有Item元素
+			self.lvGrid:removeAllItems()
 			local heros = HeroDataManager.getAllBehindHeros()
 			self:initListView(heros)
 		end)
@@ -194,21 +209,21 @@ end
 
 function HeroListLayer:initListView( heros )
 
-	if self.lvGrid then
-		self.lvGrid:removeFromParent()
-		self.lvGrid = nil
-	end
+	-- if self.lvGrid then
+	-- 	self.lvGrid:removeFromParent()
+	-- 	self.lvGrid = nil
+	-- end
 
 
-	-- 初始化裂变
-	self.lvGrid = cc.ui.UIListView.new({
-	--bgColor = cc.c4b(200, 200, 200, 120),
-	--bg = "heros/dialog_bg.jpg",
-	scrollbarImgV = "heros/scroll_bar.pvr.ccz",
-	viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
-	direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
-	})
-	:addTo(self, 20)
+	-- -- 初始化裂变
+	-- self.lvGrid = cc.ui.UIListView.new({
+	-- --bgColor = cc.c4b(200, 200, 200, 120),
+	-- --bg = "heros/dialog_bg.jpg",
+	-- scrollbarImgV = "heros/scroll_bar.pvr.ccz",
+	-- viewRect = cc.rect(display.cx - 350 - 30, display.cy - 175 - 65, 700, 430),
+	-- direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+	-- })
+	-- :addTo(self, 20)
 
 
 	print(#heros)

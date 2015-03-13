@@ -32,7 +32,7 @@ function HeroListItem:ctor( hero )
 		:addTo(self)
 
 	-- 头像边框
-	display.newSprite("heros/hero_icon_frame_2.pvr.ccz")
+	display.newSprite("heros/hero_icon_frame_" .. math.floor(hero.m_lv / 10 + 0.99) .. ".pvr.ccz")
 		:pos(icon:getPosition())
 		:scale(1.2)
 		:addTo(self)
@@ -61,10 +61,14 @@ function HeroListItem:ctor( hero )
 				:addTo(equipBg)
 		else
 			-- 查看是否有可以装备的装备
-			--print("hha")
-			if EquipDataManager.isCanEquip(hero, i) then
-				--print("hha")
+			-- 返回值（1: 有可以装备的, 2: 等级不够, false: 没有装备）
+			if EquipDataManager.isCanEquip(hero, i) == 1 then
 				display.newSprite("heros/herodetail-equipadd.pvr.ccz")
+					:pos(equipBg:getContentSize().width / 2, equipBg:getContentSize().height / 2)
+					:scale(1.8)
+					:addTo(equipBg)
+			elseif EquipDataManager.isCanEquip(hero, i) == 2 then
+				display.newSprite("heros/herodetail_icon_plus_yellow.pvr.ccz")
 					:pos(equipBg:getContentSize().width / 2, equipBg:getContentSize().height / 2)
 					:scale(1.8)
 					:addTo(equipBg)

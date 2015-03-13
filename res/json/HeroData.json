@@ -3,7 +3,7 @@
 	{
 		"index" : 10012,
 		"id" : 5,
-		"lv" : 1,
+		"lv" : 80,
 		"type" : 1,
 		"physique" : 10,
 		"power" : 10,
@@ -19,7 +19,7 @@
 	{
 		"index" : 20258,
 		"id" : 4,
-		"lv" : 2,
+		"lv" : 70,
 		"type" : 2,
 		"physique" : 11,
 		"power" : 11,
@@ -34,7 +34,7 @@
 	{
 		"index" : 3,
 		"id" : 3,
-		"lv" : 3,
+		"lv" : 30,
 		"type" : 3,
 		"physique" : 12,
 		"power" : 12,
@@ -49,7 +49,7 @@
 	{
 		"index" : 1,
 		"id" : 1,
-		"lv" : 1,
+		"lv" : 10,
 		"type" : 2,
 		"physique" : 10,
 		"power" : 10,
@@ -65,7 +65,7 @@
 	{
 		"index" : 2,
 		"id" : 2,
-		"lv" : 2,
+		"lv" : 20,
 		"type" : 2,
 		"physique" : 11,
 		"power" : 11,
@@ -80,7 +80,7 @@
 	{
 		"index" : 3,
 		"id" : 3,
-		"lv" : 3,
+		"lv" : 30,
 		"type" : 1,
 		"physique" : 12,
 		"power" : 12,
@@ -95,7 +95,7 @@
 	{
 		"index" : 1,
 		"id" : 1,
-		"lv" : 1,
+		"lv" : 10,
 		"type" : 1,
 		"physique" : 10,
 		"power" : 10,
@@ -111,7 +111,7 @@
 	{
 		"index" : 2,
 		"id" : 2,
-		"lv" : 2,
+		"lv" : 20,
 		"type" : 3,
 		"physique" : 11,
 		"power" : 11,
@@ -141,7 +141,7 @@
 	{
 		"index" : 1,
 		"id" : 1,
-		"lv" : 1,
+		"lv" : 60,
 		"type" : 1,
 		"physique" : 10,
 		"power" : 10,
@@ -157,7 +157,7 @@
 	{
 		"index" : 2,
 		"id" : 2,
-		"lv" : 2,
+		"lv" : 30,
 		"type" : 3,
 		"physique" : 11,
 		"power" : 11,
@@ -187,7 +187,7 @@
 	{
 		"index" : 3,
 		"id" : 3,
-		"lv" : 3,
+		"lv" : 40,
 		"type" : 2,
 		"physique" : 12,
 		"power" : 12,
