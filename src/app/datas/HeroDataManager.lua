@@ -79,3 +79,31 @@ function getAllBehindHeros(  )
 	end
 	return behind
 end
+
+
+-- 装备武器(英雄, 装备)
+function heroEquipWithEquipment( heroData, equipData )
+	-- 信息交换
+	local heroIndex = heroData.m_index
+	local equipIndex = equipData.m_index
+	local kind = equipData.m_config.kind
+	
+	-- for i,v in ipairs(HeroDataManagerTable) do
+	-- 	print(i,v)
+	-- end
+	local currentEquip = heroData.m_equips[kind]
+	heroData.m_equips[kind] = equipData
+	for i,v in ipairs(HeroDataManagerTable) do
+		if v.m_index == heroIndex then
+			HeroDataManagerTable[i] = heroData
+			-- 删除EquipDataManager里的对应装备
+			EquipDataManager.removeEquipDataByEquip(equipData)
+
+			-- 如果是卸下装备，讲卸下的装备放入manager中
+			if currentEquip ~= -1 then
+				EquipDataManager.addEquipDataToTable(equipData) 
+			end
+			break
+		end
+	end
+end

@@ -11,14 +11,16 @@ local HeroListItem = class("HeroListItem", function (  )
 	return display.newNode()
 end)
 
-function HeroListItem:ctor( hero )
+function HeroListItem:ctor( hero, superLayer )
+
+	self.superLayer = superLayer
 
 	local button = cc.ui.UIPushButton.new("heros/package_hero_bg.pvr.ccz", {scale9 = true})
 		:setButtonSize(244, 96)
 		:onButtonClicked(function (  )
 			--print("clickedButton : " .. idx)
-			local layer = HeroInfoLayer.new(hero)
-				:addTo(display.getRunningScene())
+			local layer = HeroInfoLayer.new(hero, self.superLayer)
+				:addTo(self.superLayer, 50)
 		end)
 		:scale(1.25)
 		:addTo(self)

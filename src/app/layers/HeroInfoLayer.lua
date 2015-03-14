@@ -17,10 +17,15 @@ HeroInfoLayer.CHECKBOX_BUTTON_IMAGES = {
     on = "heros/stageselect_difficulty_button_selected.pvr.ccz",
 }
 
-function HeroInfoLayer:ctor( hero )
+function HeroInfoLayer:ctor( hero, superLayer )
 	--print(idx)
 	self.hero = hero
+	self.superLayer = superLayer
+	--print("heroinfolayer.superlayer : " .. self.superLayer)
+	-- 存武器格子的数组
+	self.equipList = {}
 	-- 英雄detail
+
 	
 	self:initHeroDetailBg()
 
@@ -40,6 +45,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 	local closeBtn = cc.ui.UIPushButton.new("heros/herodetail-detail-close.pvr.ccz")
 		:pos(self.heroDetailBg:getContentSize().width - 10, self.heroDetailBg:getContentSize().height - 10)
 		:onButtonClicked(function (  )
+			self.superLayer:reloadList()
 			self:removeFromParent()
 		end)
 		:addTo(self.heroDetailBg)
@@ -102,9 +108,10 @@ function HeroInfoLayer:initHeroDetailBg(  )
 		for j=1,2 do
 			idx = idx + 1
 			-- 创建装备格子背景
-			local itemBg = display.newSprite("heros/gocha.pvr.ccz")
+			self.equipList[idx] = display.newSprite("heros/gocha.pvr.ccz")
 				:scale(0.8)
 				:addTo(self.heroDetailBg)
+			self.equipList[idx]:setTag(idx)
 
 			-- 创建装备格子按钮
 			if self.hero.m_equips[idx] ~= -1 then
@@ -112,8 +119,8 @@ function HeroInfoLayer:initHeroDetailBg(  )
 				local equipDetailBtn = EquipItemBtn.new(self.hero.m_equips[idx], nil, function (  )
 					print("装备详情")
 				end)
-					:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2 + 1)
-					:addTo(itemBg)
+					:pos(self.equipList[idx]:getContentSize().width / 2, self.equipList[idx]:getContentSize().height / 2 + 1)
+					:addTo(self.equipList[idx])
 			else
 				-- 查看是否有可以装备的装备(添加装备)
 
@@ -122,7 +129,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equipadd.pvr.ccz")
 						:onButtonClicked(function ( event )
 							print("添加装备" .. event.target:getTag())
-							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag())
+							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag(), self)
 								:addTo(self, 30)
 						end)
 						:onButtonPressed(function ( event )
@@ -131,8 +138,8 @@ function HeroInfoLayer:initHeroDetailBg(  )
 						:onButtonRelease(function ( event )
 							event.target:setScale(1.2)
 						end)
-						:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2)
-						:addTo(itemBg)
+						:pos(self.equipList[idx]:getContentSize().width / 2, self.equipList[idx]:getContentSize().height / 2)
+						:addTo(self.equipList[idx])
 					addEquipBtn:setTag(idx)
 
 				-- 黄色加号
@@ -140,8 +147,8 @@ function HeroInfoLayer:initHeroDetailBg(  )
 					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_icon_plus_yellow.pvr.ccz")
 						:onButtonClicked(function ( event )
 							print("添加装备(不可用)" .. event.target:getTag())
-							-- local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag())
-							-- 	:addTo(self, 30)
+							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag(), self)
+								:addTo(self, 30)
 						end)
 						:onButtonPressed(function ( event )
 							event.target:setScale(0.8)
@@ -149,8 +156,8 @@ function HeroInfoLayer:initHeroDetailBg(  )
 						:onButtonRelease(function ( event )
 							event.target:setScale(1.2)
 						end)
-						:pos(itemBg:getContentSize().width / 2, itemBg:getContentSize().height / 2)
-						:addTo(itemBg)
+						:pos(self.equipList[idx]:getContentSize().width / 2, self.equipList[idx]:getContentSize().height / 2)
+						:addTo(self.equipList[idx])
 					addEquipBtn:setTag(idx)
 				else
 					print("没有可用装备")
@@ -159,10 +166,10 @@ function HeroInfoLayer:initHeroDetailBg(  )
 			end
 
 			if i==1 then
-				itemBg:pos(305, 370)
+				self.equipList[idx]:pos(305, 370)
 				break
 			end
-			itemBg:pos(270 + 70 * (j - 1), 370 - 70 * (i - 1))
+			self.equipList[idx]:pos(270 + 70 * (j - 1), 370 - 70 * (i - 1))
 
 		end
 	end
@@ -587,8 +594,24 @@ function HeroInfoLayer:showSkillUpdate(  )
 	end
 
 	self.leftSprite:runAction(cca.moveTo(0.5, display.cx - 150, display.cy))
+end
 
-	
+
+function HeroInfoLayer:replaceEquipByEquip( equipData )
+	local kind = equipData.m_config.kind
+	print("kind = " .. kind)
+	local x, y = self.equipList[kind]:getPosition()
+	print(x .. "  " .. y)
+	self.equipList[kind]:removeFromParent()
+	self.equipList[kind] = display.newSprite("heros/gocha.pvr.ccz")
+				:scale(0.8)
+				:pos(x, y)
+				:addTo(self.heroDetailBg)
+	local equipDetailBtn = EquipItemBtn.new(equipData, nil, function (  )
+					print("装备详情")
+				end)
+				:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2 + 1)
+				:addTo(self.equipList[kind])
 end
 
 

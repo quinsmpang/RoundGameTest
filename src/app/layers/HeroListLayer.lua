@@ -99,6 +99,7 @@ function HeroListLayer:createTabItems(  )
 		:setButtonLabelAlignment(display.CENTER)
 		:pos(display.cx + 380, 480)
 		:addTo(self, 15)
+	allItem:setTag(1)
 
 	self.selectedItem = allItem
 
@@ -136,6 +137,8 @@ function HeroListLayer:createTabItems(  )
 		:pos(display.cx + 380, 420)
 		:addTo(self)
 
+	frontItem:setTag(2)
+
 	-- 中排
 	local middleItem = cc.ui.UICheckBoxButton.new(HeroListLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
 		:setButtonLabel("off", cc.ui.UILabel.new({
@@ -171,6 +174,8 @@ function HeroListLayer:createTabItems(  )
 		:pos(display.cx + 380, 360)
 		:addTo(self)
 
+	middleItem:setTag(3)
+
 	-- 后排
 	local behindItem = cc.ui.UICheckBoxButton.new(HeroListLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
 		:setButtonLabel("off", cc.ui.UILabel.new({
@@ -204,6 +209,8 @@ function HeroListLayer:createTabItems(  )
 		:setButtonLabelAlignment(display.CENTER)
 		:pos(display.cx + 380, 300)
 		:addTo(self)
+
+	behindItem:setTag(4)
 
 end
 
@@ -241,7 +248,7 @@ function HeroListLayer:initListView( heros )
 			local hero = heros[idx]
 			--print(hero.m_type)
 
-			local listItem = HeroListItem.new(hero)
+			local listItem = HeroListItem.new(hero, self)
 				:align(display.CENTER, 180 + 340 * (count - 1), 60)
 				:addTo(content)
 		end
@@ -252,6 +259,23 @@ function HeroListLayer:initListView( heros )
 	end
 	--print("-------------------")
 	self.lvGrid:reload()
+end
+
+
+function HeroListLayer:reloadList(  )
+	self.lvGrid:removeAllItems()
+	print("我很想reload : " .. self.selectedItem:getTag())
+	local heros
+	if self.selectedItem:getTag() == 1 then
+		heros = HeroDataManager.getAllHeros()	
+	elseif self.selectedItem:getTag() == 2 then
+		heros = HeroDataManager.getAllFrontHeros()
+	elseif self.selectedItem:getTag() == 3 then
+		heros = HeroDataManager.getAllMiddleHeros()
+	elseif self.selectedItem:getTag() == 4 then
+		heros = HeroDataManager.getAllBehindHeros()
+	end
+	self:initListView(heros)
 end
 
 
