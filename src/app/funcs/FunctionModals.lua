@@ -31,9 +31,7 @@ end
 
 -- 提示消息
 function alert( message )
-	local alert = display.newScale9Sprite("Login/mini_safty_code_dialog_bg.9.png", display.cx, display.bottom + 100, cc.size(300, 50))
-		:opacity(20)
-		:addTo(display.getRunningScene())
+
 	local msg = cc.ui.UILabel.new({
 		text = message,
 		size = 20,
@@ -42,12 +40,16 @@ function alert( message )
 		align = cc.ui.TEXT_ALIGN_CENTER,
 		})
 		:opacity(160)
-		:align(display.CENTER, alert:getContentSize().width / 2, alert:getContentSize().height / 2)
-		:addTo(alert, nil, 1)
+
+	local alert = cc.ui.UIPushButton.new("heros/main_vit_tips.pvr.ccz", {scale9 = true})
+		:setButtonSize(300, 50)
+		:pos(display.cx, display.bottom + 100)
+		:setButtonLabel(msg)
+		:opacity(20)
+		:addTo(display.getRunningScene())
 	local spawn1 = cca.spawn({cca.moveBy(0.4, 0, 60), cca.fadeIn(0.3)})
-	local spawn2 = cca.spawn({cca.moveBy(0.4, 0, -60), cca.fadeOut(0.3)})
+	local spawn2 = cca.spawn({cca.moveBy(0.4, 0, -60), cca.fadeOut(0.5)})
 	local func = cca.callFunc(function ( node )
-		msg = node:getChildByTag(1):setVisible(false)
 		node:removeFromParent()
 	end)
 	local seq = cca.seq({spawn1, cca.delay(1), spawn2, func})

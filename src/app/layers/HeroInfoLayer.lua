@@ -4,6 +4,7 @@
 --
 local EquipItemBtn = require("app.ui.EquipItemBtn")
 local HeroEquipAddLayer = require("app.layers.HeroEquipAddLayer")
+local HeroEquipDetailLayer = require("app.layers.HeroEquipDetailLayer")
 
 local HeroInfoLayer = class("HeroInfoLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
@@ -116,11 +117,21 @@ function HeroInfoLayer:initHeroDetailBg(  )
 			-- 创建装备格子按钮
 			if self.hero.m_equips[idx] ~= -1 then
 				-- 显示已装备的装备（装备详情）
-				local equipDetailBtn = EquipItemBtn.new(self.hero.m_equips[idx], nil, function (  )
+				local equipDetailBtn = EquipItemBtn.new(self.hero.m_equips[idx], nil, function ( event )
 					print("装备详情")
+					print(event)
+					local layer = HeroEquipDetailLayer.new(self.hero, event.target:getTag(), self)
+						:addTo(self, 30)
+					print(event.target:getTag())
 				end)
+					-- :onButtonClicked(function (  )
+					-- 	local layer = HeroEquipDetailLayer.new()
+					-- 		--:addTo(self, 30)
+					-- 	print(event.target:getTag())
+					-- end)
 					:pos(self.equipList[idx]:getContentSize().width / 2, self.equipList[idx]:getContentSize().height / 2 + 1)
 					:addTo(self.equipList[idx])
+				equipDetailBtn:setTag(idx)
 			else
 				-- 查看是否有可以装备的装备(添加装备)
 
@@ -143,8 +154,9 @@ function HeroInfoLayer:initHeroDetailBg(  )
 					addEquipBtn:setTag(idx)
 
 				-- 黄色加号
-				elseif EquipDataManager.isCanEquip(self.hero, idx) == 2 then
+				elseif EquipDataManager.isCanEquip(self.hero, idx) == 2 then 
 					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_icon_plus_yellow.pvr.ccz")
+					--local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_cannot_equip.pvr.ccz")
 						:onButtonClicked(function ( event )
 							print("添加装备(不可用)" .. event.target:getTag())
 							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag(), self)
@@ -160,7 +172,23 @@ function HeroInfoLayer:initHeroDetailBg(  )
 						:addTo(self.equipList[idx])
 					addEquipBtn:setTag(idx)
 				else
-					print("没有可用装备")
+					print("没有装备")
+					local noEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equip-nowned.pvr.ccz")
+					--local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_cannot_equip.pvr.ccz")
+						-- :onButtonClicked(function ( event )
+						-- 	print("添加装备(不可用)" .. event.target:getTag())
+						-- 	local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag(), self)
+						-- 		:addTo(self, 30)
+						-- end)
+						-- :onButtonPressed(function ( event )
+						-- 	event.target:setScale(0.8)
+						-- end)
+						-- :onButtonRelease(function ( event )
+						-- 	event.target:setScale(1.2)
+						-- end)
+						:pos(self.equipList[idx]:getContentSize().width / 2, self.equipList[idx]:getContentSize().height / 2)
+						:addTo(self.equipList[idx])
+					noEquipBtn:setTag(idx)
 				end
 
 			end
