@@ -19,6 +19,7 @@ function addEquipDataToTable( equipData )
 	EquipDataManagerTable[num + 1] = equipData
 end
 
+
 -- 获取已经装备到身上的装备
 function getEquipedDataByIndex( idx )
 	if idx == -1 then

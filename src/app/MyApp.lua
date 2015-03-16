@@ -3,6 +3,7 @@ require("config")
 require("cocos.init")
 require("framework.init")
 require("app.funcs.FunctionModals")
+require("app.funcs.NetWorkModals")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
