@@ -73,3 +73,88 @@ function newMaskedSprite(__mask, __pic)
 	shipBody:setGLProgramState(glprogramstate)
 	return shipBody
 end
+
+
+
+
+
+
+-- 解析csv
+function split(str, reps)  
+    local resultStrsList = {};  
+    string.gsub(str, '[^' .. reps ..']+', function(w) table.insert(resultStrsList, w) end );  
+    return resultStrsList;  
+end  
+
+
+function loadCsvFile(filePath)   
+	print(filepath)
+    -- 读取文件  
+    local data = cc.FileUtils:getInstance():getStringFromFile(filePath);  
+  	print(data)
+    -- 按行划分  
+    local lineStr = split(data, '\n\r');  
+  
+    --[[  
+                从第3行开始保存（第一行是标题，第二行是注释，后面的行才是内容）   
+              
+                用二维数组保存：arr[ID][属性标题字符串]  
+    ]]  
+    local titles = split(lineStr[1], ",");  
+    local ID = 1;  
+    local arrs = {};  
+    for i = 3, #lineStr, 1 do  
+        -- 一行中，每一列的内容  
+        local content = split(lineStr[i], ",");  
+  
+        -- 以标题作为索引，保存每一列的内容，取值的时候这样取：arrs[1].Title  
+        arrs[ID] = {};  
+        for j = 1, #titles, 1 do  
+            arrs[ID][titles[j]] = content[j];  
+        end  
+  
+        ID = ID + 1;  
+    end  
+  
+    return arrs;  
+end  
+
+
+function SaveTableContent(file, obj)
+      local szType = type(obj);
+      print(szType);
+      if szType == "number" then
+            file:write(obj);
+      elseif szType == "string" then
+            file:write(string.format("%q", obj));
+      elseif szType == "table" then
+            --把table的内容格式化写入文件
+            file:write("{\n");
+            for i, v in pairs(obj) do
+                  file:write("[");
+                  SaveTableContent(file, i);
+                  file:write("]=\n");
+                  SaveTableContent(file, v);
+                  file:write(", \n");
+             end
+            file:write("}\n");
+      else
+      error("can't serialize a "..szType);
+      end
+end
+
+
+function main()  
+    local csvConfig = loadCsvFile("/Users/UHEVER/code/quick/RoundGameTest/src/app/funcs/test.csv");  
+
+    local file = io.open("/Users/UHEVER/code/quick/RoundGameTest/src/app/funcs/222.lua", "w");
+      assert(file);
+      ---file:write("cha = {}\n");
+      --file:write("cha[1] = \n");
+      SaveTableContent(file, csvConfig);
+      --file:write("}\n");
+      file:close();
+      
+    --print(csvConfig[1].name .. ":" .. csvConfig[1].pass);  
+    --print(csvConfig[2].name .. ":" .. csvConfig[2].pass);  
+end  

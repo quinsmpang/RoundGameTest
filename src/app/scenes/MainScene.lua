@@ -25,6 +25,9 @@ end)
 
 function MainScene:ctor(  )
 
+	Funcs.main()
+
+
 	print("----------宋兴第五题--------------")
 
 	-- 创建临时数组保存相同元素个数（有局限性，本数组支持4个）

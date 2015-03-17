@@ -182,7 +182,7 @@ function HeroEquipDetailLayer:equipDetail( equip, istemp )
 	if self.hero.m_lv >= equip.m_config.lv then
 		if istemp then
 			cc.ui.UILabel.new({
-			text = "当前不可装备(装备栏已存在其他物品,您可以在背包中用其强化其他装备,解除物品栏)",
+			text = "(装备栏已存在其他物品,您可以在背包中用其强化其他装备,解除物品栏)",
 			size = 18,
 			font = "LoginPanel/DFYuanW7-GB2312.ttf",
 			color = display.COLOR_RED,
