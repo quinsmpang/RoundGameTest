@@ -318,6 +318,7 @@ function HeroInfoLayer:showHeroAttr(  )
 	self.leftSprite = display.newSprite("heros/herodetail-detail-popup.pvr.ccz")
 		:pos(display.cx, display.cy)
 		:addTo(self)
+	self.leftSprite:setTag(1)
 
 	-- 小东西
 	local titleBg = display.newSprite("heros/equip_detail_title_bg.pvr.ccz")
@@ -364,39 +365,47 @@ function HeroInfoLayer:showHeroAttr(  )
 		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 200)
 		:addTo(self.leftSprite)
 
+
+	-- 返回装备增加的气血, 伤害， 灵力， 防御
+	local attr = self.hero:getEquipBaseAttr()
+	--local attrInfo = self.hero:get
+	
+
 	-- 具体属性
-	self:createAttrInfoRow("体质", self.hero.m_physique, 0)
+	self:createAttrInfoRow("体质", self.hero.m_physique, attr.physique)
 		:pos(30, self.leftSprite:getContentSize().height - 240)
 		:addTo(self.leftSprite)
 
 
-	self:createAttrInfoRow("力量", self.hero.m_power, 0)
+	self:createAttrInfoRow("力量", self.hero.m_power, attr.power)
 		:pos(30, self.leftSprite:getContentSize().height - 260)
 		:addTo(self.leftSprite)
 
-	self:createAttrInfoRow("法力", self.hero.m_mana, 0)
+	self:createAttrInfoRow("法力", self.hero.m_mana, attr.mana)
 		:pos(30, self.leftSprite:getContentSize().height - 280)
 		:addTo(self.leftSprite)
 
-	self:createAttrInfoRow("耐力", self.hero.m_endurance, 0)
+	self:createAttrInfoRow("耐力", self.hero.m_endurance, attr.endurance)
 		:pos(30, self.leftSprite:getContentSize().height - 300)
 		:addTo(self.leftSprite)	
 
+	
 
-	self:createAttrInfoRow("气血", self.hero:getBlood(), self.hero:getEquipBlood())
+
+	self:createAttrInfoRow("气血", self.hero:getBlood(), attr.blood)
 		:pos(30, self.leftSprite:getContentSize().height - 320)
 		:addTo(self.leftSprite)	
 
 
-	self:createAttrInfoRow("伤害", self.hero:getEquipDamage(), self.hero:getEquipDamage())
+	self:createAttrInfoRow("伤害", self.hero:getDamage(), attr.damage + attr.base_damage)
 		:pos(30, self.leftSprite:getContentSize().height - 340)
 		:addTo(self.leftSprite)	
 
-	self:createAttrInfoRow("灵力", self.hero:getEquipAnima(), self.hero:getEquipAnima())
+	self:createAttrInfoRow("灵力", self.hero:getAnima(), attr.anima + attr.base_anima)
 		:pos(30, self.leftSprite:getContentSize().height - 360)
 		:addTo(self.leftSprite)	
 
-	self:createAttrInfoRow("防御", self.hero:getEquipDefence(), self.hero:getEquipDefence())
+	self:createAttrInfoRow("防御", self.hero:getDefence(), attr.defence + attr.base_defence)
 		:pos(30, self.leftSprite:getContentSize().height - 380)
 		:addTo(self.leftSprite)	
 
@@ -626,6 +635,11 @@ end
 
 
 function HeroInfoLayer:replaceEquipByEquip( equipData )
+	if self.leftSprite:getTag() == 1 then
+		--self.leftSprite:removeFromParent()
+		self:showHeroAttr()
+	end
+
 	local kind = equipData.m_config.kind
 	print("kind = " .. kind)
 	local x, y = self.equipList[kind]:getPosition()
@@ -635,11 +649,19 @@ function HeroInfoLayer:replaceEquipByEquip( equipData )
 				:scale(0.8)
 				:pos(x, y)
 				:addTo(self.heroDetailBg)
-	local equipDetailBtn = EquipItemBtn.new(equipData, nil, function (  )
+
+	local equipDetailBtn = EquipItemBtn.new(equipData, nil, function ( event )
 					print("装备详情")
+					print(event)
+					local layer = HeroEquipDetailLayer.new(self.hero, event.target:getTag(), self)
+						:addTo(self, 30)
+					print(event.target:getTag())
 				end)
-				:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2 + 1)
-				:addTo(self.equipList[kind])
+					:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2 + 1)
+					:addTo(self.equipList[kind])
+				equipDetailBtn:setTag(kind)
+
+
 end
 
 

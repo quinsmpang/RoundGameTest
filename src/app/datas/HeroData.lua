@@ -61,29 +61,88 @@ end
 
 ----------------------------通过武器获得的属性-----------------------------
 
--- 气血
-function HeroData:getEquipBlood(  )
-	local blood = self.m_physique * 10 + self.m_power * 3 + self.m_mana * 1 + self.m_endurance * 2
-	return blood
+-- 通过四维计算的所带的气血, 伤害， 灵力， 防御
+function HeroData:getEquipBaseAttr(  )
+	local attr = {}
+	-- 四维
+	attr.physique = 0
+	attr.power = 0
+	attr.mana = 0
+	attr.endurance = 0
+	-- 通过四维计算的属性
+	attr.blood = 0
+	attr.damage = 0
+	attr.anima = 0
+	attr.defence = 0
+
+	-- 本身带有的属性
+	attr.base_damage = 0
+	attr.base_anima = 0
+	attr.base_defence = 0
+
+	for i,v in ipairs(self.m_equips) do
+		if v ~= -1 then
+			if v.m_config.addphysique then
+				attr.physique = v.m_config.addphysique
+				attr.blood = attr.blood + v.m_config.addphysique * 10
+				attr.anima = attr.anima + v.m_config.addphysique * 0.3
+			end
+			if v.m_config.addpower then
+				attr.power = v.m_config.addpower
+				attr.blood = attr.blood + v.m_config.addpower * 3
+				attr.damage = attr.damage + v.m_config.addpower * 1
+				attr.anima = attr.anima + v.m_config.addpower * 0.2
+			end
+			if v.m_config.addmana then
+				attr.mana = v.m_config.addmana
+				attr.blood = attr.blood + v.m_config.addmana * 1
+				attr.anima = attr.anima + v.m_config.addmana * 1
+			end
+			if v.m_config.addendurance then
+				attr.endurance = v.m_config.addendurance
+				attr.blood = attr.blood + v.m_config.addendurance * 2
+				attr.anima = attr.anima + v.m_config.addendurance * 0.1
+				attr.defence = attr.defence + v.m_config.addendurance * 0.1
+			end
+
+			-- 本身带有的属性
+			if v.m_config.adddamage then
+				attr.base_damage = attr.base_damage + v.m_config.adddamage
+			end
+			if v.m_config.addanima then
+				attr.base_anima = attr.base_anima + v.m_config.addanima
+			end
+			if v.m_config.adddefence then
+				attr.base_defence = attr.base_defence + v.m_config.adddefence
+			end
+
+		end
+	end
+	return attr
 end
 
--- 伤害
-function HeroData:getEquipDamage(  )
-	local damage = self.m_power * 1
-	return damage
-end
+-- -- 本身带有的 伤害， 灵力， 防御
+-- function HeroData:getEquipAddInfo(  )
+-- 	local attr = {}
+-- 	attr.damage = 0
+-- 	attr.anima = 0
+-- 	attr.defence = 0
+-- 	for i,v in ipairs(self.m_equips) do
+-- 		if v ~= -1 then
+-- 			if v.m_config.adddamage then
+-- 				attr.damage = attr.damage + v.m_config.adddamage
+-- 			end
+-- 			if v.m_config.addanima then
+-- 				attr.anima = attr.anima + v.m_config.addanima
+-- 			end
+-- 			if v.m_config.adddefence then
+-- 				attr.defence = attr.defence + v.m_config.adddefence
+-- 			end
+-- 		end
+-- 	end
+-- 	return attr
+-- end
 
--- 灵力
-function HeroData:getEquipAnima(  )
-	local anima = self.m_physique * 0.3 + self.m_power * 0.2 + self.m_mana * 1 + self.m_endurance * 0.1
-	return anima
-end
-
--- 防御
-function HeroData:getEquipDefence(  )
-	local defence = self.m_endurance * 1
-	return defence
-end
 
 ----------------------------通过武器获得的属性-----------------------------
 

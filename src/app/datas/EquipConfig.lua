@@ -352,7 +352,7 @@ local EquipConfigTable = {
 		icon = "xx.jpg",
 		kind = 2,
 		addphysique = 5,
-		adddef = 10,
+		adddefence = 10,
 	},
 	{
 		id = 31,
@@ -363,7 +363,7 @@ local EquipConfigTable = {
 		kind = 2,
 		addphysique = 10,
 		addendurance = 10,
-		adddef = 20,
+		adddefence = 20,
 	},
 	{
 		id = 32,
@@ -373,7 +373,7 @@ local EquipConfigTable = {
 		icon = "xx.jpg",
 		kind = 2,
 		addendurance = 30,
-		adddef = 40,
+		adddefence = 40,
 	},
 	{
 		id = 33,
@@ -384,7 +384,7 @@ local EquipConfigTable = {
 		kind = 2,
 		addendurance = 40,
 		addphysique = 40,
-		adddef = 60,
+		adddefence = 60,
 	},
 	{
 		id = 33,
@@ -396,7 +396,7 @@ local EquipConfigTable = {
 		addendurance = 70,
 		addphysique = 45,
 		addpower = 30,
-		adddef = 80,
+		adddefence = 80,
 	},
 	{
 		id = 34,
@@ -409,7 +409,7 @@ local EquipConfigTable = {
 		addphysique = 70,
 		addpower = 70,
 		addmana = 70,
-		adddef = 100,
+		adddefence = 100,
 	},
 	{
 		id = 35,
@@ -419,7 +419,7 @@ local EquipConfigTable = {
 		icon = "xx.jpg",
 		kind = 3,
 		addphysique = 5,
-		adddef = 8,
+		adddefence = 8,
 	},
 	{
 		id = 36,
@@ -430,7 +430,7 @@ local EquipConfigTable = {
 		kind = 3,
 		addphysique = 10,
 		addendurance = 10,
-		adddef = 16,
+		adddefence = 16,
 	},
 	{
 		id = 37,
@@ -440,7 +440,7 @@ local EquipConfigTable = {
 		icon = "xx.jpg",
 		kind = 3,
 		addendurance = 30,
-		adddef = 32,
+		adddefence = 32,
 	},
 	{
 		id = 38,
@@ -451,7 +451,7 @@ local EquipConfigTable = {
 		kind = 3,
 		addendurance = 40,
 		addphysique = 40,
-		adddef = 48,
+		adddefence = 48,
 	},
 	{
 		id = 39,
@@ -463,7 +463,7 @@ local EquipConfigTable = {
 		addendurance = 70,
 		addphysique = 45,
 		addpower = 30,
-		adddef = 64,
+		adddefence = 64,
 	},
 	{
 		id = 40,
@@ -476,7 +476,7 @@ local EquipConfigTable = {
 		addphysique = 70,
 		addpower = 70,
 		addmana = 70,
-		adddef = 80,
+		adddefence = 80,
 	},
 	{
 		id = 41,
@@ -486,7 +486,7 @@ local EquipConfigTable = {
 		icon = "xx.jpg",
 		kind = 4,
 		addphysique = 5,
-		adddef = 5,
+		adddefence = 5,
 	},
 	{
 		id = 42,
@@ -497,7 +497,7 @@ local EquipConfigTable = {
 		kind = 4,
 		addphysique = 10,
 		addendurance = 10,
-		adddef = 16,
+		adddefence = 16,
 	},
 	{
 		id = 43,
@@ -507,7 +507,7 @@ local EquipConfigTable = {
 		icon = "xx.jpg",
 		kind = 4,
 		addendurance = 30,
-		adddef = 20,
+		adddefence = 20,
 	},
 	{
 		id = 44,
@@ -518,7 +518,7 @@ local EquipConfigTable = {
 		kind = 4,
 		addendurance = 40,
 		addphysique = 40,
-		adddef = 35,
+		adddefence = 35,
 	},
 	{
 		id = 45,
@@ -530,7 +530,7 @@ local EquipConfigTable = {
 		addendurance = 70,
 		addphysique = 45,
 		addpower = 30,
-		adddef = 50,
+		adddefence = 50,
 	},
 	{
 		id = 46,
@@ -543,7 +543,7 @@ local EquipConfigTable = {
 		addphysique = 70,
 		addpower = 70,
 		addmana = 70,
-		adddef = 65,
+		adddefence = 65,
 	},
 	{
 		id = 47,

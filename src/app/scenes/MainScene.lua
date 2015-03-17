@@ -143,10 +143,6 @@ function MainScene:ctor(  )
 	end
 
 
-
-	
-
-
 end
 
 

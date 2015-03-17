@@ -4,17 +4,24 @@
 --
 local EquipItemBtn = {}
 
-function EquipItemBtn.new( equipData, num, listener )
+function EquipItemBtn.new( equipData, num, listener, pressListener, releaseListener )
 	-- 装备图片
 	local button = cc.ui.UIPushButton.new(equipData.m_config.icon)
-	button:onButtonPressed(function (  )
+	button:onButtonPressed(function ( event )
 		button:setScale(0.9)
+		if pressListener then
+			pressListener(event)
+		end
+		
 	end)
 	button:onButtonClicked(function ( event )
 		listener( event )
 	end)
-	button:onButtonRelease(function (  )
+	button:onButtonRelease(function ( event )
 		button:setScale(1.0)
+		if releaseListener then
+			releaseListener(event)
+		end
 	end)
 	button:setTouchSwallowEnabled(false)
 

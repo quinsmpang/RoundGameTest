@@ -79,7 +79,8 @@ function QuickLoginPanel:initLoginButton(  )
 			local data = {}
 			data["user_name"] = self.usernameBox:getString()
 			data["user_password"] = self.passwordBox:getString()
-			self:postLogin("http://42.96.151.161:83/service/userlogin", data)
+			print(Net.address.post_login)
+			self:postLogin(Net.address.post_login, data)
 
 			--  模态视图层
 			self.loadLayer = display.newColorLayer(cc.c4b(10, 10, 10, 100))
