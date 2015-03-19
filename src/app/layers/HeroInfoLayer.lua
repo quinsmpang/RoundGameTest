@@ -5,6 +5,7 @@
 local EquipItemBtn = require("app.ui.EquipItemBtn")
 local HeroEquipAddLayer = require("app.layers.HeroEquipAddLayer")
 local HeroEquipDetailLayer = require("app.layers.HeroEquipDetailLayer")
+local SkillItemBtn = require("app.ui.SkillItemBtn")
 
 local HeroInfoLayer = class("HeroInfoLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
@@ -33,8 +34,6 @@ function HeroInfoLayer:ctor( hero, superLayer )
 	self:showImage()
 	
 
-	
-
 end
 
 function HeroInfoLayer:initHeroDetailBg(  )
@@ -51,14 +50,21 @@ function HeroInfoLayer:initHeroDetailBg(  )
 		end)
 		:addTo(self.heroDetailBg)
 
+
 	-- 头像
 	local icon = display.newSprite(self.hero.m_config.icon)
-		:pos(130, 330)
-		:scale(2.0)
+		:pos(120, 340)
+		:scale(1)
+		:addTo(self.heroDetailBg)
+
+	-- 头像边框
+	display.newSprite("heros/hero_icon_frame_" .. math.floor(self.hero.m_lv / 10 + 0.99) .. ".pvr.ccz")
+		:pos(icon:getPosition())
+		:scale(1.7)
 		:addTo(self.heroDetailBg)
 
 	-- 英雄类型
-	display.newSprite("heros/card_att_int_big.pvr.ccz")
+	display.newSprite("heros/card_att_".. self.hero.m_config.type ..".pvr.ccz")
 		:pos(40, 220)
 		:scale(0.8)
 		:addTo(self.heroDetailBg)
@@ -392,7 +398,7 @@ function HeroInfoLayer:showHeroAttr(  )
 	
 
 
-	self:createAttrInfoRow("气血", self.hero:getBlood(), attr.blood)
+	self:createAttrInfoRow("气血", self.hero:getBlood(), attr.blood + attr.base_blood)
 		:pos(30, self.leftSprite:getContentSize().height - 320)
 		:addTo(self.leftSprite)	
 
@@ -459,7 +465,7 @@ function HeroInfoLayer:showImage(  )
 	-- 英雄大图
 	self.leftSprite = display.newSprite(self.hero.m_config.image)
 		:pos(display.cx, display.cy)
-		:scale(0.6)
+		:scale(0.8)
 		:addTo(self)
 
 	--self.leftSprite:zorder(20)
@@ -481,7 +487,7 @@ function HeroInfoLayer:showImage(  )
 	-- 边框
 	local board = display.newSprite(boardImgName)
 		:pos(self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height / 2)
-		:scale(1.75)
+		:scale(1.35)
 		:addTo(self.leftSprite)
 
 	-- 点击放大缩小
@@ -493,7 +499,7 @@ function HeroInfoLayer:showImage(  )
 		if isScale then
 			isScale = false
 			
-			local spawn = cca.spawn({cca.rotateBy(0.5, 90), cca.scaleTo(0.5, 0.6), cca.moveTo(0.5, display.cx - 150, display.cy)})
+			local spawn = cca.spawn({cca.rotateBy(0.5, 90), cca.scaleTo(0.5, 0.8), cca.moveTo(0.5, display.cx - 150, display.cy)})
 			self.leftSprite:runAction(cca.seq({spawn, cca.callFunc(function ( node )
 				self.leftSprite:zorder(0)
 				node:setTouchEnabled(true)
@@ -502,8 +508,8 @@ function HeroInfoLayer:showImage(  )
 		end
 		self.leftSprite:zorder(20)
 		isScale = true
-		local scaleX = display.height / self.leftSprite:getContentSize().width
-		local scaleY = display.width / self.leftSprite:getContentSize().height
+		local scaleX = display.height / (self.leftSprite:getContentSize().width + 20)
+		local scaleY = display.width / (self.leftSprite:getContentSize().height + 20)
 		local spawn = cca.spawn({cca.rotateBy(0.5, -90), cca.scaleTo(0.5, scaleX, scaleY), cca.moveTo(0.5, display.cx, display.cy)})
 		self.leftSprite:runAction(cca.seq({spawn, cca.callFunc(function ( node )
 			--self.leftSprite:zorder(0)
@@ -516,28 +522,32 @@ function HeroInfoLayer:showImage(  )
 	for i=1,4 do
 		-- 技能边框
 
-		display.newSprite("heros/skill" .. i .. ".jpg")
-			:addTo(self.leftSprite)
+		-- display.newSprite("heros/skill" .. i .. ".jpg")
+		-- 	:addTo(self.leftSprite)
+		-- 	:scale(0.6)
+		-- 	:pos(150 + (i - 1) * 45, 30)
+		-- display.newSprite("heros/equip_frame_white.pvr.ccz")
+		-- :addTo(self.leftSprite)
+		-- :pos(150 + (i - 1) * 45, 30)
+		-- :scale(0.6)
+		SkillItemBtn.new(self.hero, i)
 			:scale(0.6)
-			:pos(220 + (i - 1) * 45, 30)
-		display.newSprite("heros/equip_frame_white.pvr.ccz")
-		:addTo(self.leftSprite)
-		:pos(220 + (i - 1) * 45, 30)
-		:scale(0.6)
+			:pos(150 + (i - 1) * 45, 30)
+			:addTo(self.leftSprite)
 	end
 
 	-- 类型
-	display.newSprite("heros/card_att_int_big.pvr.ccz")
-		:pos(30, 80)
-		:scale(0.8)
-		:addTo(self.leftSprite)
-
-
-	-- 英雄星级
-	display.newSprite("heros/card_star_big.pvr.ccz")
+	display.newSprite("heros/card_att_".. self.hero.m_config.type ..".pvr.ccz")
 		:pos(30, 30)
-		:addTo(self.leftSprite)
 		:scale(0.8)
+		:addTo(self.leftSprite)
+
+
+	-- -- 英雄星级
+	-- display.newSprite("heros/card_star_big.pvr.ccz")
+	-- 	:pos(30, 30)
+	-- 	:addTo(self.leftSprite)
+	-- 	:scale(0.8)
 
 	-- RunAction
 	self.leftSprite:runAction(cca.moveTo(0.5, display.cx - 150, display.cy))
@@ -559,11 +569,22 @@ function HeroInfoLayer:showSkillUpdate(  )
 	-- 剩余技能点
 	self.skillPointLabel = cc.ui.UILabel.new({
 		size = 20,
-		text = "剩余技能点数: " .. self.hero.m_extraPoint,
+		text = "剩余属性点数: " .. self.hero.m_extraPoint,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		color = cc.c3b(197, 168, 148),
 		})
 		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 40)
+		:addTo(self.leftSprite)
+
+	-- 说明
+	cc.ui.UILabel.new({
+		size = 14,
+		text = "(英雄每增加一级，将获得一个额外的属性点数，您可以升级您的属性点来定位英雄不同的成长方向)",
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		color = cc.c3b(80, 144, 190),
+		dimensions = cc.size(260, 120)
+		})
+		:align(display.CENTER, self.leftSprite:getContentSize().width / 2, self.leftSprite:getContentSize().height - 115)
 		:addTo(self.leftSprite)
 
 	-- visible
@@ -575,9 +596,10 @@ function HeroInfoLayer:showSkillUpdate(  )
 	-- 存加技能的数组
 	local skillTb = {}
 	for i=1,4 do
-		local item = display.newSprite("heros/recharge_list_bg.jpg")
+		local item = Funcs.newMaskedSprite("heros/recharge_list_bg_alpha_mask", "heros/recharge_list_bg.jpg")
+		--local item = display.newSprite("heros/recharge_list_bg.jpg")
 			:scale(0.8)
-			:pos(145, 330 - (i - 1) * 80)
+			:pos(145, 300 - (i - 1) * 80)
 			:addTo(self.leftSprite)
 
 		-- 技能图片
@@ -591,23 +613,40 @@ function HeroInfoLayer:showSkillUpdate(  )
 			:addTo(skillPic)
 
 		-- 技能名称
+		local skillName
+		-- 属性等级
+		local skillLevelNum
+		if i==1 then
+			skillName = "体质"
+			skillLevelNum = self.hero.m_physique
+		elseif i==2 then
+			skillName = "力量"
+			skillLevelNum = self.hero.m_power
+		elseif i==3 then
+			skillName = "法力"
+			skillLevelNum = self.hero.m_mana
+		else
+			skillName = "耐力"
+			skillLevelNum = self.hero.m_endurance
+		end
+		
 		cc.ui.UILabel.new({
-			text = "技能名称！",
-			size = 18,
+			text = skillName,
+			size = 20,
 			})
 			:align(display.BOTTOM_LEFT, 100, 60)
 			:addTo(item)
 
 		-- 技能等级
 		cc.ui.UILabel.new({
-			text = "技能等级: ",
+			text = "属性等级: ",
 			size = 18,
 			})
 			:align(display.BOTTOM_LEFT, 100, 20)
 			:addTo(item)
 
 		local skillLevel = cc.ui.UILabel.new({
-			text = 0,
+			text = skillLevelNum,
 			size = 20,
 			})
 			:align(display.BOTTOM_LEFT, 190, 18)
@@ -615,7 +654,7 @@ function HeroInfoLayer:showSkillUpdate(  )
 		local addItem = cc.ui.UIPushButton.new({normal = "heros/herodetail_skill_upgrade_button_1.pvr.ccz", pressed = "heros/herodetail_skill_upgrade_button_2.pvr.ccz"}, {scale9 = true})
 			:pos(280, 45)
 			:onButtonClicked(function (  )
-				local temp = tostring(skillLevel:getString()) + 1
+				local temp = tonumber(skillLevel:getString()) + 1
 				self.hero.m_extraPoint = self.hero.m_extraPoint - 1
 				self.skillPointLabel:setString("剩余技能点: " .. self.hero.m_extraPoint)
 				skillLevel:setString(temp)
@@ -634,13 +673,13 @@ function HeroInfoLayer:showSkillUpdate(  )
 end
 
 
-function HeroInfoLayer:replaceEquipByEquip( equipData )
+function HeroInfoLayer:replaceEquipByEquip( equipData , isUnload)
 	if self.leftSprite:getTag() == 1 then
 		--self.leftSprite:removeFromParent()
 		self:showHeroAttr()
 	end
 
-	local kind = equipData.m_config.kind
+	local kind = tonumber(equipData.m_config.kind)
 	print("kind = " .. kind)
 	local x, y = self.equipList[kind]:getPosition()
 	print(x .. "  " .. y)
@@ -650,19 +689,70 @@ function HeroInfoLayer:replaceEquipByEquip( equipData )
 				:pos(x, y)
 				:addTo(self.heroDetailBg)
 
-	local equipDetailBtn = EquipItemBtn.new(equipData, nil, function ( event )
-					print("装备详情")
-					print(event)
-					local layer = HeroEquipDetailLayer.new(self.hero, event.target:getTag(), self)
-						:addTo(self, 30)
-					print(event.target:getTag())
-				end)
-					:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2 + 1)
-					:addTo(self.equipList[kind])
-				equipDetailBtn:setTag(kind)
+	if not isUnload then
+		local equipDetailBtn = EquipItemBtn.new(equipData, nil, function ( event )
+				print("装备详情")
+				print(event)
+				local layer = HeroEquipDetailLayer.new(self.hero, event.target:getTag(), self)
+					:addTo(self, 30)
+				print(event.target:getTag())
+			end)
+				:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2 + 1)
+				:addTo(self.equipList[kind])
+			equipDetailBtn:setTag(kind)
+	else
+		-- 绿色加号
+				if EquipDataManager.isCanEquip(self.hero, kind) == 1 then
+					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equipadd.pvr.ccz")
+						:onButtonClicked(function ( event )
+							print("添加装备" .. event.target:getTag())
+							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag(), self)
+								:addTo(self, 30)
+						end)
+						:onButtonPressed(function ( event )
+							event.target:setScale(0.8)
+						end)
+						:onButtonRelease(function ( event )
+							event.target:setScale(1.2)
+						end)
+						:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2)
+						:addTo(self.equipList[kind])
+					addEquipBtn:setTag(kind)
 
+				-- 黄色加号
+				elseif EquipDataManager.isCanEquip(self.hero, kind) == 2 then 
+					local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_icon_plus_yellow.pvr.ccz")
+					--local addEquipBtn = cc.ui.UIPushButton.new("heros/herodetail_cannot_equip.pvr.ccz")
+						:onButtonClicked(function ( event )
+							print("添加装备(不可用)" .. event.target:getTag())
+							local layer = HeroEquipAddLayer.new(self.hero, event.target:getTag(), self)
+								:addTo(self, 30)
+						end)
+						:onButtonPressed(function ( event )
+							event.target:setScale(0.8)
+						end)
+						:onButtonRelease(function ( event )
+							event.target:setScale(1.2)
+						end)
+						:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2)
+						:addTo(self.equipList[kind])
+					addEquipBtn:setTag(kind)
+				else
+					print("没有装备")
+					local noEquipBtn = cc.ui.UIPushButton.new("heros/herodetail-equip-nowned.pvr.ccz")
+						:pos(self.equipList[kind]:getContentSize().width / 2, self.equipList[kind]:getContentSize().height / 2)
+						:addTo(self.equipList[kind])
+					noEquipBtn:setTag(kind)
+				end
+	end
+
+	
 
 end
+
+-- function HeroInfoLayer:unLoadEquipByEquip( equipData )
+	
+-- end
 
 
 

@@ -34,13 +34,13 @@ function EquipItemBtn.new( equipData, num, listener, pressListener, releaseListe
 	-- 装备边框
 	local borderName = nil
 
-	if equipData.m_config.lv >= 50 then
+	if tonumber(equipData.m_config.lv) >= 50 then
 		borderName = "heros/equip_frame_orange.pvr.ccz"
-	elseif equipData.m_config.lv >= 40 then
+	elseif tonumber(equipData.m_config.lv) >= 40 then
 		borderName = "heros/equip_frame_purple.pvr.ccz"
-	elseif equipData.m_config.lv >= 30 then
+	elseif tonumber(equipData.m_config.lv) >= 30 then
 		borderName = "heros/equip_frame_blue.pvr.ccz"
-	elseif equipData.m_config.lv >= 10 then
+	elseif tonumber(equipData.m_config.lv) >= 10 then
 		borderName = "heros/equip_frame_green.pvr.ccz"
 	else
 		borderName = "heros/equip_frame_white.pvr.ccz"

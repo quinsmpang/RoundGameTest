@@ -12,6 +12,7 @@ function HeroEquipAddLayer:ctor( heroData, equipKind, superLayer )
 	-- 初始化成员变量
 	self.hero = heroData
 	self.superLayer = superLayer
+	self.equipKind = equipKind
 
 	print("HeroEquipAddLayer kind : " .. equipKind)
 	
@@ -163,8 +164,23 @@ function HeroEquipAddLayer:equipDetail( equip )
 	local alphaBg = display.newScale9Sprite("heros/herodetail_name_bg.pvr.ccz", 145, self.detailBg:getContentSize().height - 180, cc.size(self.detailBg:getContentSize().width - 40, 150))
 		:addTo(self.detailNode)
 
+	-- 详细属性
+	local details = self:createTextDetail(equip)
+		:pos(30, 280)
+		:addTo(self.detailNode)
+
+	-- 装备介绍
+	cc.ui.UILabel.new({
+		text = equip.m_config.desc,
+		size = 17,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		color = EquipDataManager.getTextColorByEquip(equip)
+		})
+		:align(display.CENTER_LEFT, 25, self.detailBg:getContentSize().height - 270)
+		:addTo(self.detailNode)
+
 	-- 判断是否可装备
-	if self.hero.m_lv >= equip.m_config.lv then
+	if self.hero.m_lv >= tonumber(equip.m_config.lv) then
 		-- 装备按钮
 		cc.ui.UIPushButton.new({normal = "heros/package_handbook_button_1.pvr.ccz", pressed = "heros/package_handbook_button_2.pvr.ccz"}, {scale9 = true})
 			:setButtonSize(120, 50)
@@ -176,8 +192,8 @@ function HeroEquipAddLayer:equipDetail( equip )
 				}))
 			:onButtonClicked(function ( event )
 				print("装备按钮")
-				HeroDataManager.heroEquipWithEquipment(self.hero, equip)
-				local useableEquipTb, unusealbeEquipTb = EquipDataManager.getCanEquipTableByKind(self.hero, 1)
+				HeroDataManager.loadEquipWithEquipment(self.hero, equip)
+				local useableEquipTb, unusealbeEquipTb = EquipDataManager.getCanEquipTableByKind(self.hero, self.equipKind)
 				print("use : " .. #useableEquipTb)
 				print("unuse : " .. #unusealbeEquipTb)
 
@@ -191,7 +207,7 @@ function HeroEquipAddLayer:equipDetail( equip )
 			:pos(self.detailBg:getContentSize().width / 2, 40)
 	else
 		cc.ui.UILabel.new({
-		text = "等级到达" .. equip.m_config.lv .. "级时可装备",
+		text = "等级到达" .. tonumber(equip.m_config.lv) .. "级时可装备",
 		size = 18,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		color = display.COLOR_RED
@@ -200,6 +216,51 @@ function HeroEquipAddLayer:equipDetail( equip )
 		:addTo(self.detailNode)
 	end
 	
+end
+
+function HeroEquipAddLayer:createTextDetail( equip )
+	local node = display.newNode()
+	local tempLabel = node
+	local color = EquipDataManager.getTextColorByEquip(equip)
+	local createWithText = function ( text )
+		local label = cc.ui.UILabel.new({
+			text = text,
+			size = 15,
+			font = "LoginPanel/DFYuanW7-GB2312.ttf",
+			color = color,
+			})
+			:align(display.CENTER_LEFT, tempLabel:getPositionX(), tempLabel:getPositionY() - 16)
+			:addTo(node)
+		tempLabel = label
+	end
+
+	
+	if tonumber(equip.m_config.addphysique) > 0 then
+		createWithText("体质 +" .. equip.m_config.addphysique)
+	end
+	if tonumber(equip.m_config.addpower) > 0 then
+		createWithText("力量 +" .. equip.m_config.addpower)
+	end
+	if tonumber(equip.m_config.addmana) > 0 then
+		createWithText("法力 +" .. equip.m_config.addmana)
+	end
+	if tonumber(equip.m_config.addendurance) > 0 then
+		createWithText("法力 +" .. equip.m_config.addendurance)
+	end
+	if tonumber(equip.m_config.addblood) > 0 then
+		createWithText("气血 +" .. equip.m_config.addblood)
+	end
+	if tonumber(equip.m_config.adddamage) > 0 then
+		createWithText("伤害 +" .. equip.m_config.adddamage)
+	end
+	if tonumber(equip.m_config.addanima) > 0 then
+		createWithText("灵力 +" .. equip.m_config.addanima)
+	end
+	if tonumber(equip.m_config.adddefence) > 0 then
+		createWithText("防御 +" .. equip.m_config.adddefence)
+	end
+
+	return node
 end
 
 return HeroEquipAddLayer

@@ -7,133 +7,13 @@
 	},
 	{
 		"index" : 2,
-		"id" : 16,
+		"id" : 2,
 		"strongLv" : 3
 	},
 	{
 		"index" : 3,
-		"id" : 18,
-		"strongLv" : 2
-	},
-	{
-		"index" : 4,
-		"id" : 4,
-		"strongLv" : 4
-	},
-	{
-		"index" : 5,
-		"id" : 22,
-		"strongLv" : 2
-	},
-	{
-		"index" : 6,
-		"id" : 32,
-		"strongLv" : 3
-	},
-	{
-		"index" : 7,
-		"id" : 3,
-		"strongLv" : 2
-	},
-	{
-		"index" : 8,
-		"id" : 2,
-		"strongLv" : 4
-	},
-	{
-		"index" : 9,
-		"id" : 1,
-		"strongLv" : 2
-	},
-	{
-		"index" : 10,
-		"id" : 47,
-		"strongLv" : 3
-	},
-	{
-		"index" : 11,
-		"id" : 43,
-		"strongLv" : 2
-	},
-	{
-		"index" : 12,
-		"id" : 44,
-		"strongLv" : 4
-	},
-	{
-		"index" : 13,
-		"id" : 3,
-		"strongLv" : 2
-	},
-	{
-		"index" : 14,
-		"id" : 11,
-		"strongLv" : 3
-	},
-	{
-		"index" : 15,
-		"id" : 3,
-		"strongLv" : 2
-	},
-	{
-		"index" : 16,
-		"id" : 12,
-		"strongLv" : 4
-	},
-		{
-		"index" : 17,
-		"id" : 3,
-		"strongLv" : 2
-	},
-	{
-		"index" : 18,
-		"id" : 2,
-		"strongLv" : 4
-	},
-	{
-		"index" : 19,
-		"id" : 1,
-		"strongLv" : 2
-	},
-	{
-		"index" : 20,
 		"id" : 2,
 		"strongLv" : 3
-	},
-	{
-		"index" : 21,
-		"id" : 3,
-		"strongLv" : 2
-	},
-	{
-		"index" : 22,
-		"id" : 4,
-		"strongLv" : 4
-	},
-	{
-		"index" : 23,
-		"id" : 3,
-		"strongLv" : 2
-	},
-	{
-		"index" : 24,
-		"id" : 2,
-		"strongLv" : 3
-	},
-	{
-		"index" : 25,
-		"id" : 41,
-		"strongLv" : 2
-	},
-	{
-		"index" : 26,
-		"id" : 41,
-		"strongLv" : 4
-	},
-		{
-		"index" : 27,
-		"id" : 41,
-		"strongLv" : 2
 	}
 
 	]

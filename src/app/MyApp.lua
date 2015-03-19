@@ -13,7 +13,7 @@ end
 
 function MyApp:run()
     cc.FileUtils:getInstance():addSearchPath("res/")
-    self:enterScene("LoginScene")
+    self:enterScene("MainScene")
 end
 
 return MyApp

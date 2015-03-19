@@ -28,15 +28,20 @@ function HeroListItem:ctor( hero, superLayer )
 	
 
 	-- 添加头像
-	local icon = display.newSprite("heros/hero" .. hero:getId() .. ".jpg")
+	local icon = display.newSprite(hero.m_config.icon)
 		:pos(-93, 03)
-		:scale(1.1)
+		:scale(0.8)
 		:addTo(self)
 
 	-- 头像边框
 	display.newSprite("heros/hero_icon_frame_" .. math.floor(hero.m_lv / 10 + 0.99) .. ".pvr.ccz")
 		:pos(icon:getPosition())
 		:scale(1.2)
+		:addTo(self)
+
+	-- 英雄类型
+	display.newSprite("heros/card_att_".. hero.m_config.type ..".pvr.ccz", -10, 30)
+		:scale(0.8)
 		:addTo(self)
 
 	-- 添加名字

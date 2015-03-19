@@ -4,16 +4,15 @@
 --
 module("HeroConfigManager", package.seeall)
 
-local HeroConfigManagerTable = require("app.datas.HeroConfig")
+HeroConfigManagerTable = require("app.datas.HeroConfig")
 
 
 function getHeroConfigById( id )
 	for k,v in pairs(HeroConfigManagerTable) do
-		if v.id == id then
+		if tonumber(v.id) == id then
 			return v
 		end
 	end
-
 	return nil
 end
 

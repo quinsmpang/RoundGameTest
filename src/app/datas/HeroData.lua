@@ -76,44 +76,48 @@ function HeroData:getEquipBaseAttr(  )
 	attr.defence = 0
 
 	-- 本身带有的属性
+	attr.base_blood = 0
 	attr.base_damage = 0
 	attr.base_anima = 0
 	attr.base_defence = 0
 
 	for i,v in ipairs(self.m_equips) do
 		if v ~= -1 then
-			if v.m_config.addphysique then
-				attr.physique = v.m_config.addphysique
-				attr.blood = attr.blood + v.m_config.addphysique * 10
-				attr.anima = attr.anima + v.m_config.addphysique * 0.3
+			if tonumber(v.m_config.addphysique) then
+				attr.physique = tonumber(v.m_config.addphysique)
+				attr.blood = attr.blood + tonumber(v.m_config.addphysique) * 10
+				attr.anima = attr.anima + tonumber(v.m_config.addphysique) * 0.3
 			end
-			if v.m_config.addpower then
-				attr.power = v.m_config.addpower
-				attr.blood = attr.blood + v.m_config.addpower * 3
-				attr.damage = attr.damage + v.m_config.addpower * 1
-				attr.anima = attr.anima + v.m_config.addpower * 0.2
+			if tonumber(v.m_config.addpower) then
+				attr.power = tonumber(v.m_config.addpower)
+				attr.blood = attr.blood + tonumber(v.m_config.addpower) * 3
+				attr.damage = attr.damage + tonumber(v.m_config.addpower) * 1
+				attr.anima = attr.anima + tonumber(v.m_config.addpower) * 0.2
 			end
-			if v.m_config.addmana then
-				attr.mana = v.m_config.addmana
-				attr.blood = attr.blood + v.m_config.addmana * 1
-				attr.anima = attr.anima + v.m_config.addmana * 1
+			if tonumber(v.m_config.addmana) then
+				attr.mana = tonumber(v.m_config.addmana)
+				attr.blood = attr.blood + tonumber(v.m_config.addmana) * 1
+				attr.anima = attr.anima + tonumber(v.m_config.addmana) * 1
 			end
-			if v.m_config.addendurance then
-				attr.endurance = v.m_config.addendurance
-				attr.blood = attr.blood + v.m_config.addendurance * 2
-				attr.anima = attr.anima + v.m_config.addendurance * 0.1
-				attr.defence = attr.defence + v.m_config.addendurance * 0.1
+			if tonumber(v.m_config.addendurance) then
+				attr.endurance = tonumber(v.m_config.addendurance)
+				attr.blood = attr.blood + tonumber(v.m_config.addendurance) * 2
+				attr.anima = attr.anima + tonumber(v.m_config.addendurance) * 0.1
+				attr.defence = attr.defence + tonumber(v.m_config.addendurance) * 0.1
 			end
 
 			-- 本身带有的属性
-			if v.m_config.adddamage then
-				attr.base_damage = attr.base_damage + v.m_config.adddamage
+			if tonumber(v.m_config.addblood) then
+				attr.base_blood = attr.base_blood + tonumber(v.m_config.addblood)
 			end
-			if v.m_config.addanima then
-				attr.base_anima = attr.base_anima + v.m_config.addanima
+			if tonumber(v.m_config.adddamage) then
+				attr.base_damage = attr.base_damage + tonumber(v.m_config.adddamage)
 			end
-			if v.m_config.adddefence then
-				attr.base_defence = attr.base_defence + v.m_config.adddefence
+			if tonumber(v.m_config.addanima) then
+				attr.base_anima = attr.base_anima + tonumber(v.m_config.addanima)
+			end
+			if tonumber(v.m_config.adddefence) then
+				attr.base_defence = attr.base_defence + tonumber(v.m_config.adddefence)
 			end
 
 		end
@@ -129,14 +133,14 @@ end
 -- 	attr.defence = 0
 -- 	for i,v in ipairs(self.m_equips) do
 -- 		if v ~= -1 then
--- 			if v.m_config.adddamage then
--- 				attr.damage = attr.damage + v.m_config.adddamage
+-- 			if tonumber(v.m_config.adddamage) then
+-- 				attr.damage = attr.damage + tonumber(v.m_config.adddamage)
 -- 			end
--- 			if v.m_config.addanima then
--- 				attr.anima = attr.anima + v.m_config.addanima
+-- 			if tonumber(v.m_config.addanima) then
+-- 				attr.anima = attr.anima + tonumber(v.m_config.addanima)
 -- 			end
--- 			if v.m_config.adddefence then
--- 				attr.defence = attr.defence + v.m_config.adddefence
+-- 			if tonumber(v.m_config.adddefence) then
+-- 				attr.defence = attr.defence + tonumber(v.m_config.adddefence)
 -- 			end
 -- 		end
 -- 	end

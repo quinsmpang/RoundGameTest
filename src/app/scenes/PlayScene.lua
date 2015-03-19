@@ -3,6 +3,50 @@
 -- Date: 2015-03-03 19:49:09
 --
 
+
+print("----------宋兴第五题--------------")
+
+	-- 创建临时数组保存相同元素个数（有局限性，本数组支持4个）
+	local t1 = {{}, {}, {}, {}}
+
+	local a = {8,9,9,1,0,1,2,3,2,5,1,4,4,1,2,3}
+	-- 将出现不同次数的数字放到临时数组里
+	for i=1,#a do
+		-- times用来表示出现相同的次数
+		local times = 1
+		for j=i + 1,#a do
+			if a[i] == a[j] then
+				-- 删除相同数字
+					table.remove(a,j)
+					times = times + 1
+				end
+		end
+		-- 插入相同出现的数字到临时表
+		table.insert(t1[times], a[i])
+	end
+
+	-- 第一个for循环依次从大到小取出临时二级数组
+	for u=#t1,1,-1 do
+		-- 这两个for循环是冒泡排序
+		for i=1,#t1[u] do
+			for j=1,#t1[u]-i do
+				if t1[u][j+1] < t1[u][j] then
+					local temp = t1[u][j+1]
+					t1[u][j+1] = t1[u][j]
+					t1[u][j] = temp
+				end
+			end
+		end
+
+		-- 冒泡排序完直接输出
+		print("--------出现" .. u .. "次----------")
+		for k=1,#t1[u] do
+			print(t1[u][k])
+		end
+	end
+
+	print("-----------宋兴第五题-------------")
+
  local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
 
 local rootNode = nil

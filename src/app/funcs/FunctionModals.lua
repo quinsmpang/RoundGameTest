@@ -133,9 +133,10 @@ function SaveTableContent(file, obj)
             for i, v in pairs(obj) do
                   file:write("[");
                   SaveTableContent(file, i);
-                  file:write("]=\n");
+                  --file:write("]=\n");
+                  file:write("]=");
                   SaveTableContent(file, v);
-                  file:write(", \n");
+                  file:write(",\n");
              end
             file:write("}\n");
       else
@@ -145,15 +146,14 @@ end
 
 
 function main()  
-    local csvConfig = loadCsvFile("/Users/UHEVER/code/quick/RoundGameTest/src/app/funcs/test.csv");  
+    local csvConfig = loadCsvFile("/Users/neworigin/code/quick/RoundGameTest/src/app/funcs/equipsutf8.csv");  
+    print(csvConfig)
 
-    local file = io.open("/Users/UHEVER/code/quick/RoundGameTest/src/app/funcs/222.lua", "w");
+    local file = io.open("/Users/neworigin/code/quick/RoundGameTest/src/app/funcs/222.lua", "w");
       assert(file);
-      ---file:write("cha = {}\n");
-      --file:write("cha[1] = \n");
       SaveTableContent(file, csvConfig);
-      --file:write("}\n");
       file:close();
+   
       
     --print(csvConfig[1].name .. ":" .. csvConfig[1].pass);  
     --print(csvConfig[2].name .. ":" .. csvConfig[2].pass);  

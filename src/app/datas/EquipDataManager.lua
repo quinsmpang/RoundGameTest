@@ -5,7 +5,7 @@
 
 module("EquipDataManager", package.seeall)
 
-local EquipDataManagerTable = {}
+EquipDataManagerTable = {}
 
 local equipColor = {}
 equipColor.white = cc.c3b(220, 220, 220)
@@ -42,18 +42,18 @@ end
 function isCanEquip( heroData, equipKind )
 	local isYellow = false
 	for i,v in ipairs(EquipDataManagerTable) do
-		if v.m_config.kind == equipKind then
+		if tonumber(v.m_config.kind) == equipKind then
 			-- 再判断是否为绑定装备（如金箍棒只能猴子使用）
-			if v.m_config.equipHero ~= 0 then
-				if v.m_config.equipHero == heroData.m_id then
-					if heroData.m_lv >= v.m_config.lv then
+			if tonumber(v.m_config.equipHero) ~= 0 then
+				if tonumber(v.m_config.equipHero) == tonumber(heroData.m_id) then
+					if heroData.m_lv >= tonumber(v.m_config.lv) then
 						return 1
 					else
 						isYellow = 2
 					end
 				end
 			else
-				if heroData.m_lv >= v.m_config.lv then
+				if tonumber(heroData.m_lv) >= tonumber(v.m_config.lv) then
 					return 1
 				else
 					isYellow = 2
@@ -72,18 +72,18 @@ function getCanEquipTableByKind( heroData, equipKind )
 	local tb2 = {}
 
 	for i,v in ipairs(EquipDataManagerTable) do
-		if v.m_config.kind == equipKind then
+		if tonumber(v.m_config.kind) == equipKind then
 			-- 再判断是否为绑定装备（如金箍棒只能猴子使用）
-			if v.m_config.equipHero ~= 0 then
-				if v.m_config.equipHero == heroData.m_id then
-					if heroData.m_lv >= v.m_config.lv then
+			if tonumber(v.m_config.equipHero) ~= 0 then
+				if tonumber(v.m_config.equipHero) == heroData.m_id then
+					if heroData.m_lv >= tonumber(v.m_config.lv) then
 						table.insert(tb1, v)
 					else
 						table.insert(tb2, v)
 					end
 				end
 			else
-				if heroData.m_lv >= v.m_config.lv then
+				if tonumber(heroData.m_lv) >= tonumber(v.m_config.lv) then
 					table.insert(tb1, v)
 				else
 					table.insert(tb2, v)
@@ -98,30 +98,30 @@ end
 
 -- 获取装备文字颜色
 function getTextColorByEquip( equipData )
-	if equipData.m_config.lv >= 50 then
+	if tonumber(equipData.m_config.lv) >= 50 then
 		return equipColor.orange
-	elseif equipData.m_config.lv >= 40 then
+	elseif tonumber(equipData.m_config.lv) >= 40 then
 		return equipColor.purple
-	elseif equipData.m_config.lv >= 30 then
+	elseif tonumber(equipData.m_config.lv) >= 30 then
 		return equipColor.blue
-	elseif equipData.m_config.lv >= 10 then
+	elseif tonumber(equipData.m_config.lv) >= 10 then
 		return equipColor.green
-	elseif equipData.m_config.lv >= 0 then
+	elseif tonumber(equipData.m_config.lv) >= 0 then
 		return equipColor.white
 	end
 end
 
 -- 获取装备强化等级颜色
 function getStrongLvTextColorByEquip( equipData )
-	if equipData.m_strongLv >= 5 then
+	if tonumber(equipData.m_strongLv) >= 5 then
 		return equipColor.orange
-	elseif equipData.m_strongLv >= 4 then
+	elseif tonumber(equipData.m_strongLv) >= 4 then
 		return equipColor.purple
-	elseif equipData.m_strongLv >= 3 then
+	elseif tonumber(equipData.m_strongLv) >= 3 then
 		return equipColor.blue
-	elseif equipData.m_strongLv >= 2 then
+	elseif tonumber(equipData.m_strongLv) >= 2 then
 		return equipColor.green
-	elseif equipData.m_strongLv >= 1 then
+	elseif tonumber(equipData.m_strongLv) >= 1 then
 		return equipColor.white
 	end
 end

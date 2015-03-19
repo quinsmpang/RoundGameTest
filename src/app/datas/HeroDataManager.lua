@@ -6,7 +6,7 @@
 
 module("HeroDataManager", package.seeall)
 
-local HeroDataManagerTable = {}
+HeroDataManagerTable = {}
 
 
 function getHeroDataByIndex( idx )
@@ -81,16 +81,16 @@ function getAllBehindHeros(  )
 end
 
 
--- 装备武器(英雄, 装备)
-function heroEquipWithEquipment( heroData, equipData )
+-- 装备武器(英雄, 装备) 可实现换装和新增装备
+function loadEquipWithEquipment( heroData, equipData )
 	-- 信息交换
 	local heroIndex = heroData.m_index
 	local equipIndex = equipData.m_index
-	local kind = equipData.m_config.kind
+	local kind = tonumber(equipData.m_config.kind)
 	
-	-- for i,v in ipairs(HeroDataManagerTable) do
-	-- 	print(i,v)
-	-- end
+	for i,v in ipairs(HeroDataManagerTable) do
+		print(i,v)
+	end
 	local currentEquip = heroData.m_equips[kind]
 	heroData.m_equips[kind] = equipData
 	for i,v in ipairs(HeroDataManagerTable) do
@@ -101,9 +101,27 @@ function heroEquipWithEquipment( heroData, equipData )
 
 			-- 如果是卸下装备，讲卸下的装备放入manager中
 			if currentEquip ~= -1 then
-				EquipDataManager.addEquipDataToTable(equipData) 
+				EquipDataManager.addEquipDataToTable(currentEquip) 
 			end
 			break
 		end
 	end
+end
+
+
+-- 卸下装备
+function unloadEquipWithEquipment( heroData, equipData )
+	local heroIndex = heroData.m_index
+	local equipIndex = equipData.m_index
+	local kind = tonumber(equipData.m_config.kind)
+
+	heroData.m_equips[kind] = -1
+	for i,v in ipairs(HeroDataManagerTable) do
+		if v.m_index == heroIndex then
+			HeroDataManagerTable[i] = heroData
+			EquipDataManager.addEquipDataToTable(equipData)
+			break
+		end
+	end
+
 end
