@@ -4,6 +4,7 @@ require("cocos.init")
 require("framework.init")
 require("app.funcs.FunctionModals")
 require("app.funcs.NetWorkModals")
+require("app.funcs.SceneManager")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 

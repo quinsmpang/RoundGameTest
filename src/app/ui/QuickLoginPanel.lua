@@ -149,6 +149,9 @@ function QuickLoginPanel:postLogin( hostName, data )
 			--print(event.request:getResponseString())
 			
 			local result = json.decode(event.request:getResponseString())
+			if type(result) ~= "table" then
+				print("服务器没返回正确数据")
+			end
 			for k,v in pairs(result) do
 				print(k,v)
 			end

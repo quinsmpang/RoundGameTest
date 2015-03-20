@@ -15,6 +15,7 @@ require("app.datas.GameInstance")
 local HeroListLayer = require("app.layers.HeroListLayer")
 local BagListLayer = require("app.layers.BagListLayer")
 local GameScene = require("app.scenes.GameScene")
+local UserInfoLayer = require("app.layers.UserInfoLayer")
 
 
 local MainScene = class("MainScene", function (  )
@@ -46,6 +47,24 @@ function MainScene:ctor(  )
 	local bg = display.newSprite("heros/main_bg_grass_left.jpg", display.cx, display.cy)
 		:addTo(self)
 	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
+
+
+	-- 英雄头像
+	local heroIcon = display.newSprite("heros/tutorial_head_coco_alpha.jpg", 80, display.height - 80)
+		:scale(0.6)
+		:addTo(self)
+
+	local heroIconBg = cc.ui.UIPushButton.new("heros/hero_icon_frame_14.pvr.ccz")
+		:onButtonClicked(function (  )
+			print("点击头像")
+			local layer = UserInfoLayer.new()
+				:addTo(self)
+		end)
+		:addTo(self)
+		:pos(80, display.height - 80)
+
+
+
 
 	-- 英雄按钮
 	cc.ui.UIPushButton.new({normal = "heros/main_hero_button.jpg", pressed = "heros/main_hero_button_shade.jpg"})
