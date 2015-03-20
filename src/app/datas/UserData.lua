@@ -5,4 +5,5 @@
 
 module("UserData", package.seeall)
 
+local userId = nil
 

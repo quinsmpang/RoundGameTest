@@ -18,7 +18,7 @@ end)
 
 local NEEDUPDATE = true
 --local server = "https://raw.githubusercontent.com/hanxi/quick-cocos2d-x-2048/release/"
-local server = "http://169.254.14.172:8080/"
+local server = "http://192.168.1.101:8080/"
 local param = "?dev="..device.platform
 local list_filename = "flist"
 local downList = {}

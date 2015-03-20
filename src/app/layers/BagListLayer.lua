@@ -40,6 +40,18 @@ function BagListLayer:ctor(  )
 		:addTo(self, 10)
 	self.detailBgIsShowd = false
 
+
+
+
+	self.lvGrid = cc.ui.UIListView.new({
+	--bgColor = cc.c4b(200, 200, 200, 120),
+	--bg = "heros/dialog_bg.jpg",
+		scrollbarImgV = "heros/scroll_bar.pvr.ccz",
+		viewRect = cc.rect(20, 20, 425, 380),
+		direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+		})
+		:addTo(self.listBg, 20)
+
 	self:createTabItems()
 
 	-- local eq = EquipItemBtn.new(EquipConfigManager.getEquipDataByTbIndex(6), 20)
@@ -50,45 +62,46 @@ end
 
 
 function BagListLayer:createTabItems(  )
-	-- 全部
-	local allItem = cc.ui.UICheckBoxButton.new(BagListLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
-		:setButtonSelected(true)
-		:setButtonLabel("off", cc.ui.UILabel.new({
-			text = "全部",
-			size = 20,
-			font = "LoginPanel/DFYuanW7-GB2312.ttf",
-			}))
-		:setButtonLabel("on",cc.ui.UILabel.new({
-			text = "全部",
-			size = 20,
-			color = cc.c3b(251,199,94),
-			font = "LoginPanel/DFYuanW7-GB2312.ttf",
-			}))
-		:onButtonClicked(function ( event )
-			-- 如果已点击
-			if not event.target:isButtonSelected() then
-				event.target:setButtonSelected(true)
-				return 
-			end
+	-- -- 全部
+	-- local allItem = cc.ui.UICheckBoxButton.new(BagListLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
+	-- 	:setButtonSelected(true)
+	-- 	:setButtonLabel("off", cc.ui.UILabel.new({
+	-- 		text = "全部",
+	-- 		size = 20,
+	-- 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+	-- 		}))
+	-- 	:setButtonLabel("on",cc.ui.UILabel.new({
+	-- 		text = "全部",
+	-- 		size = 20,
+	-- 		color = cc.c3b(251,199,94),
+	-- 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+	-- 		}))
+	-- 	:onButtonClicked(function ( event )
+	-- 		-- 如果已点击
+	-- 		if not event.target:isButtonSelected() then
+	-- 			event.target:setButtonSelected(true)
+	-- 			return 
+	-- 		end
 
-			-- 
-			self.selectedItem:zorder(1)
-			self.selectedItem:setButtonSelected(false)
-			self.selectedItem = event.target
-			self.selectedItem:zorder(15)
+	-- 		-- 
+	-- 		self.selectedItem:zorder(1)
+	-- 		self.selectedItem:setButtonSelected(false)
+	-- 		self.selectedItem = event.target
+	-- 		self.selectedItem:zorder(15)
 
-			--local heros = HeroDataManager.getAllHeros()
-			--self:initListView(heros)
-		end)
-		:setButtonLabelAlignment(display.CENTER)
-		:pos(display.cx + 370, 460)
-		:addTo(self, 15)
+	-- 		--local heros = HeroDataManager.getAllHeros()
+	-- 		--self:initListView(heros)
+	-- 	end)
+	-- 	:setButtonLabelAlignment(display.CENTER)
+	-- 	:pos(display.cx + 370, 460)
+	-- 	:addTo(self, 15)
 
 
-	self.selectedItem = allItem
+	-- self.selectedItem = allItem
 
 	-- 装备
 	local frontItem = cc.ui.UICheckBoxButton.new(BagListLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
+		:setButtonSelected(true)
 		:setButtonLabel("off", cc.ui.UILabel.new({
 			text = "装备",
 			size = 20,
@@ -113,12 +126,19 @@ function BagListLayer:createTabItems(  )
 			self.selectedItem = event.target
 			self.selectedItem:zorder(15)
 
+			self.lvGrid:removeAllItems()
 			local equips = EquipDataManager.getAllEquips()
 			self:initListView(equips)
 		end)
 		:setButtonLabelAlignment(display.CENTER)
 		:pos(display.cx + 370, 400)
-		:addTo(self)
+		:addTo(self, 15)
+
+
+	local equips = EquipDataManager.getAllEquips()
+		self:initListView(equips)
+
+	self.selectedItem = frontItem
 
 	-- 卷轴
 	local middleItem = cc.ui.UICheckBoxButton.new(BagListLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
@@ -227,19 +247,19 @@ end
 
 
 function BagListLayer:initListView( equips )
-	if self.lvGrid then
-		self.lvGrid:removeFromParent()
-		self.lvGrid = nil
-	end
+	-- if self.lvGrid then
+	-- 	self.lvGrid:removeFromParent()
+	-- 	self.lvGrid = nil
+	-- end
 		-- 初始化裂变
-	self.lvGrid = cc.ui.UIListView.new({
-	--bgColor = cc.c4b(200, 200, 200, 120),
-	--bg = "heros/dialog_bg.jpg",
-		scrollbarImgV = "heros/scroll_bar.pvr.ccz",
-		viewRect = cc.rect(20, 20, 425, 380),
-		direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
-		})
-		:addTo(self.listBg, 20)
+	-- self.lvGrid = cc.ui.UIListView.new({
+	-- --bgColor = cc.c4b(200, 200, 200, 120),
+	-- --bg = "heros/dialog_bg.jpg",
+	-- 	scrollbarImgV = "heros/scroll_bar.pvr.ccz",
+	-- 	viewRect = cc.rect(20, 20, 425, 380),
+	-- 	direction = cc.ui.UIScrollView.DIRECTION_VERTICAL,
+	-- 	})
+	-- 	:addTo(self.listBg, 20)
 
 
 	print(#equips)
@@ -302,21 +322,93 @@ function BagListLayer:createDetailNode( equipData, num )
 		:align(display.CENTER_LEFT, 100, 350)
 		:addTo(self.detailNode)
 
-	-- 装备件数
+	-- -- 装备件数
+	-- cc.ui.UILabel.new({
+	-- 	text = "共有 ".. num .. " 件",
+	-- 	size = 20,
+	-- 	font = "LoginPanel/DFYuanW7-GB2312.ttf",
+	-- 	color = cc.c3b(147, 44, 0)
+	-- 	})
+	-- 	:align(display.CENTER_LEFT, 100, 320)
+	-- 	:addTo(self.detailNode)
+
+	-- 强化等级
 	cc.ui.UILabel.new({
-		text = "共有 ".. num .. " 件",
-		size = 20,
+		text = "强化等级: " .. equipData.m_strongLv,
+		size = 18,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		color = cc.c3b(147, 44, 0)
+		color = EquipDataManager.getStrongLvTextColorByEquip(equipData)
 		})
-		:align(display.CENTER_LEFT, 100, 320)
+		:align(display.CENTER_LEFT, 100, self.detailBg:getContentSize().height - 70)
+		:addTo(self.detailNode)
+
+	-- 半透明背景
+	local alphaBg = display.newScale9Sprite("heros/herodetail_name_bg.pvr.ccz", 145, self.detailBg:getContentSize().height - 180, cc.size(self.detailBg:getContentSize().width - 40, 150))
+		:addTo(self.detailNode)
+
+	-- 详细属性
+	local details = self:createTextDetail(equipData)
+		:pos(30, 280)
+		:addTo(self.detailNode)
+
+	-- 装备介绍
+	cc.ui.UILabel.new({
+		text = equipData.m_config.desc,
+		size = 17,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		color = EquipDataManager.getTextColorByEquip(equipData)
+		})
+		:align(display.CENTER_LEFT, 25, self.detailBg:getContentSize().height - 270)
 		:addTo(self.detailNode)
 
 
 
 end
 
+function BagListLayer:createTextDetail( equip )
+	local node = display.newNode()
+	local tempLabel = node
+	local color = EquipDataManager.getTextColorByEquip(equip)
+	local createWithText = function ( text )
+		local label = cc.ui.UILabel.new({
+			text = text,
+			size = 15,
+			font = "LoginPanel/DFYuanW7-GB2312.ttf",
+			color = color,
+			})
+			:align(display.CENTER_LEFT, tempLabel:getPositionX(), tempLabel:getPositionY() - 16)
+			:addTo(node)
+		tempLabel = label
+	end
 
+	
+	if tonumber(equip.m_config.addphysique) > 0 then
+		createWithText("体质 +" .. equip.m_config.addphysique)
+	end
+	if tonumber(equip.m_config.addpower) > 0 then
+		createWithText("力量 +" .. equip.m_config.addpower)
+	end
+	if tonumber(equip.m_config.addmana) > 0 then
+		createWithText("法力 +" .. equip.m_config.addmana)
+	end
+	if tonumber(equip.m_config.addendurance) > 0 then
+		createWithText("法力 +" .. equip.m_config.addendurance)
+	end
+	if tonumber(equip.m_config.addblood) > 0 then
+		createWithText("气血 +" .. equip.m_config.addblood)
+	end
+	if tonumber(equip.m_config.adddamage) > 0 then
+		createWithText("伤害 +" .. equip.m_config.adddamage)
+	end
+	if tonumber(equip.m_config.addanima) > 0 then
+		createWithText("灵力 +" .. equip.m_config.addanima)
+	end
+	if tonumber(equip.m_config.adddefence) > 0 then
+		createWithText("防御 +" .. equip.m_config.adddefence)
+	end
+
+	return node
+end
 
 
 

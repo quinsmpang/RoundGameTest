@@ -26,7 +26,6 @@ end)
 
 function MainScene:ctor(  )
 
-
 	--Funcs.main()
 
 	-- local ttt = require("app.funcs.222")

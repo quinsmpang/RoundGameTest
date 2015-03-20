@@ -6,11 +6,13 @@ require("app.funcs.FunctionModals")
 require("app.funcs.NetWorkModals")
 require("app.funcs.SceneManager")
 require("app.datas.UserData")
+require("app.funcs.AnySDK")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
 function MyApp:ctor()
     MyApp.super.ctor(self)
+    AnySDK.initAnySDK()
 end
 
 function MyApp:run()
