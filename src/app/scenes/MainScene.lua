@@ -16,6 +16,7 @@ local HeroListLayer = require("app.layers.HeroListLayer")
 local BagListLayer = require("app.layers.BagListLayer")
 local GameScene = require("app.scenes.GameScene")
 local UserInfoLayer = require("app.layers.UserInfoLayer")
+local MainStatuPanel = require("app.ui.MainStatuPanel")
 
 
 local MainScene = class("MainScene", function (  )
@@ -62,6 +63,11 @@ function MainScene:ctor(  )
 		end)
 		:addTo(self)
 		:pos(80, display.height - 80)
+
+	-- 金钱栏
+	local statuPanel = MainStatuPanel.new()
+		:pos(300, 600)
+		:addTo(self)
 
 
 

@@ -5,6 +5,7 @@ require("framework.init")
 require("app.funcs.FunctionModals")
 require("app.funcs.NetWorkModals")
 require("app.funcs.SceneManager")
+require("app.datas.UserData")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
@@ -14,7 +15,7 @@ end
 
 function MyApp:run()
     cc.FileUtils:getInstance():addSearchPath("res/")
-    self:enterScene("MainScene")
+    self:enterScene("LoginScene")
 end
 
 return MyApp
