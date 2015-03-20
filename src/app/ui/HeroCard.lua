@@ -5,12 +5,10 @@ function HeroCard.new( heroData )
 
 	node = display.newNode()
 		
-	-- 卡牌（包括图片和边框）
 
 
 	-- 英雄大图
-
-	node.img = cc.ui.UIPushButton.new(heroData.m_config.image)
+	node.img = cc.ui.UIPushButton.new(heroData.m_config.image2)
 		:onButtonClicked(function ( event )
 			print("click")
 		end)
@@ -38,6 +36,9 @@ function HeroCard.new( heroData )
 		:addTo(node)
 
 	node:size(node.border:getContentSize().width / 2,node.border:getContentSize().height / 2)
+
+	-- 血条
+
 
 
 

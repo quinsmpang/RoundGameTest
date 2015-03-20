@@ -3,7 +3,7 @@
 	{
 		"index" : 1,
 		"id" : 1,
-		"lv" : 80,
+		"lv" : 70,
 		"type" : 1,
 		"physique" : 10,
 		"power" : 10,
@@ -48,6 +48,244 @@
 	{
 		"index" : 4,
 		"id" : 4,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 5,
+		"id" : 5,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 6,
+		"id" : 6,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 7,
+		"id" : 7,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},{
+		"index" : 8,
+		"id" : 8,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 9,
+		"id" : 9,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 10,
+		"id" : 10,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 11,
+		"id" : 11,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 12,
+		"id" : 12,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 13,
+		"id" : 13,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 14,
+		"id" : 14,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 15,
+		"id" : 15,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 16,
+		"id" : 16,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 17,
+		"id" : 17,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},{
+		"index" : 18,
+		"id" : 18,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 19,
+		"id" : 19,
+		"lv" : 80,
+		"type" : 1,
+		"physique" : 10,
+		"power" : 10,
+		"mana" : 10,
+		"endurance" : 10,
+		"experience" : 0,
+		"extraPoint" : 0,
+		"equipedIndexs" : [
+			-1,-1,-1,-1,-1
+		]
+	},
+	{
+		"index" : 20,
+		"id" : 20,
 		"lv" : 80,
 		"type" : 1,
 		"physique" : 10,

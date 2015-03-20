@@ -51,7 +51,7 @@ end
 function getAllFrontHeros(  )
 	local front = {}
 	for k,v in pairs(HeroDataManagerTable) do
-		if v.m_type == 1 then
+		if tonumber(v.m_config.type) == 1 then
 			table.insert(front, v)
 		end
 	end
@@ -62,7 +62,7 @@ end
 function getAllMiddleHeros(  )
 	local middle = {}
 	for k,v in pairs(HeroDataManagerTable) do
-		if v.m_type == 2 then
+		if tonumber(v.m_config.type) == 2 then
 			table.insert(middle, v)
 		end
 	end
@@ -73,7 +73,7 @@ end
 function getAllBehindHeros(  )
 	local behind = {}
 	for k,v in pairs(HeroDataManagerTable) do
-		if v.m_type == 3 then
+		if tonumber(v.m_config.type) == 3 then
 			table.insert(behind, v)
 		end
 	end
@@ -125,3 +125,7 @@ function unloadEquipWithEquipment( heroData, equipData )
 	end
 
 end
+
+
+-- 战斗力
+

@@ -146,7 +146,7 @@ end
 
 
 function main()  
-    local csvConfig = loadCsvFile("/Users/neworigin/code/quick/RoundGameTest/src/app/funcs/equipsutf8.csv");  
+    local csvConfig = loadCsvFile("/Users/neworigin/code/quick/RoundGameTest/src/app/funcs/herosutf8.csv");  
     print(csvConfig)
 
     local file = io.open("/Users/neworigin/code/quick/RoundGameTest/src/app/funcs/222.lua", "w");

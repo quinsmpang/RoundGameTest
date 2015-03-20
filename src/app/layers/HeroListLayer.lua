@@ -262,7 +262,10 @@ function HeroListLayer:initListView( heros )
 end
 
 
-function HeroListLayer:reloadList(  )
+function HeroListLayer:reloadList( isEquipChange )
+	if not isEquipChange then
+		return
+	end
 	self.lvGrid:removeAllItems()
 	print("我很想reload : " .. self.selectedItem:getTag())
 	local heros

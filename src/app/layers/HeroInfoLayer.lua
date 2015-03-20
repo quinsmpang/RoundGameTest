@@ -11,6 +11,7 @@ local HeroInfoLayer = class("HeroInfoLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
 end)
 
+local isEquipChange = false
 
 HeroInfoLayer.CHECKBOX_BUTTON_IMAGES = {
 	off = "heros/stageselect_difficulty_button_normal.pvr.ccz",
@@ -20,6 +21,7 @@ HeroInfoLayer.CHECKBOX_BUTTON_IMAGES = {
 }
 
 function HeroInfoLayer:ctor( hero, superLayer )
+	isEquipChange = false
 	--print(idx)
 	self.hero = hero
 	self.superLayer = superLayer
@@ -27,7 +29,6 @@ function HeroInfoLayer:ctor( hero, superLayer )
 	-- 存武器格子的数组
 	self.equipList = {}
 	-- 英雄detail
-
 	
 	self:initHeroDetailBg()
 
@@ -37,7 +38,10 @@ function HeroInfoLayer:ctor( hero, superLayer )
 end
 
 function HeroInfoLayer:initHeroDetailBg(  )
-	self.heroDetailBg = display.newSprite("heros/herodetail-bg.jpg")
+	-- self.heroDetailBg = display.newSprite("heros/herodetail-bg.jpg")
+		
+	-- 	:addTo(self, 10)
+	self.heroDetailBg = Funcs.newMaskedSprite("heros/herodetail-bg_alpha_mask", "heros/herodetail-bg.jpg")
 		:pos(display.cx, display.cy)
 		:addTo(self, 10)
 
@@ -45,7 +49,9 @@ function HeroInfoLayer:initHeroDetailBg(  )
 	local closeBtn = cc.ui.UIPushButton.new("heros/herodetail-detail-close.pvr.ccz")
 		:pos(self.heroDetailBg:getContentSize().width - 10, self.heroDetailBg:getContentSize().height - 10)
 		:onButtonClicked(function (  )
-			self.superLayer:reloadList()
+			print("isEquipchange : ")
+			print(isEquipChange)
+			self.superLayer:reloadList(isEquipChange)
 			self:removeFromParent()
 		end)
 		:addTo(self.heroDetailBg)
@@ -93,21 +99,55 @@ function HeroInfoLayer:initHeroDetailBg(  )
 
 	-- 等级
 	cc.ui.UILabel.new({
-		text = "等级 : " .. self.hero.m_lv,
+		text = "等级:" .. self.hero.m_lv,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		size = 20,
+		align = cc.ui.TEXT_ALIGN_CENTER,
+		color = cc.c3b(30, 30, 70)
 		})
-		:align(display.CENTER ,70, 180)
+		:align(display.CENTER_LEFT,30, 170)
+		:addTo(self.heroDetailBg)
+
+	-- 战斗力
+	self.damageLabel = cc.ui.UILabel.new({
+		text = "战斗力:" .. self.hero.m_lv,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		size = 20,
+		align = cc.ui.TEXT_ALIGN_CENTER,
+		color = cc.c3b(30, 30, 70)
+		})
+		:align(display.CENTER_LEFT,130, 170)
 		:addTo(self.heroDetailBg)
 
 	-- 经验
 	cc.ui.UILabel.new({
-		text = "经验 : " .. self.hero.m_experience,
+		text = "经验:",
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		size = 20,
+		color = cc.c3b(30, 30, 70)
 		})
-		:align(display.CENTER ,70, 160)
+		:align(display.CENTER_LEFT ,30, 120)
 		:addTo(self.heroDetailBg)
+
+	-- 进度条背景
+	local progressBg = display.newSprite("heros/xp-progress-bg.pvr.ccz", 170, 120)
+	-- local progressBg = display.newScale9Sprite("heros/xp-progress-bg.pvr.ccz", 140, 130, cc.size(100, 25))
+		--:scale(1.8)
+		:addTo(self.heroDetailBg)
+	progressBg:setScaleX(2.4)
+	progressBg:setScaleY(1.2)
+
+	-- 进度条
+	local progressTimer = cc.ProgressTimer:create(display.newSprite("heros/xp-progress.pvr.ccz"))
+		:pos(170, 120)
+		--:scale(1.6)
+		:addTo(self.heroDetailBg)
+	progressTimer:setMidpoint(cc.p(0, 0.5))
+	progressTimer:setBarChangeRate(cc.p(1, 0))
+	progressTimer:setType(1)
+	progressTimer:setPercentage(100)
+	progressTimer:setScaleX(2.5)
+	progressTimer:setScaleY(1.2)
 
 	local idx = 0
 	for i=1,3 do
@@ -209,6 +249,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 	end
 
 
+
 	-- 三个按钮
 
 	-- 详细信息
@@ -283,7 +324,7 @@ function HeroInfoLayer:initHeroDetailBg(  )
 	-- 技能升级
 	self.skillUpBtn = cc.ui.UICheckBoxButton.new(HeroInfoLayer.CHECKBOX_BUTTON_IMAGES, {scale9 = true})
 		:setButtonLabel(cc.ui.UILabel.new({
-			text = "技能升级",
+			text = "属性升级",
 			size = 18,
 			font = "LoginPanel/DFYuanW7-GB2312.ttf",
 			}))
@@ -463,7 +504,7 @@ function HeroInfoLayer:showImage(  )
 	end
 
 	-- 英雄大图
-	self.leftSprite = display.newSprite(self.hero.m_config.image)
+	self.leftSprite = display.newSprite(self.hero.m_config.image2)
 		:pos(display.cx, display.cy)
 		:scale(0.8)
 		:addTo(self)
@@ -674,6 +715,7 @@ end
 
 
 function HeroInfoLayer:replaceEquipByEquip( equipData , isUnload)
+	isEquipChange = true
 	if self.leftSprite:getTag() == 1 then
 		--self.leftSprite:removeFromParent()
 		self:showHeroAttr()

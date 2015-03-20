@@ -10,7 +10,7 @@ function EnemyCard.new( enemyData )
 
 	-- 英雄大图
 
-	node.img = cc.ui.UIPushButton.new(enemyData.m_config.image)
+	node.img = cc.ui.UIPushButton.new(enemyData.m_config.image1)
 		:onButtonClicked(function ( event )
 			print("click")
 		end)
