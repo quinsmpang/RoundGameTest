@@ -53,7 +53,7 @@ function UserInfoLayer:ctor(  )
 
 	-- 英雄名称
 	cc.ui.UILabel.new({
-		text = "探险家:" .. "伊泽瑞尔",
+		text = "探险家:" .. UserData.userName,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		size = 25,
 		align = cc.ui.TEXT_ALIGN_CENTER,
@@ -64,7 +64,7 @@ function UserInfoLayer:ctor(  )
 
 	-- ID
 	cc.ui.UILabel.new({
-		text = "账号ID:" .. 12035,
+		text = "账号ID:" .. UserData.userId,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
 		size = 25,
 		align = cc.ui.TEXT_ALIGN_CENTER,

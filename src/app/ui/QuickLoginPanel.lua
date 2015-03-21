@@ -100,33 +100,33 @@ end
 
 function QuickLoginPanel:initQuickLoginButton(  )
 
-	-- 初始化anysdk登陆
-	local user_plugin = AnySDK.getInstance():getUserPlugin()
-	local function onActionListener( pPlugin, code, msg )
-		print("on user action listener.")
-	    if code == UserActionResultCode.kInitSuccess then
-	        --do something
-	        print("初始化成功")
-	    end
-	    --处理回调函数	
-		if code == UserActionResultCode.kLoginSuccess  then   --登陆成功回调
-		    --登陆成功后，游戏相关处理
-		    print("登陆成功后，游戏相关处理")
-		end
-		if code == UserActionResultCode.kLoginTimeOut  then   --登陆失败回调
-		    --登陆失败后，游戏相关处理
-		    print("登陆超时后，游戏相关处理")
-		end
-		if code == UserActionResultCode.kLoginCancel  then   --登陆取消回调
-		    --登陆失败后，游戏相关处理
-		    print("登陆取消后，游戏相关处理")
-		end
-		if code == UserActionResultCode.kLoginFail  then   --登陆失败回调
-		    --登陆失败后，游戏相关处理
-		    print("登陆失败后，游戏相关处理")
-		end
-	end
-	user_plugin:setActionListener(onActionListener)
+	-- -- 初始化anysdk登陆
+	-- local user_plugin = AnySDK.getInstance():getUserPlugin()
+	-- local function onActionListener( pPlugin, code, msg )
+	-- 	print("on user action listener.")
+	--     if code == UserActionResultCode.kInitSuccess then
+	--         --do something
+	--         print("初始化成功")
+	--     end
+	--     --处理回调函数	
+	-- 	if code == UserActionResultCode.kLoginSuccess  then   --登陆成功回调
+	-- 	    --登陆成功后，游戏相关处理
+	-- 	    print("登陆成功后，游戏相关处理")
+	-- 	end
+	-- 	if code == UserActionResultCode.kLoginTimeOut  then   --登陆失败回调
+	-- 	    --登陆失败后，游戏相关处理
+	-- 	    print("登陆超时后，游戏相关处理")
+	-- 	end
+	-- 	if code == UserActionResultCode.kLoginCancel  then   --登陆取消回调
+	-- 	    --登陆失败后，游戏相关处理
+	-- 	    print("登陆取消后，游戏相关处理")
+	-- 	end
+	-- 	if code == UserActionResultCode.kLoginFail  then   --登陆失败回调
+	-- 	    --登陆失败后，游戏相关处理
+	-- 	    print("登陆失败后，游戏相关处理")
+	-- 	end
+	-- end
+	-- user_plugin:setActionListener(onActionListener)
 
 
 	-- 快速登录按钮
@@ -138,17 +138,17 @@ function QuickLoginPanel:initQuickLoginButton(  )
 			if not Net.checkNetworkStatus() then
 				return
 			end
-			-- local scene = MainScene:new()
-			-- display.replaceScene(scene, "fade", 0.5)
+			local scene = MainScene:new()
+			display.replaceScene(scene, "fade", 0.5)
 			print("我的天222")
 			--local user_plugin = AnySDK.getInstance():getUserPlugin()
 			print("------------快速登陆时候的东西-------------")
-			print(user_plugin)
-			print(AnySDK.getInstance():getFrameworkVersion())
-			if nil ~= user_plugin then
-			    user_plugin:login()
-			    print("-------")
-			end
+			-- print(user_plugin)
+			-- print(AnySDK.getInstance():getFrameworkVersion())
+			-- if nil ~= user_plugin then
+			--     user_plugin:login()
+			--     print("-------")
+			-- end
 		end
 	end)
 end

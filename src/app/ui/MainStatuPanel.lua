@@ -15,6 +15,15 @@ function MainStatuPanel:ctor(  )
 		:pos(coinBar:getContentSize().width - 25, coinBar:getContentSize().height - 20)
 		:addTo(coinBar)
 
+	cc.ui.UILabel.new({
+		text = UserData.gold,
+		size = 20,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:pos(60, coinBar:getContentSize().height - 20)
+		:addTo(coinBar)
+
+
 	local diamondbar = display.newScale9Sprite("heros/main_status_number_bg.pvr.ccz", 200, 0, cc.size(180, 46))
 		:addTo(self)
 	display.newSprite("heros/task_rmb_icon_2.pvr.ccz")
@@ -22,11 +31,27 @@ function MainStatuPanel:ctor(  )
 		:scale(1.2)
 		:addTo(diamondbar)
 
+	cc.ui.UILabel.new({
+		text = UserData.diamond,
+		size = 20,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:pos(60, coinBar:getContentSize().height - 20)
+		:addTo(diamondbar)
+
 	local vitbar = display.newScale9Sprite("heros/main_status_number_bg.pvr.ccz", 400, 0, cc.size(180, 46))
 		:addTo(self)
 	display.newSprite("heros/task_vit_icon_2.pvr.ccz")
 		:pos(vitbar:getContentSize().width - 25, vitbar:getContentSize().height - 25)
 		:scale(1.2)
+		:addTo(vitbar)
+
+	cc.ui.UILabel.new({
+		text = UserData.energy,
+		size = 20,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		})
+		:pos(60, coinBar:getContentSize().height - 20)
 		:addTo(vitbar)
 
 end

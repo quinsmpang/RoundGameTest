@@ -5,5 +5,16 @@
 
 module("UserData", package.seeall)
 
-local userId = nil
+-- 用户ID
+userId = 47502
+
+
+userName = "勇敢的心"
+
+gold = 4234
+
+diamond = 22
+
+energy = 80
+
 

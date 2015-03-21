@@ -4,6 +4,8 @@
 --
 
 
+local scheduler = require(cc.PACKAGE_NAME .. ".scheduler")
+
 local HeroData = require("app.datas.HeroData")
 local EquipData = require("app.datas.EquipData")
 
@@ -44,9 +46,13 @@ function MainScene:ctor(  )
 
 
 	-- 背景图片
-	local bg = display.newSprite("heros/main_bg_grass_left.jpg", display.cx, display.cy)
+	local bg = display.newSprite("bg/bg1.jpg", display.cx, display.cy)
 		:addTo(self)
 	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
+
+	-- self._filterSprite = display.newFilteredSprite("bg/bg1.jpg", "ZOOM_BLUR", {0.8, 0.8, 0.4})
+	-- 	:align(display.CENTER, display.cx, display.cy)
+	-- 	:addTo(self, 10)
 
 
 	-- 英雄头像
