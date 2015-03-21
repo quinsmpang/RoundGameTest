@@ -46,7 +46,8 @@ function MainScene:ctor(  )
 
 
 	-- 背景图片
-	local bg = display.newSprite("bg/bg1.jpg", display.cx, display.cy)
+	local imgNum = math.random(1, 50)
+	local bg = display.newSprite("bg/bg".. imgNum ..".jpg", display.cx, display.cy)
 		:addTo(self)
 	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
 

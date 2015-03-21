@@ -19,6 +19,23 @@ local requestCount = 0
 
 function QuickLoginPanel:ctor(  )
 
+
+	self.agent = AgentManager:getInstance()
+   	print("agent is---" .. type(self.agent))
+
+   	--初始化并load plugins(注意：初始化和load最好只进行一次，建议agent设置为全局的)
+	--init
+	local appKey = "325E41DE-F531-471B-10A0-31140967F1E2";
+	local appSecret = "064043440e42a7d577b988c4cb0e9f9a";
+	local privateKey = "805EAE6FFC01EE3B889504F3B41D7232";
+	local oauthLoginServer = "http://oauth.anysdk.com/api/OauthLoginDemo/Login.php";
+	self.agent:init(appKey,appSecret,privateKey,oauthLoginServer)
+	--load
+	self.agent:loadALLPlugin()
+
+
+
+
 	self.usernameBox = self:getChildByName("username")
 	self.passwordBox = self:getChildByName("password")
 	self.usernameBox:addEventListener(function ( node, event )
@@ -37,15 +54,59 @@ function QuickLoginPanel:ctor(  )
 	-- 初始化登陆按钮
 	self:initLoginButton()
 
-	
-
-
-	
-
 
 	-- 初始化快速登陆按钮
 	self:initQuickLoginButton()
 
+	self:initWeibo()
+
+end
+
+
+function QuickLoginPanel:initWeibo(  )
+
+-- 初始化anysdk登陆
+	local user_plugin = self.agent:getUserPlugin()
+	local function onActionListener( pPlugin, code, msg )
+		print("on user action listener.")
+	    if code == UserActionResultCode.kInitSuccess then
+	        --do something
+	        print("初始化成功")
+	    end
+	    --处理回调函数	
+		if code == UserActionResultCode.kLoginSuccess  then   --登陆成功回调
+		    --登陆成功后，游戏相关处理
+		    print("登陆成功后，游戏相关处理")
+		end
+		if code == UserActionResultCode.kLoginTimeOut  then   --登陆失败回调
+		    --登陆失败后，游戏相关处理
+		    print("登陆超时后，游戏相关处理")
+		end
+		if code == UserActionResultCode.kLoginCancel  then   --登陆取消回调
+		    --登陆失败后，游戏相关处理
+		    print("登陆取消后，游戏相关处理")
+		end
+		if code == UserActionResultCode.kLoginFail  then   --登陆失败回调
+		    --登陆失败后，游戏相关处理
+		    print("登陆失败后，游戏相关处理")
+		end
+	end
+	user_plugin:setActionListener(onActionListener)
+
+	self.weiboBtn = self:getChildByName("weibo")
+	self.weiboBtn:addTouchEventListener(function ( node, eventType )
+		if eventType == 2 then
+			print(user_plugin)
+			print(self.agent:getFrameworkVersion())
+			if nil ~= user_plugin then
+			    user_plugin:login()
+			    print("-------")
+			end
+
+		end
+	end)
+
+	
 end
 
 
@@ -100,33 +161,7 @@ end
 
 function QuickLoginPanel:initQuickLoginButton(  )
 
-	-- -- 初始化anysdk登陆
-	-- local user_plugin = AnySDK.getInstance():getUserPlugin()
-	-- local function onActionListener( pPlugin, code, msg )
-	-- 	print("on user action listener.")
-	--     if code == UserActionResultCode.kInitSuccess then
-	--         --do something
-	--         print("初始化成功")
-	--     end
-	--     --处理回调函数	
-	-- 	if code == UserActionResultCode.kLoginSuccess  then   --登陆成功回调
-	-- 	    --登陆成功后，游戏相关处理
-	-- 	    print("登陆成功后，游戏相关处理")
-	-- 	end
-	-- 	if code == UserActionResultCode.kLoginTimeOut  then   --登陆失败回调
-	-- 	    --登陆失败后，游戏相关处理
-	-- 	    print("登陆超时后，游戏相关处理")
-	-- 	end
-	-- 	if code == UserActionResultCode.kLoginCancel  then   --登陆取消回调
-	-- 	    --登陆失败后，游戏相关处理
-	-- 	    print("登陆取消后，游戏相关处理")
-	-- 	end
-	-- 	if code == UserActionResultCode.kLoginFail  then   --登陆失败回调
-	-- 	    --登陆失败后，游戏相关处理
-	-- 	    print("登陆失败后，游戏相关处理")
-	-- 	end
-	-- end
-	-- user_plugin:setActionListener(onActionListener)
+	
 
 
 	-- 快速登录按钮
@@ -143,12 +178,7 @@ function QuickLoginPanel:initQuickLoginButton(  )
 			print("我的天222")
 			--local user_plugin = AnySDK.getInstance():getUserPlugin()
 			print("------------快速登陆时候的东西-------------")
-			-- print(user_plugin)
-			-- print(AnySDK.getInstance():getFrameworkVersion())
-			-- if nil ~= user_plugin then
-			--     user_plugin:login()
-			--     print("-------")
-			-- end
+			
 		end
 	end)
 end
