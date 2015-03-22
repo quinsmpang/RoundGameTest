@@ -19,23 +19,6 @@ local requestCount = 0
 
 function QuickLoginPanel:ctor(  )
 
-
-	self.agent = AgentManager:getInstance()
-   	print("agent is---" .. type(self.agent))
-
-   	--初始化并load plugins(注意：初始化和load最好只进行一次，建议agent设置为全局的)
-	--init
-	local appKey = "325E41DE-F531-471B-10A0-31140967F1E2";
-	local appSecret = "064043440e42a7d577b988c4cb0e9f9a";
-	local privateKey = "805EAE6FFC01EE3B889504F3B41D7232";
-	local oauthLoginServer = "http://oauth.anysdk.com/api/OauthLoginDemo/Login.php";
-	self.agent:init(appKey,appSecret,privateKey,oauthLoginServer)
-	--load
-	self.agent:loadALLPlugin()
-
-
-
-
 	self.usernameBox = self:getChildByName("username")
 	self.passwordBox = self:getChildByName("password")
 	self.usernameBox:addEventListener(function ( node, event )
@@ -66,7 +49,7 @@ end
 function QuickLoginPanel:initWeibo(  )
 
 -- 初始化anysdk登陆
-	local user_plugin = self.agent:getUserPlugin()
+	local user_plugin = AnySDK.getInstance():getUserPlugin()
 	local function onActionListener( pPlugin, code, msg )
 		print("on user action listener.")
 	    if code == UserActionResultCode.kInitSuccess then
@@ -97,7 +80,7 @@ function QuickLoginPanel:initWeibo(  )
 	self.weiboBtn:addTouchEventListener(function ( node, eventType )
 		if eventType == 2 then
 			print(user_plugin)
-			print(self.agent:getFrameworkVersion())
+			print(AnySDK.getInstance():getFrameworkVersion())
 			if nil ~= user_plugin then
 			    user_plugin:login()
 			    print("-------")

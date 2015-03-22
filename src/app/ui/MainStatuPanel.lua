@@ -17,13 +17,15 @@ function MainStatuPanel:ctor(  )
 
 	cc.ui.UILabel.new({
 		text = UserData.gold,
-		size = 20,
+		size = 22,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		align = cc.ui.TEXT_ALIGN_RIGHT,
 		})
-		:pos(60, coinBar:getContentSize().height - 20)
+		:align(display.BOTTOM_RIGHT, 130, coinBar:getContentSize().height - 33)
+		--:pos(100, coinBar:getContentSize().height - 20)
 		:addTo(coinBar)
 
-
+	-- 钻石
 	local diamondbar = display.newScale9Sprite("heros/main_status_number_bg.pvr.ccz", 200, 0, cc.size(180, 46))
 		:addTo(self)
 	display.newSprite("heros/task_rmb_icon_2.pvr.ccz")
@@ -33,12 +35,19 @@ function MainStatuPanel:ctor(  )
 
 	cc.ui.UILabel.new({
 		text = UserData.diamond,
-		size = 20,
+		size = 22,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		align = cc.ui.TEXT_ALIGN_RIGHT,
 		})
-		:pos(60, coinBar:getContentSize().height - 20)
+		:align(display.BOTTOM_RIGHT, 130, coinBar:getContentSize().height - 33)
 		:addTo(diamondbar)
 
+	cc.ui.UIPushButton.new({normal = "heros/main_status_plus_icon_1.pvr.ccz", prssed = "heros/main_status_plus_icon_2.pvr.ccz"})
+		:pos(23, 23)
+		:addTo(diamondbar)
+
+
+	-- 体力
 	local vitbar = display.newScale9Sprite("heros/main_status_number_bg.pvr.ccz", 400, 0, cc.size(180, 46))
 		:addTo(self)
 	display.newSprite("heros/task_vit_icon_2.pvr.ccz")
@@ -48,10 +57,15 @@ function MainStatuPanel:ctor(  )
 
 	cc.ui.UILabel.new({
 		text = UserData.energy,
-		size = 20,
+		size = 22,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		align = cc.ui.TEXT_ALIGN_RIGHT,
 		})
-		:pos(60, coinBar:getContentSize().height - 20)
+		:align(display.BOTTOM_RIGHT, 130, coinBar:getContentSize().height - 33)
+		:addTo(vitbar)
+
+	cc.ui.UIPushButton.new({normal = "heros/main_status_plus_icon_1.pvr.ccz", prssed = "heros/main_status_plus_icon_2.pvr.ccz"})
+		:pos(23, 23)
 		:addTo(vitbar)
 
 end

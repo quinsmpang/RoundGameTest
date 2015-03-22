@@ -51,14 +51,33 @@ function MainScene:ctor(  )
 		:addTo(self)
 	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
 
-	-- self._filterSprite = display.newFilteredSprite("bg/bg1.jpg", "ZOOM_BLUR", {0.8, 0.8, 0.4})
+	--bg:setFilters(filter.newFilter("GRAY",{0.2, 0.3, 0.5, 0.1}))
+
+
+	-- self._filterSprite = display.newFilteredSprite("bg/bg2.jpg", "GRAY",{0.2, 0.3, 0.5, 0.1})
 	-- 	:align(display.CENTER, display.cx, display.cy)
 	-- 	:addTo(self, 10)
 
 
+	-- 英雄名字
+	local userNameBg = display.newSprite("heros/main_head_name_bg_gold.pvr.ccz", 80, display.height - 155)
+		:addTo(self)
+	--userNameBg:setScaleX(1.3)
+
+
+	cc.ui.UILabel.new({
+		text = UserData.userName,
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		size = 15,
+		align = cc.ui.TEXT_ALIGN_CENTER,
+		color = cc.c3b(229, 207, 91)
+		})
+		:align(display.CENTER,userNameBg:getContentSize().width / 2, userNameBg:getContentSize().height / 2)
+		:addTo(userNameBg)
+
 	-- 英雄头像
 	local heroIcon = display.newSprite("heros/tutorial_head_coco_alpha.jpg", 80, display.height - 80)
-		:scale(0.6)
+		:scale(0.8)
 		:addTo(self)
 
 	local heroIconBg = cc.ui.UIPushButton.new("heros/hero_icon_frame_14.pvr.ccz")
@@ -68,42 +87,44 @@ function MainScene:ctor(  )
 				:addTo(self)
 		end)
 		:addTo(self)
+		:scale(1.25)
 		:pos(80, display.height - 80)
+
+	
 
 	-- 金钱栏
 	local statuPanel = MainStatuPanel.new()
 		:pos(300, 600)
 		:addTo(self)
 
+	-- local test = display.newSprite("heros/activity_list_bg_2.pvr.ccz", display.cx - 200, display.cy + 100)
+	-- 	:addTo(self)
+	-- test:setAnchorPoint(cc.p(0, 0.5))
+	-- test:setScaleX(0)
 
+	-- -- 测试
+	-- local testBtn = cc.ui.UICheckBoxButton.new({on = "heros/main_down_button.pvr.ccz", off = "heros/main_up_button.pvr.ccz"}, {scale9 = true})
+	-- 	:pos(100, 50)
+	-- 	:addTo(self)
 
+	-- testBtn:onButtonClicked(function ( event )
+	-- 	if event.target:isButtonSelected() then
+	-- 		testBtn:setButtonEnabled(false)
+	-- 	local seq =	cca.seq({cca.scaleTo(0.3, 1.0), cca.callFunc(function (  )
+	-- 		testBtn:setButtonEnabled(true)
+	-- 	end)})
+	-- 	test:runAction(seq)
+	-- 	else
+	-- 		testBtn:setButtonEnabled(false)
+	-- 		local seq =	cca.seq({cca.scaleTo(0.3, 0, 1), cca.callFunc(function (  )
+	-- 		testBtn:setButtonEnabled(true)
+	-- 	end)})
+	-- 	test:runAction(seq)
+	-- 	end
+	-- end)
 
-	-- 英雄按钮
-	cc.ui.UIPushButton.new({normal = "heros/main_hero_button.jpg", pressed = "heros/main_hero_button_shade.jpg"})
-		:pos(display.cx - 200, display.cy)
-		:onButtonClicked(function (  )
-			local herolayer = HeroListLayer.new()
-			 	:addTo(self)
-		end)
-		:addTo(self)
-
-	-- 背包按钮
-	cc.ui.UIPushButton.new({normal = "heros/main_package_button.jpg", pressed = "heros/main_package_button_shade.jpg"})
-		:pos(display.cx, display.cy)
-		:onButtonClicked(function (  )
-			local bagLayer = BagListLayer.new()
-				:addTo(self)
-		end)
-		:addTo(self)
-
-	-- 战斗按钮
-	cc.ui.UIPushButton.new({normal = "heros/skill4.jpg", pressed = "heros/skill4.jpg"})
-		:pos(display.cx + 200, display.cy)
-		:onButtonClicked(function (  )
-			local scene = GameScene.new()
-			display.replaceScene(scene, "fade", 0.5)
-		end)
-		:addTo(self)
+	self:initTitleMenu()
+	self:initMenu()
 
 
 	-- 初始化HeroData
@@ -162,6 +183,98 @@ function MainScene:ctor(  )
 end
 
 
+function MainScene:initTitleMenu(  )
+	-- 签到
+	cc.ui.UIPushButton.new({normal = "heros/main_dailyreward_1.pvr.ccz", pressed = "heros/main_dailyreward_2.pvr.ccz"})
+		:pos(300, 530)
+		:addTo(self)
+
+	-- 充值
+	cc.ui.UIPushButton.new({normal = "heros/main_icon_recharge_1.pvr.ccz", pressed = "heros/main_icon_recharge_2.pvr.ccz"})
+		:pos(400, 530)
+		:addTo(self)
+
+	-- 精彩活动
+	cc.ui.UIPushButton.new({normal = "heros/main_icon_op_act_1.pvr.ccz", pressed = "heros/main_icon_op_act_2.pvr.ccz"})
+		:pos(500, 530)
+		:addTo(self)
+
+
+	-- 邀请有礼
+	cc.ui.UIPushButton.new({normal = "heros/main_invite_1.pvr.ccz", pressed = "heros/main_invite_2.pvr.ccz"})
+		:onButtonClicked(function (  )
+
+		end)
+		:pos(600, 530)
+		:addTo(self)
+
+
+end
+
+
+function MainScene:initMenu(  )
+
+
+	-- 英雄按钮
+	local heroBtn = Funcs.newMaskedSprite("heros/main_hero_button_alpha_mask", "heros/main_hero_button.jpg")
+		:pos(70, 70)
+		:addTo(self)
+	heroBtn:setTouchEnabled(true)
+	heroBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		local herolayer = HeroListLayer.new()
+			 	:addTo(self)
+	end)
+
+
+	-- 背包按钮
+	local bagBtn = Funcs.newMaskedSprite("heros/main_package_button_alpha_mask", "heros/main_package_button.jpg")
+		:pos(170, 70)
+		:addTo(self)
+	bagBtn:setTouchEnabled(true)
+	bagBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		local bagLayer = BagListLayer.new()
+				:addTo(self)
+	end)
+
+
+	-- 每日活动
+	local dailyBtn = Funcs.newMaskedSprite("heros/main_menu_todolist_1_alpha_mask", "heros/main_menu_todolist_1.jpg")
+		:pos(270, 70)
+		:addTo(self)
+	dailyBtn:setTouchEnabled(true)
+	dailyBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		
+	end)
+
+	-- 任务
+	local taskBtn = Funcs.newMaskedSprite("heros/main_task_button_shade_alpha_mask", "heros/main_task_button.jpg")
+		:pos(370, 70)
+		:addTo(self)
+	taskBtn:setTouchEnabled(true)
+	taskBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		
+	end)
+
+	-- 碎片合成
+	
+	local fragmentBtn = Funcs.newMaskedSprite("heros/main_fragment_button_alpha_mask", "heros/main_fragment_button.jpg")
+		:pos(470, 70)
+		:addTo(self)
+	fragmentBtn:setTouchEnabled(true)
+	fragmentBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+
+	end)
+
+	-- 战斗按钮
+	local attackBtn = Funcs.newMaskedSprite("heros/prepare_go_battle_press_alpha_mask", "heros/prepare_go_battle.jpg")
+		:pos(display.right - 80, display.bottom + 80)
+		:addTo(self)
+	attackBtn:setTouchEnabled(true)
+	attackBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		local scene = GameScene.new()
+			display.replaceScene(scene, "fade", 0.5)
+	end)
+end
 
 
 

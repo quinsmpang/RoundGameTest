@@ -12,7 +12,7 @@ local MyApp = class("MyApp", cc.mvc.AppBase)
 
 function MyApp:ctor()
     MyApp.super.ctor(self)
-    --AnySDK.initAnySDK()
+    AnySDK.initAnySDK()
 end
 
 function MyApp:run()
