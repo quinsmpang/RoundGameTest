@@ -8,6 +8,9 @@ module("HeroDataManager", package.seeall)
 
 HeroDataManagerTable = {}
 
+function initHeroDataManager(  )
+	HeroDataManagerTable = {}
+end
 
 function getHeroDataByIndex( idx )
 	for k,v in pairs(HeroDataManagerTable) do

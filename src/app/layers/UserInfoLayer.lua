@@ -102,4 +102,5 @@ function UserInfoLayer:ctor(  )
 	bg:runAction(cca.seq({cca.scaleTo(0.3, 0.9), cca.scaleTo(0.2, 0.8)}))
 end
 
+
 return UserInfoLayer

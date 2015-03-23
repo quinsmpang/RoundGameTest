@@ -2,6 +2,8 @@
 -- Author: UHEVER
 -- Date: 2015-03-20 12:24:12
 --
+local RechargeLayer = require("app.layers.RechargeLayer")
+
 local MainStatuPanel = class("MainStatuPanel", function (  )
 	return display.newNode()
 end)
@@ -42,7 +44,11 @@ function MainStatuPanel:ctor(  )
 		:align(display.BOTTOM_RIGHT, 130, coinBar:getContentSize().height - 33)
 		:addTo(diamondbar)
 
-	cc.ui.UIPushButton.new({normal = "heros/main_status_plus_icon_1.pvr.ccz", prssed = "heros/main_status_plus_icon_2.pvr.ccz"})
+	cc.ui.UIPushButton.new({normal = "heros/main_status_plus_icon_1.pvr.ccz", pressed = "heros/main_status_plus_icon_2.pvr.ccz"})
+		:onButtonClicked(function ( event )
+			local layer = RechargeLayer.new()
+				:addTo(display.getRunningScene(), 20)
+		end)
 		:pos(23, 23)
 		:addTo(diamondbar)
 
@@ -64,7 +70,7 @@ function MainStatuPanel:ctor(  )
 		:align(display.BOTTOM_RIGHT, 130, coinBar:getContentSize().height - 33)
 		:addTo(vitbar)
 
-	cc.ui.UIPushButton.new({normal = "heros/main_status_plus_icon_1.pvr.ccz", prssed = "heros/main_status_plus_icon_2.pvr.ccz"})
+	cc.ui.UIPushButton.new({normal = "heros/main_status_plus_icon_1.pvr.ccz", pressed = "heros/main_status_plus_icon_2.pvr.ccz"})
 		:pos(23, 23)
 		:addTo(vitbar)
 

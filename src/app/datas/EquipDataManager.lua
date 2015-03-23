@@ -14,6 +14,11 @@ equipColor.blue = cc.c3b(0, 177, 198)
 equipColor.purple = cc.c3b(204, 78, 203)
 equipColor.orange = cc.c3b(221, 151, 1)
 
+
+function initEquipDataManager(  )
+	EquipDataManagerTable = {}
+end
+
 function addEquipDataToTable( equipData )
 	local num = #EquipDataManagerTable
 	EquipDataManagerTable[num + 1] = equipData

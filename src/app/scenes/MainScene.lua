@@ -19,6 +19,12 @@ local BagListLayer = require("app.layers.BagListLayer")
 local GameScene = require("app.scenes.GameScene")
 local UserInfoLayer = require("app.layers.UserInfoLayer")
 local MainStatuPanel = require("app.ui.MainStatuPanel")
+local DailyRewordLayer = require("app.layers.DailyRewordLayer")
+local RechargeLayer = require("app.layers.RechargeLayer")
+local OpActLayer = require("app.layers.OpActLayer")
+local InviteLayer = require("app.layers.InviteLayer")
+local MissionLayer = require("app.layers.MissionLayer")
+local TodoListLayer = require("app.layers.TodoListLayer")
 
 
 local MainScene = class("MainScene", function (  )
@@ -28,6 +34,9 @@ end)
 
 function MainScene:ctor(  )
 
+	-- 初始化Manager
+	EquipDataManager.initEquipDataManager()
+	HeroDataManager.initHeroDataManager()
 	--Funcs.main()
 
 	-- local ttt = require("app.funcs.222")
@@ -186,16 +195,28 @@ end
 function MainScene:initTitleMenu(  )
 	-- 签到
 	cc.ui.UIPushButton.new({normal = "heros/main_dailyreward_1.pvr.ccz", pressed = "heros/main_dailyreward_2.pvr.ccz"})
+		:onButtonClicked(function ( event )
+			local layer = DailyRewordLayer.new()
+				:addTo(self, 20)
+		end)
 		:pos(300, 530)
 		:addTo(self)
 
 	-- 充值
 	cc.ui.UIPushButton.new({normal = "heros/main_icon_recharge_1.pvr.ccz", pressed = "heros/main_icon_recharge_2.pvr.ccz"})
+		:onButtonClicked(function (  )
+			local layer = RechargeLayer.new()
+				:addTo(self, 20)
+		end)
 		:pos(400, 530)
 		:addTo(self)
 
 	-- 精彩活动
 	cc.ui.UIPushButton.new({normal = "heros/main_icon_op_act_1.pvr.ccz", pressed = "heros/main_icon_op_act_2.pvr.ccz"})
+		:onButtonClicked(function (  )
+			local layer = OpActLayer.new()
+				:addTo(self, 20)
+		end)
 		:pos(500, 530)
 		:addTo(self)
 
@@ -203,7 +224,8 @@ function MainScene:initTitleMenu(  )
 	-- 邀请有礼
 	cc.ui.UIPushButton.new({normal = "heros/main_invite_1.pvr.ccz", pressed = "heros/main_invite_2.pvr.ccz"})
 		:onButtonClicked(function (  )
-
+			local layer = InviteLayer.new()
+				:addTo(self, 20)
 		end)
 		:pos(600, 530)
 		:addTo(self)
@@ -243,7 +265,8 @@ function MainScene:initMenu(  )
 		:addTo(self)
 	dailyBtn:setTouchEnabled(true)
 	dailyBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
-		
+		local layer = TodoListLayer.new()
+			:addTo(self, 20)
 	end)
 
 	-- 任务
@@ -252,7 +275,8 @@ function MainScene:initMenu(  )
 		:addTo(self)
 	taskBtn:setTouchEnabled(true)
 	taskBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
-		
+		local layer = MissionLayer.new()
+			:addTo(self, 20)
 	end)
 
 	-- 碎片合成
@@ -275,6 +299,7 @@ function MainScene:initMenu(  )
 			display.replaceScene(scene, "fade", 0.5)
 	end)
 end
+
 
 
 

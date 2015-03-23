@@ -41,7 +41,7 @@ function QuickLoginPanel:ctor(  )
 	-- 初始化快速登陆按钮
 	self:initQuickLoginButton()
 
-	self:initWeibo()
+	--self:initWeibo()
 
 end
 
