@@ -136,6 +136,9 @@ function BagListLayer:createTabItems(  )
 
 
 	local equips = EquipDataManager.getAllEquips()
+	print("wtche fuck")
+	print(#equips)
+	--dump(equips)
 		self:initListView(equips)
 
 	self.selectedItem = frontItem
@@ -272,7 +275,8 @@ function BagListLayer:initListView( equips )
 			cols = #equips % 5
 		end
 		for count = 1,cols do
-			local idx = (i-1)*2 + count
+			local idx = (i-1)*5 + count
+			print(idx)
 			--local hero = HeroDataManager.getHeroDataByTable(idx)
 			local equip = equips[idx]
 
@@ -356,9 +360,10 @@ function BagListLayer:createDetailNode( equipData, num )
 		text = equipData.m_config.desc,
 		size = 17,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		color = EquipDataManager.getTextColorByEquip(equipData)
+		color = EquipDataManager.getTextColorByEquip(equipData),
+		dimensions = cc.size(240, 150)
 		})
-		:align(display.CENTER_LEFT, 25, self.detailBg:getContentSize().height - 270)
+		:align(display.CENTER_LEFT, 25, self.detailBg:getContentSize().height - 340)
 		:addTo(self.detailNode)
 
 

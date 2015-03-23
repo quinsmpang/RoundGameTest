@@ -14,6 +14,21 @@
 		"index" : 3,
 		"id" : 3,
 		"strongLv" : 3
+	},
+	{
+		"index" : 4,
+		"id" : 4,
+		"strongLv" : 4
+	},
+	{
+		"index" : 5,
+		"id" : 5,
+		"strongLv" : 5
+	},
+	{
+		"index" : 6,
+		"id" : 6,
+		"strongLv" : 3
 	}
 
 	]

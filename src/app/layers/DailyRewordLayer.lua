@@ -78,7 +78,7 @@ function DailyRewordLayer:initList(  )
 			cols = 30 % 5
 		end
 		for count = 1,cols do
-			local idx = (i-1)*2 + count
+			local idx = (i-1)*3 + count
 			--local hero = HeroDataManager.getHeroDataByTable(idx)
 
 			local itemBg = display.newSprite("heros/dailylogin_matrix.pvr.ccz")

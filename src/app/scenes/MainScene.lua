@@ -158,14 +158,13 @@ function MainScene:ctor(  )
 	end
 
 	print("EquipConfigTable .. " .. #EquipConfigManager.EquipConfigTable)
-	print(EquipConfigManager.getEquipConfigById(1))
+	--dump(EquipConfigManager.getEquipConfigById(6))
 
 	
 
 	local string = fileUtiles:getStringFromFile("json/HeroData.json")
 	local str = json.decode(string)
 	--print(str)
-
 	local tabArray = str.HeroData
 	print(#tabArray)
 	for k,v in pairs(tabArray) do
