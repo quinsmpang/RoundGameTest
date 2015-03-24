@@ -29,6 +29,11 @@
 		"index" : 6,
 		"id" : 6,
 		"strongLv" : 3
+	},
+	{
+		"index" : 7,
+		"id" : 3,
+		"strongLv" : 3
 	}
 
 	]

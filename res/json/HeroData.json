@@ -9,7 +9,7 @@
 		"power" : 10,
 		"mana" : 10,
 		"endurance" : 10,
-		"experience" : 0,
+		"experience" : 500,
 		"extraPoint" : 0,
 		"equipedIndexs" : [
 			-1,-1,-1,-1,-1
@@ -18,7 +18,7 @@
 	{
 		"index" : 2,
 		"id" : 2,
-		"lv" : 80,
+		"lv" : 1,
 		"type" : 1,
 		"physique" : 10,
 		"power" : 10,

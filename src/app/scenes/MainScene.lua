@@ -173,10 +173,10 @@ function MainScene:ctor(  )
 		temp.m_id = v.id
 		temp.m_lv = v.lv
 		temp.m_type = v.type
-		temp.m_physique = v.physique
-		temp.m_power = v.power
-		temp.m_mana = v.mana
-		temp.m_endurance = v.endurance
+		temp.m_physique = v.physique + v.lv
+		temp.m_power = v.power + v.lv
+		temp.m_mana = v.mana + v.lv
+		temp.m_endurance = v.endurance + v.lv
 		temp.m_experience = v.experience
 		temp.m_extraPoint = v.extraPoint
 		temp.m_config = HeroConfigManager.getHeroConfigById(v.id)

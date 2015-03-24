@@ -37,23 +37,27 @@ end
 -- 气血
 function HeroData:getBlood(  )
 	local blood = self.m_physique * 10 + self.m_power * 3 + self.m_mana * 1 + self.m_endurance * 2
+	--local blood = (self.m_physique + self.m_lv) * 10 + (self.m_power + self.m_lv) * 3 + (self.m_mana + self.m_lv) * 1 + (self.m_endurance + self.m_lv) * 2
 	return blood
 end
 
 -- 伤害
 function HeroData:getDamage(  )
+	--local damage = (self.m_power + self.m_lv) * 1
 	local damage = self.m_power * 1
 	return damage
 end
 
 -- 灵力
 function HeroData:getAnima(  )
+	--local anima = (self.m_physique + self.m_lv) * 0.3 + (self.m_power + self.m_lv) * 0.2 + (self.m_mana + self.m_lv) * 1 + (self.m_endurance + self.m_lv) * 0.1
 	local anima = self.m_physique * 0.3 + self.m_power * 0.2 + self.m_mana * 1 + self.m_endurance * 0.1
 	return anima
 end
 
 -- 防御
 function HeroData:getDefence(  )
+	--local defence = (self.m_endurance + self.m_lv) * 1
 	local defence = self.m_endurance * 1
 	return defence
 end

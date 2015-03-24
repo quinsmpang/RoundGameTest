@@ -7,6 +7,7 @@ require("app.funcs.NetWorkModals")
 require("app.funcs.SceneManager")
 require("app.datas.UserData")
 require("app.funcs.AnySDK")
+require("app.datas.ExpConfigManager")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 

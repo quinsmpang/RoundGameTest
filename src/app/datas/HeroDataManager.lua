@@ -14,7 +14,7 @@ end
 
 function getHeroDataByIndex( idx )
 	for k,v in pairs(HeroDataManagerTable) do
-		if v.m_index == idx then
+		if tonumber(v.m_index) == idx then
 			return v
 		end
 	end

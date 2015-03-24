@@ -174,9 +174,10 @@ function HeroEquipAddLayer:equipDetail( equip )
 		text = equip.m_config.desc,
 		size = 17,
 		font = "LoginPanel/DFYuanW7-GB2312.ttf",
-		color = EquipDataManager.getTextColorByEquip(equip)
+		color = EquipDataManager.getTextColorByEquip(equip),
+		dimensions = cc.size(240, 150)
 		})
-		:align(display.CENTER_LEFT, 25, self.detailBg:getContentSize().height - 270)
+		:align(display.CENTER_LEFT, 25, self.detailBg:getContentSize().height - 330)
 		:addTo(self.detailNode)
 
 	-- 判断是否可装备

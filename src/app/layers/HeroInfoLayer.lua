@@ -145,9 +145,19 @@ function HeroInfoLayer:initHeroDetailBg(  )
 	progressTimer:setMidpoint(cc.p(0, 0.5))
 	progressTimer:setBarChangeRate(cc.p(1, 0))
 	progressTimer:setType(1)
-	progressTimer:setPercentage(100)
+	progressTimer:setPercentage(self.hero.m_experience / ExpConfigManager.getTotalExpByHeroLevel(self.hero.m_lv) * 100)
 	progressTimer:setScaleX(2.5)
 	progressTimer:setScaleY(1.2)
+
+	-- 进度条上面的文字
+	cc.ui.UILabel.new({
+		text = self.hero.m_experience.."/"..ExpConfigManager.getTotalExpByHeroLevel(self.hero.m_lv),
+		font = "LoginPanel/DFYuanW7-GB2312.ttf",
+		size = 20,
+		color = cc.c3b(30, 30, 70)
+		})
+		:align(display.CENTER ,170, 120)
+		:addTo(self.heroDetailBg)
 
 	local idx = 0
 	for i=1,3 do
