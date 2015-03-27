@@ -22,6 +22,16 @@ function getHeroDataByIndex( idx )
 	return nil
 end
 
+function getHeroDataById( id )
+	for k,v in pairs(HeroDataManagerTable) do
+		if tonumber(v.m_id) == id then
+			return v
+		end
+	end
+
+	return nil
+end
+
 function addHeroDataToTable( heroData )
 	local num = #HeroDataManagerTable
 	--print("num = " .. num)

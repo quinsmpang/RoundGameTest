@@ -25,6 +25,7 @@ local OpActLayer = require("app.layers.OpActLayer")
 local InviteLayer = require("app.layers.InviteLayer")
 local MissionLayer = require("app.layers.MissionLayer")
 local TodoListLayer = require("app.layers.TodoListLayer")
+local ChapterLayer = require("app.layers.ChapterLayer")
 
 
 local MainScene = class("MainScene", function (  )
@@ -294,8 +295,8 @@ function MainScene:initMenu(  )
 		:addTo(self)
 	attackBtn:setTouchEnabled(true)
 	attackBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
-		local scene = GameScene.new()
-			display.replaceScene(scene, "fade", 0.5)
+		local layer = ChapterLayer.new()
+			:addTo(self)
 	end)
 end
 

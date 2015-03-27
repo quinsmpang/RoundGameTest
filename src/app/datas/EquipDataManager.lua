@@ -151,3 +151,4 @@ end
 function getAllEquips(  )
 	return EquipDataManagerTable
 end
+
