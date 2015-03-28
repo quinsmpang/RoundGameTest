@@ -23,8 +23,10 @@ function GameLayer:initHeroCards( heroDatas )
 
 	local marginX = 20
 	local heroNum = #heroDatas
+	print("heronum : " .. heroNum)
 	for i,v in ipairs(heroDatas) do
 		local heroData = heroDatas[i]
+		dump(heroData)
 		HeroSprites[i] = HeroCard.new(heroData)
 			:pos(display.cx, display.cy)
 			:addTo(self)

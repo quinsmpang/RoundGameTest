@@ -9,12 +9,12 @@ local GameScene = class("GameScene", function (  )
 end)
 
 
-function GameScene:ctor()	
-	self:initGameMap()
-	self:initGameLayer()
+function GameScene:ctor(heros, chapterIdx)	
+	self:initGameMap(chapterIdx)
+	self:initGameLayer(heros)
 end
 
-function GameScene:initGameMap( levelData )
+function GameScene:initGameMap(  )
 	local bg = display.newSprite("battle_bg/bbg_arena.jpg", display.cx, display.cy)
 		:addTo(self)
 	bg:setScale(display.width / bg:getContentSize().width, display.height / bg:getContentSize().height)
@@ -29,8 +29,10 @@ function GameScene:initGameMap( levelData )
 		:addTo(self)
 end
 
-function GameScene:initGameLayer( levelData )
-	local heroDatas = {}
+function GameScene:initGameLayer( heroDatas )
+	print("herodatas")
+	print(heroDatas)
+	--local heroDatas = {}
 	local enemyDatas = {}
 	local hero1 = HeroDataManager.getHeroDataByIndex(1)
 	local hero2 = HeroDataManager.getHeroDataByIndex(2)
@@ -42,12 +44,12 @@ function GameScene:initGameLayer( levelData )
 	local hero8 = HeroDataManager.getHeroDataByIndex(8)
 	local hero9 = HeroDataManager.getHeroDataByIndex(9)
 	local hero10 = HeroDataManager.getHeroDataByIndex(10)
-	table.insert(heroDatas, hero1)
-	table.insert(heroDatas, hero2)
-	table.insert(heroDatas, hero3)
-	table.insert(heroDatas, hero4)
-	table.insert(heroDatas, hero5)
-	print(#heroDatas)
+	-- table.insert(heroDatas, hero1)
+	-- table.insert(heroDatas, hero2)
+	-- table.insert(heroDatas, hero3)
+	-- table.insert(heroDatas, hero4)
+	-- table.insert(heroDatas, hero5)
+	-- print(#heroDatas)
 
 
 	table.insert(enemyDatas, hero6)

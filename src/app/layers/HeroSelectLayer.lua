@@ -2,6 +2,7 @@
 -- Author: UHEVER
 -- Date: 2015-03-28 15:44:45
 --
+local GameScene = require("app.scenes.GameScene")
 
 local HeroSelectLayer = class("HeroSelectLayer", function (  )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 200))
@@ -11,7 +12,8 @@ end)
 local selectedBgs = {}
 local selectedItems = {}
 
-function HeroSelectLayer:ctor(  )
+function HeroSelectLayer:ctor( index )
+	self.chapterIndex = index
 	selectedBgs = {}
 	selectedItems = {}
 	-- herilist背景
@@ -78,6 +80,28 @@ function HeroSelectLayer:ctor(  )
 	self:initList(heroDatas)
 
 	self.heros = heroDatas
+
+
+	-- 开始按钮
+	local startBtn = Funcs.newMaskedSprite("heros/prepare_go_battle_press_alpha_mask", "heros/prepare_go_battle.jpg")
+		:pos(display.width - 80, 80)
+		:addTo(self)
+
+	startBtn:setTouchEnabled(true)
+	startBtn:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+		if #selectedItems == 0 then
+			Funcs.alert("请至少选择一名英雄进行战斗")
+			return
+		end
+
+		local allHeros = {}
+		for i=1,#selectedItems do
+			table.insert(allHeros, self.heros[selectedItems[i]:getTag()])
+		end
+
+		local scene = GameScene.new(allHeros, self.chapterIndex)
+		display.replaceScene(scene, "fade", 0.5)
+	end)
 
 end
 

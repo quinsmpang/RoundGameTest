@@ -12,6 +12,8 @@ local chapterTb = require("app.datas.ChapterConfig")
 
 function ChapterInfoLayer:ctor( idx )
 
+	self.chapterIndex = idx
+
 	print(chapterTb[idx].desc)
 	-- 背景框
 	self.bg = display.newScale9Sprite("heros/package_herolist_bg.pvr.ccz", display.cx, display.cy, cc.size(585, 400))
@@ -118,7 +120,7 @@ function ChapterInfoLayer:ctor( idx )
 	cc.ui.UIPushButton.new({normal = "heros/resume_battle.pvr.ccz", pressed = "heros/resume_battle_press.pvr.ccz"})
 		:scale(0.6)
 		:onButtonClicked(function (  )
-			local layer = HeroSelectLayer.new()
+			local layer = HeroSelectLayer.new(self.chapterIndex)
 				:addTo(self)
 		end)
 		:pos(520, 60)
