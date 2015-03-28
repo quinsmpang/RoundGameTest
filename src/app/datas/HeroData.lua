@@ -155,6 +155,12 @@ end
 ----------------------------通过武器获得的属性-----------------------------
 
 
+-- 获得战斗力
+function HeroData:getFightNumber(  )
+	local equipAttr = self:getEquipBaseAttr()
+	return self:getBlood() + self:getDamage() + self:getAnima() +self:getDefence() + equipAttr.blood + equipAttr.damage + equipAttr.anima + equipAttr.defence + equipAttr.base_blood + equipAttr.base_damage + equipAttr.base_anima + equipAttr.base_defence
+end
+
 function HeroData:desc(  )
 	print("----------------------")
 	print("index : " .. self.m_index)

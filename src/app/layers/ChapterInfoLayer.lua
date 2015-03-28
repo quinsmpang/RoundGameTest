@@ -2,6 +2,8 @@
 -- Author: UHEVER
 -- Date: 2015-03-27 17:38:26
 --
+local HeroSelectLayer = require("app.layers.HeroSelectLayer")
+
 local ChapterInfoLayer = class("ChapterInfoLayer", function ( event )
 	return display.newColorLayer(cc.c4b(10, 10, 10, 150))
 end)
@@ -110,6 +112,17 @@ function ChapterInfoLayer:ctor( idx )
 			:pos(160 + (i-1) * 90, 80)
 			:addTo(self.bg)
 	end
+
+
+	-- 下一步
+	cc.ui.UIPushButton.new({normal = "heros/resume_battle.pvr.ccz", pressed = "heros/resume_battle_press.pvr.ccz"})
+		:scale(0.6)
+		:onButtonClicked(function (  )
+			local layer = HeroSelectLayer.new()
+				:addTo(self)
+		end)
+		:pos(520, 60)
+		:addTo(self.bg)
 
 end
 
