@@ -52,8 +52,14 @@ function onResponse(event, index, dumpResponse)
 end
 
 
+local loadLayer = nil
+
 -- PostLogin
-function PostServer( hostName, data )
+function PostServer( hostName, data, onSucceed, onFailed )
+
+	--  模态视图层
+	loadLayer = display.newColorLayer(cc.c4b(10, 10, 10, 100))
+		:addTo(display.getRunningScene(), 20)
 	print("post Data to Server")
 	--requestCount = requestCount + 1
 	local requestCount = 0
@@ -63,20 +69,34 @@ function PostServer( hostName, data )
 			print("REQUST COMPLETED, BUT SCENE HAS QUIT")
 		end
 		onResponse(event, index, false)
+
 		if event.name == "completed" then
 			local cookie = network.parseCookie(event.request:getCookieString())
-			dump(cookie, "GET COOKIE FROM SERVER")
-			print("这就是我要的结果")
-			print(event.request:getResponseString())
+			-- dump(cookie, "GET COOKIE FROM SERVER")
 			
 			local result = json.decode(event.request:getResponseString())
 			print("这就是我要的结果")
-			print(result)
+			if type(result) ~= "table" then
+				print("服务器没返回正确数据")
+				self.loadLayer:removeFromParent()
+				return
+			end
+			dump(result)
+
+			if result.status == 0 then
+				onFailed()
+			elseif result.status == 1 then
+				onSucceed()
+			end
+			loadLayer:removeFromParent()
 		end
+
 		if event.name == "failed" then
 			Funcs.alert("与服务器的连接失败")
+			loadLayer:removeFromParent()
 			return false
 		end
+		
 	end, hostName, "POST")
 	for k,v in pairs(data) do
 		request:addPOSTValue(k, v)

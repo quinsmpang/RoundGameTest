@@ -131,11 +131,20 @@ function QuickLoginPanel:initLoginButton(  )
 			data["user_name"] = self.usernameBox:getString()
 			data["user_password"] = self.passwordBox:getString()
 			print(Net.address.post_login)
-			self:postLogin(Net.address.post_login, data)
+			--self:postLogin(Net.address.post_login, data)
+			local onSucceed = function (  )
+				SceneManager.goMainScene()
+			end
 
-			--  模态视图层
-			self.loadLayer = display.newColorLayer(cc.c4b(10, 10, 10, 100))
-				:addTo(display.getRunningScene(), 20)
+			local onFailed = function (  )
+				Funcs.alert("账号或密码错误")
+			end
+
+			Net.PostServer(Net.address.post_login, data, onSucceed, onFailed)
+
+			-- --  模态视图层
+			-- self.loadLayer = display.newColorLayer(cc.c4b(10, 10, 10, 100))
+			-- 	:addTo(display.getRunningScene(), 20)
 
 		end
 	end)
@@ -208,8 +217,10 @@ function QuickLoginPanel:postLogin( hostName, data )
 			--print(event.request:getResponseString())
 			
 			local result = json.decode(event.request:getResponseString())
+			print(result)
 			if type(result) ~= "table" then
 				print("服务器没返回正确数据")
+				self.loadLayer:removeFromParent()
 			end
 			for k,v in pairs(result) do
 				print(k,v)
