@@ -4,6 +4,7 @@
 --
 local QuickLoginLayer = import("..ui.QuickLoginPanel")
 
+
 local LoginScene = class("LoginScene", function (  )
 	return display.newScene("LoginScene")
 end)
