@@ -10,6 +10,15 @@ end)
 
 
 function GameScene:ctor(heros, chapterIdx)	
+
+	-- 返回按钮
+	local backBtn = cc.ui.UIPushButton.new({normal = "heros/backbtn.pvr.ccz", pressed = "heros/backbtn-disabled.pvr.ccz"})
+		:onButtonClicked(function (  )
+			SceneManager.goMainScene()
+		end)
+		:pos(display.left + 60, display.top - 40)
+		:addTo(self, 10)
+
 	self:initGameMap(chapterIdx)
 	self:initGameLayer(heros)
 end

@@ -16,7 +16,7 @@ local UpdateScene = class("UpdateScene", function()
     return display.newScene("UpdateScene")
 end)
 
-local NEEDUPDATE = true
+local NEEDUPDATE = false
 --local server = "https://raw.githubusercontent.com/hanxi/quick-cocos2d-x-2048/release/"
 local server = "http://192.168.1.101:8080/"
 local param = "?dev="..device.platform

@@ -1,9 +1,0 @@
-local list = {
-	ver = "2.3.1",
-	stage = {
-		{name="update.zip", code="e82234392aabca4577c9d7995828ae0c", act="load"},
-	},
-	remove={
-	},
-}
-return list
